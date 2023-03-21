@@ -1,0 +1,363 @@
+{
+    "nodes": [
+        {
+            "text": "故障1",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 310,
+                    "y": 190
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "测试1",
+            "type": "test-node",
+            "showConfig": {
+                "position": {
+                    "x": 1010,
+                    "y": 190
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障2",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 310,
+                    "y": 300
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "开关1",
+            "type": "switch-node",
+            "control": "故障1",
+            "switchType": "常闭",
+            "showConfig": {
+                "position": {
+                    "x": 550,
+                    "y": 300
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障3",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 310,
+                    "y": 420
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "测试2",
+            "type": "test-node",
+            "showConfig": {
+                "position": {
+                    "x": 1010,
+                    "y": 300
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障4",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 750,
+                    "y": 300
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障5",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 750,
+                    "y": 420
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "测试3",
+            "type": "test-node",
+            "showConfig": {
+                "position": {
+                    "x": 1010,
+                    "y": 420
+                },
+                "properties": {
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "子系统1",
+            "type": "sub-system",
+            "children": [
+                "故障4",
+                "故障5"
+            ],
+            "showConfig": {
+                "position": {
+                    "x": 750,
+                    "y": 360
+                },
+                "properties": {
+                    "nodeSize": {
+                        "width": 221,
+                        "height": 234
+                    },
+                    "isFold": false
+                }
+            }
+        },
+        {
+            "text": "子系统2",
+            "type": "sub-system",
+            "children": [
+                "故障1",
+                "故障2",
+                "开关1",
+                "故障3",
+                "子系统1"
+            ],
+            "showConfig": {
+                "position": {
+                    "x": 550,
+                    "y": 320
+                },
+                "properties": {
+                    "nodeSize": {
+                        "width": 715,
+                        "height": 405
+                    },
+                    "isFold": false
+                }
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "a0078b43-420a-43ed-bcca-9cb21b1b888d",
+            "from": "故障1",
+            "to": "测试1",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 360,
+                    "y": 190
+                },
+                "endAnchor": {
+                    "x": 960,
+                    "y": 190
+                },
+                "interAnchors": [
+                    {
+                        "x": 360,
+                        "y": 190
+                    },
+                    {
+                        "x": 960,
+                        "y": 190
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "9e052b11-b3fe-4cb9-b0d2-44aca06a6419",
+            "from": "故障1",
+            "to": "开关1",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 360,
+                    "y": 190
+                },
+                "endAnchor": {
+                    "x": 550,
+                    "y": 285
+                },
+                "interAnchors": [
+                    {
+                        "x": 360,
+                        "y": 190
+                    },
+                    {
+                        "x": 550,
+                        "y": 190
+                    },
+                    {
+                        "x": 550,
+                        "y": 285
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "99d7a576-3796-4710-ab27-1553126f7473",
+            "from": "故障2",
+            "to": "开关1",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 360,
+                    "y": 300
+                },
+                "endAnchor": {
+                    "x": 500,
+                    "y": 300
+                },
+                "interAnchors": [
+                    {
+                        "x": 360,
+                        "y": 300
+                    },
+                    {
+                        "x": 500,
+                        "y": 300
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "04aa2a8a-9559-469c-8b22-f5e5af959d9e",
+            "from": "故障3",
+            "to": "故障5",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 360,
+                    "y": 420
+                },
+                "endAnchor": {
+                    "x": 700,
+                    "y": 420
+                },
+                "interAnchors": [
+                    {
+                        "x": 360,
+                        "y": 420
+                    },
+                    {
+                        "x": 700,
+                        "y": 420
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "d1123976-6ae1-4b70-8429-072ebf48dfb7",
+            "from": "故障5",
+            "to": "测试3",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 800,
+                    "y": 420
+                },
+                "endAnchor": {
+                    "x": 960,
+                    "y": 420
+                },
+                "interAnchors": [
+                    {
+                        "x": 800,
+                        "y": 420
+                    },
+                    {
+                        "x": 960,
+                        "y": 420
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "ae66e739-9736-4201-b4bb-34f8afae5637",
+            "from": "故障4",
+            "to": "测试2",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 800,
+                    "y": 300
+                },
+                "endAnchor": {
+                    "x": 960,
+                    "y": 300
+                },
+                "interAnchors": [
+                    {
+                        "x": 800,
+                        "y": 300
+                    },
+                    {
+                        "x": 960,
+                        "y": 300
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "a0bf45d8-4f95-4891-b51b-dd41fde5cbe2",
+            "from": "开关1",
+            "to": "故障4",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 600,
+                    "y": 300
+                },
+                "endAnchor": {
+                    "x": 700,
+                    "y": 300
+                },
+                "interAnchors": [
+                    {
+                        "x": 600,
+                        "y": 300
+                    },
+                    {
+                        "x": 700,
+                        "y": 300
+                    }
+                ],
+                "properties": {}
+            }
+        }
+    ]
+}
