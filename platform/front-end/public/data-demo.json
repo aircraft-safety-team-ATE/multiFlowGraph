@@ -1,0 +1,683 @@
+{
+    "nodes": [
+        {
+            "text": "测试1",
+            "type": "test-node",
+            "showConfig": {
+                "position": {
+                    "x": 910,
+                    "y": 170
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#eea2a4",
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "测试2",
+            "type": "test-node",
+            "showConfig": {
+                "position": {
+                    "x": 910,
+                    "y": 270
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#eea2a4",
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "测试3",
+            "type": "test-node",
+            "showConfig": {
+                "position": {
+                    "x": 910,
+                    "y": 390
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#eea2a4",
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "测试4",
+            "type": "test-node",
+            "showConfig": {
+                "position": {
+                    "x": 910,
+                    "y": 500
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#eea2a4",
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障6",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 690,
+                    "y": 170
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障3",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 350,
+                    "y": 170
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "算法1",
+            "type": "algorithm-node",
+            "showConfig": {
+                "position": {
+                    "x": 350,
+                    "y": 500
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#85C1E9",
+                    "algorithm": "lof",
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "开关",
+            "type": "switch-node",
+            "showConfig": {
+                "position": {
+                    "x": 520,
+                    "y": 270
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#96c24e",
+                    "normalState": true,
+                    "control": "7a851fdb-46b8-4482-9825-bbe161d4ae9a",
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            },
+            "control": "故障3",
+            "switchType": "常闭"
+        },
+        {
+            "text": "故障4",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 350,
+                    "y": 270
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障2",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 150,
+                    "y": 500
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障5",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 350,
+                    "y": 390
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障7",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 690,
+                    "y": 390
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "故障8",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 690,
+                    "y": 500
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        },
+        {
+            "text": "子系统1",
+            "type": "sub-system",
+            "showConfig": {
+                "position": {
+                    "x": 690,
+                    "y": 450
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "nodeSize": {
+                        "width": 220,
+                        "height": 209
+                    },
+                    "isFold": false
+                }
+            },
+            "children": [
+                "故障7",
+                "故障8"
+            ]
+        },
+        {
+            "text": "子系统2",
+            "type": "sub-system",
+            "showConfig": {
+                "position": {
+                    "x": 540,
+                    "y": 450
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "nodeSize": {
+                        "width": 603,
+                        "height": 285
+                    },
+                    "isFold": false
+                }
+            },
+            "children": [
+                "算法1",
+                "故障5",
+                "子系统1"
+            ]
+        },
+        {
+            "text": "故障1",
+            "type": "fault-node",
+            "showConfig": {
+                "position": {
+                    "x": 150,
+                    "y": 390
+                },
+                "properties": {
+                    "showType": "edit",
+                    "collision": false,
+                    "detectable": true,
+                    "fuzzible": false,
+                    "fuzzy_state": 0,
+                    "state": 0,
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                    "typeColor": "#edc3ae",
+                    "flevel": 0,
+                    "width": 100,
+                    "ui": "node-red"
+                }
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "90189f17-1430-4d9a-946d-8bd2801e1c85",
+            "from": "故障4",
+            "to": "开关",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 400,
+                    "y": 270
+                },
+                "endAnchor": {
+                    "x": 470,
+                    "y": 270
+                },
+                "interAnchors": [
+                    {
+                        "x": 400,
+                        "y": 270
+                    },
+                    {
+                        "x": 470,
+                        "y": 270
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "43f4646d-be62-46cf-831d-faa868ac2d13",
+            "from": "开关",
+            "to": "测试2",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 570,
+                    "y": 270
+                },
+                "endAnchor": {
+                    "x": 860,
+                    "y": 270
+                },
+                "interAnchors": [
+                    {
+                        "x": 570,
+                        "y": 270
+                    },
+                    {
+                        "x": 860,
+                        "y": 270
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "652ffbeb-a5ba-4415-ab96-4c84e32562a9",
+            "from": "故障3",
+            "to": "开关",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 400,
+                    "y": 170
+                },
+                "endAnchor": {
+                    "x": 520,
+                    "y": 255
+                },
+                "interAnchors": [
+                    {
+                        "x": 400,
+                        "y": 170
+                    },
+                    {
+                        "x": 520,
+                        "y": 170
+                    },
+                    {
+                        "x": 520,
+                        "y": 255
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "06435d03-c580-4a29-913b-eb2256f93c9d",
+            "from": "故障3",
+            "to": "故障6",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 400,
+                    "y": 170
+                },
+                "endAnchor": {
+                    "x": 640,
+                    "y": 170
+                },
+                "interAnchors": [
+                    {
+                        "x": 400,
+                        "y": 170
+                    },
+                    {
+                        "x": 640,
+                        "y": 170
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "b80b2dcd-ce8a-4e23-93f8-d40b85d022ed",
+            "from": "故障6",
+            "to": "测试1",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 740,
+                    "y": 170
+                },
+                "endAnchor": {
+                    "x": 860,
+                    "y": 170
+                },
+                "interAnchors": [
+                    {
+                        "x": 740,
+                        "y": 170
+                    },
+                    {
+                        "x": 860,
+                        "y": 170
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "d1f1eaaf-2bdb-478f-a220-d79d7a5f2512",
+            "from": "故障2",
+            "to": "算法1",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 200,
+                    "y": 500
+                },
+                "endAnchor": {
+                    "x": 300,
+                    "y": 500
+                },
+                "interAnchors": [
+                    {
+                        "x": 200,
+                        "y": 500
+                    },
+                    {
+                        "x": 300,
+                        "y": 500
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "2581278d-b6c4-4614-bfe0-7df27a73a0c1",
+            "from": "故障5",
+            "to": "故障7",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 400,
+                    "y": 390
+                },
+                "endAnchor": {
+                    "x": 640,
+                    "y": 390
+                },
+                "interAnchors": [
+                    {
+                        "x": 400,
+                        "y": 390
+                    },
+                    {
+                        "x": 640,
+                        "y": 390
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "f96a5f26-0af6-44a9-b0ee-a2e7216f873f",
+            "from": "故障7",
+            "to": "测试3",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 740,
+                    "y": 390
+                },
+                "endAnchor": {
+                    "x": 860,
+                    "y": 390
+                },
+                "interAnchors": [
+                    {
+                        "x": 740,
+                        "y": 390
+                    },
+                    {
+                        "x": 860,
+                        "y": 390
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "0c79331f-7a39-4f74-9feb-a72a694a8cc5",
+            "from": "故障8",
+            "to": "测试4",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 740,
+                    "y": 500
+                },
+                "endAnchor": {
+                    "x": 860,
+                    "y": 500
+                },
+                "interAnchors": [
+                    {
+                        "x": 740,
+                        "y": 500
+                    },
+                    {
+                        "x": 860,
+                        "y": 500
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "adab1e35-913b-447b-a217-4eeb215c64a3",
+            "from": "算法1",
+            "to": "故障8",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 400,
+                    "y": 500
+                },
+                "endAnchor": {
+                    "x": 640,
+                    "y": 500
+                },
+                "interAnchors": [
+                    {
+                        "x": 400,
+                        "y": 500
+                    },
+                    {
+                        "x": 640,
+                        "y": 500
+                    }
+                ],
+                "properties": {}
+            }
+        },
+        {
+            "id": "d809589c-3227-441c-a6cf-8f39dd12cc8e",
+            "from": "故障1",
+            "to": "故障5",
+            "type": "custom-edge",
+            "showConfig": {
+                "startAnchor": {
+                    "x": 200,
+                    "y": 390
+                },
+                "endAnchor": {
+                    "x": 300,
+                    "y": 390
+                },
+                "interAnchors": [
+                    {
+                        "x": 200,
+                        "y": 390
+                    },
+                    {
+                        "x": 300,
+                        "y": 390
+                    }
+                ],
+                "properties": {}
+            }
+        }
+    ]
+}
