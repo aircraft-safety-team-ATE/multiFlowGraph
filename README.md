@@ -10,7 +10,8 @@
 4. pandas==1.4.2
 
 #### 安装教程
-* 命令行输入“python manage.py --addr=IP[默认"127.0.0.1",对外开发请用"0.0.0.0"] --port=端口[默认8000]”，即可启动；
+* 双击run.bat，即可启动；
+* 通过127.0.0.1:8080进行访问；
 * 算法脚本请集成“lib\detectAlgo\support\BaseAlgoClass.py”基类进行封装，放入“lib\detectAlgo”文件夹下即可
 
 #### 开发日志
