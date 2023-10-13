@@ -4,7 +4,7 @@ import { Notification } from 'element-ui'
 // 配置优先级： 全局配置 < 实例配置 < 请求的config参数
 // 全局axios默认值配置
 axios.defaults.baseURL = 'http://127.0.0.1:8000/'
-axios.defaults.timeout = 5000 // 设置请求延迟时间
+axios.defaults.timeout = 5000000 // 设置请求延迟时间
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 axios.defaults.withCredentials = false // 允许跨域请求携带cookie做身份认证

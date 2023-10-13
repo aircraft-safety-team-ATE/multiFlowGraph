@@ -1,6 +1,7 @@
 # Build and Release Folders
 bin-debug/
 bin-release/
+platform/back-end/lib/__pycache__/
 [Oo]bj/
 [Bb]in/
 
