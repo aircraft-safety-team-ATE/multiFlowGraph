@@ -2,21 +2,61 @@
 
 ## 使用
 
-``` bash
-# install dependencies
-npm install
+> 面向纯小白的使用教学，按需跳过
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Node.js
 
-# build for production with minification
-npm run build
+首先要有 [Node.js](https://nodejs.org/en/download) 环境，LTS 版本即可，安装可以参考[菜鸟教程](https://www.runoob.com/nodejs/nodejs-install-setup.html)
 
-# build for production and view the bundle analyzer report
-npm run build --report
+> Node.js 的版本太低可能会出问题
+
+> [Node.js 历史版本下载地址](https://nodejs.org/dist/)
+
+> 参考：绘使用的版本是 16.13.0
+
+查看 Node.js 的版本：
+
+```bash
+node --version
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### npm
+
+NPM 是随同 Node.js 一起安装的包管理工具，能解决 Node.js 代码部署上的很多问题
+
+查看 npm 版本：
+
+```bash
+npm -v
+```
+
+确定有 npm 后，在当前项目文件夹目录下（确保能看到 **package.json**）按需运行以下代码：
+
+- 依赖安装，**必做！**
+
+``` bash
+npm install
+```
+
+执行完本命令后文件夹下会多一个名为 **node_modules** 的文件夹，里面有该项目的所有依赖
+
+- 在[本机的 8080 端口](http://localhost:8080/)运行本平台
+
+``` bash
+npm run dev
+```
+
+测试与演示使用这个命令就足够了
+
+- 生成用于生产环境的小规模文件（一般用不到）
+
+``` bash
+npm run build
+```
+
+> 生成的文件位于 **dict** 文件夹中
+
+> 以上指令生产的文件是用于服务器端的，直接以文件形式打开是无效的（但是把 index.html 中的绝对地址全改成相对地址后其实是可以本地打开的）
 
 ## 配置
 
@@ -30,21 +70,21 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ```js
 {
-	type: 'fault-node',
-	text: '故障',
-	properties: {
-		// common
-		showType: 'edit',
-		collision : false,
-		detectable: true,
-		fuzzible: false,
-		fuzzy_state: 0,
-		state: 0,
-		icon: require("@/assets/images/delay.svg"),
-		typeColor: '#edc3ae'
-		// special
-		flevel: 0
-	}
+  type: 'fault-node',
+  text: '故障',
+  properties: {
+  	// common
+  	showType: 'edit',
+  	collision : false,
+  	detectable: true,
+  	fuzzible: false,
+  	fuzzy_state: 0,
+  	state: 0,
+  	icon: require("@/assets/images/delay.svg"),
+  	typeColor: '#edc3ae'
+  	// special
+  	flevel: 0
+  }
 }
 ```
 
@@ -96,55 +136,68 @@ LogicFlow 提供的事件参考 [LogicFlow-eventCenterApi](http://logic-flow.org
 
 一个非子系统的节点的数据格式如下：
 
-```json
-{
-	"text": String, 						// 节点名称
-	"type": String, 						// 已注册的节点类型
-	"showConfig": {
-		"position": { 						// 节点的位置参数
-			"x": Number,
-			"y": Number
-		},
-		"properties": {
-			"showType": "edit", 		// ※无需修改
-			"collision": Boolean,		// 是否闭环
-			"detectable": Boolean,	// 是否可测
-			"fuzzible": Boolean,		// 是否为模糊节点
-			"fuzzy_state": Number, 	// 模糊分数
-			"state": Number, 				// 故障分数
-			"icon": String, 				// 使用的图标
-			"typeColor": String , 	// 节点的背景颜色，HEX 或 RGB 都行
-			"width": Number, 				// 节点宽度，※无需修改
-			"ui": "node-red" 				// ※无需修改
-		}
-	}
-}
+```ts
+type Node = {
+  text: string, 				// 节点名称
+  type: string, 				// 已注册的节点类型
+  showConfig: {
+  	position: { 				// 节点的位置参数
+  	  x: number,
+  	  y: number
+  	},
+  	properties: {
+	  showType: "edit", 		// ※无需修改
+	  collision: boolean,		// 是否闭环
+	  detectable: boolean,		// 是否可测
+	  fuzzible: boolean,		// 是否为模糊节点
+	  fuzzy_state: number, 		// 模糊分数
+	  state: number, 			// 故障分数
+	  icon: string, 			// 使用的图标
+	  typeColor: string , 		// 节点的背景颜色，HEX 或 RGB 都行
+	  width: number, 			// 节点宽度，※无需修改
+	  ui: "node-red", 			// ※无需修改
+	  [prop: string]: any, 		// 自定义属性
+  	}
+  }
+};
 ```
+
+> 以上格式说明用了 TS 的类型声明，虽然实际项目没有用 TS
 
 不同类型的节点可能存在一些独特的自定义属性
 
 对于子系统节点，存在一些特殊的属性：
 
-```json
-{
-	"text": "子系统",
-	"type": "sub-system",
-	"showConfig": {
-		...
-		"properties": {
-			...
-			"nodeSize": { 				// 子系统大小
-				"width": Number,
-				"height": Number
-			},
-			"isFold": Boolean 		// 折叠 & 展开
-		}
-	},
-	"children": [ 						// 子节点
-		String									// 子节点的名称
-	]
+```ts
+type SubSystem = {
+  text: "子系统",
+  type: "sub-system",
+  showConfig: {
+  	position: { 				// 节点的位置参数
+  	  x: number,
+  	  y: number
+  	},
+  	properties: {
+  	  showType: "edit", 		// ※无需修改
+	  collision: boolean,		// 是否闭环
+	  detectable: boolean,		// 是否可测
+	  fuzzible: boolean,		// 是否为模糊节点
+	  fuzzy_state: number, 		// 模糊分数
+	  state: number, 			// 故障分数
+	  width: number, 			// 节点宽度，※无需修改
+  	  nodeSize: { 				// 子系统大小
+  		width: number,
+  		height: number
+  	  },
+  	  isFold: boolean, 			// 折叠 & 展开，加载时的默认状态
+	  [prop: string]: any, 		// 自定义属性
+  	}
+  },
+  children: string[] 			// 子节点的名称
 }
 ```
+
+> 以上格式说明用了 TS 的类型声明，虽然实际项目没有用 TS
 
 ## 拓展
 
@@ -213,3 +266,11 @@ export default {
 - 新特性：在分析后，鼠标悬停在节点上时会显示分析结果（节点名&故障分数&模糊分数）
 - 整体代码重构，提高项目的易用性和可移植性
 - 撰写 README.md 文档，为后续基于该平台进行个性化提供指导
+
+### 2023.03.21 绘
+- 更新 README 文档
+
+### 2023.03.26 绘
+- 新增 Dockerfile 文件支持创建 Docker 镜像
+- 修复了一个由于大小写不一致可能引发的 bug
+	- 后续如果遇到组件加载出错大概率还是这个问题

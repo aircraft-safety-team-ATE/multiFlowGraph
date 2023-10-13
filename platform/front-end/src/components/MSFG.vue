@@ -16,9 +16,9 @@
 
 <script>
 import { nodeList } from './logicflowConfig/init.js'
-import NodePanel from './MSFGComponents/NodePanel'
-import Control from './MSFGComponents/Control'
-import EditDialog from './MSFGComponents/EditDialog.vue'
+import NodePanel from './MSFGcomponents/NodePanel.vue'
+import Control from './MSFGcomponents/Control.vue'
+import EditDialog from './MSFGcomponents/EditDialog.vue'
 import '@logicflow/extension/lib/style/index.css'
 import './logicflowConfig/tools/style.css'
 import { methods } from './logicflowConfig'
