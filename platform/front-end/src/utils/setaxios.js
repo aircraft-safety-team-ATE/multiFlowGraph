@@ -3,7 +3,7 @@ import { Notification } from 'element-ui'
 
 // 配置优先级： 全局配置 < 实例配置 < 请求的config参数
 // 全局axios默认值配置
-axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+axios.defaults.baseURL = 'https://stunning-guacamole-pw5xwp5qrv9c96qv-8000.app.github.dev/'
 axios.defaults.timeout = 5000000 // 设置请求延迟时间
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
