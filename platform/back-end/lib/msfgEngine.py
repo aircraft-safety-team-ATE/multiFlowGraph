@@ -110,21 +110,21 @@ class multiInfoGraph:
             for edge in self._edges if (edge["to"] in self._faultName and edge["from"] in self._faultName \
                                         and self._faultName.index(edge["to"]) not in testedNode)]
         if faultMap:
-            fault_mat = coo_matrix(([1]*len(faultMap), zip(*faultMap)),shape=(len(self._faultName), len(self._faultName)), dtype=np.int).T
+            fault_mat = coo_matrix(([1]*len(faultMap), zip(*faultMap)),shape=(len(self._faultName), len(self._faultName)), dtype=np.int64).T
             for _ in self._edges:
                 fault_mat_pre = fault_mat
                 fault_mat_pre = (fault_mat_pre + fault_mat.dot(fault_mat)) > 0.75
                 if np.max(np.abs(fault_mat_pre-fault_mat)) < 0.25:
                     break
-            return ((self._D_mat.T + self._D_mat.T.dot(fault_mat)) > 0.75).T.astype(np.int), fault_mat.T.astype(np.int)
+            return ((self._D_mat.T + self._D_mat.T.dot(fault_mat)) > 0.75).T.astype(np.int64), fault_mat.T.astype(np.int64)
         else:
             return self._D_mat, None
         
     def optimize_test(self):
         testMap = [[self._testName.index(edge["to"]), self._faultName.index(edge["from"])] for edge in self._edges if (edge["to"] in self._testName and edge["from"] in self._faultName)]
         faultMap = [[self._faultName.index(edge["to"]), self._faultName.index(edge["from"])] for edge in self._edges if (edge["to"] in self._faultName and edge["from"] in self._faultName)]
-        test_mat = coo_matrix(([1]*len(testMap), zip(*testMap)),shape=(len(self._testName), len(self._faultName)), dtype=np.int).tocsr()
-        fault_mat = coo_matrix(([1]*len(faultMap), zip(*faultMap)),shape=(len(self._faultName), len(self._faultName)), dtype=np.int).tocsc()
+        test_mat = coo_matrix(([1]*len(testMap), zip(*testMap)),shape=(len(self._testName), len(self._faultName)), dtype=np.int64).tocsr()
+        fault_mat = coo_matrix(([1]*len(faultMap), zip(*faultMap)),shape=(len(self._faultName), len(self._faultName)), dtype=np.int64).tocsc()
 
         #print(test_mat.todense())
         ckpt_count = np.asarray(test_mat.sum(axis=1)).flatten() ## Optimization of ckpt ## fuzzibility caused by checkpoint
@@ -193,19 +193,19 @@ class multiInfoGraph:
         del_tnode = [tid for tid, tcnt in enumerate(fuzzy_tnode) if tcnt>1]
         testMap_pure = [itm for itm in testMap if itm[0] not in del_tnode]
 
-        fault_mat = coo_matrix(([1]*len(faultMap), zip(*faultMap)),shape=(len(faultName), len(faultName)), dtype=np.int)
-        test_mat = coo_matrix(([1]*len(testMap), zip(*testMap)),shape=(len(testName), len(faultName)), dtype=np.int)
+        fault_mat = coo_matrix(([1]*len(faultMap), zip(*faultMap)),shape=(len(faultName), len(faultName)), dtype=np.int64)
+        test_mat = coo_matrix(([1]*len(testMap), zip(*testMap)),shape=(len(testName), len(faultName)), dtype=np.int64)
         if faultMap_pure:
-            fault_mat_pure = coo_matrix(([1]*len(faultMap_pure), zip(*faultMap_pure)),shape=(len(faultName), len(faultName)), dtype=np.int)
+            fault_mat_pure = coo_matrix(([1]*len(faultMap_pure), zip(*faultMap_pure)),shape=(len(faultName), len(faultName)), dtype=np.int64)
         else:
-            fault_mat_pure = coo_matrix(([0], ([0],[0])),shape=(len(faultName), len(faultName)), dtype=np.int)
+            fault_mat_pure = coo_matrix(([0], ([0],[0])),shape=(len(faultName), len(faultName)), dtype=np.int64)
         if testMap_pure:
-            test_mat_pure = coo_matrix(([1]*len(testMap_pure), zip(*testMap_pure)),shape=(len(testName), len(faultName)), dtype=np.int)
+            test_mat_pure = coo_matrix(([1]*len(testMap_pure), zip(*testMap_pure)),shape=(len(testName), len(faultName)), dtype=np.int64)
         else:
-            test_mat_pure = coo_matrix(([0], ([0],[0])),shape=(len(testName), len(faultName)), dtype=np.int)
+            test_mat_pure = coo_matrix(([0], ([0],[0])),shape=(len(testName), len(faultName)), dtype=np.int64)
 
         m = len(faultName)
-        E = coo_matrix(([1]*m, (range(m), range(m))), shape=(m,m), dtype=np.int)
+        E = coo_matrix(([1]*m, (range(m), range(m))), shape=(m,m), dtype=np.int64)
         
         for _ in self._edges:
             fault_mat_pre = fault_mat
@@ -219,18 +219,18 @@ class multiInfoGraph:
             if np.max(np.abs(fault_mat_pure_pre-fault_mat_pure)) < 0.25:
                 break
 
-        D_mat = (test_mat.dot(E+fault_mat) > 0.75).astype(np.int)
+        D_mat = (test_mat.dot(E+fault_mat) > 0.75).astype(np.int64)
         D_mat.eliminate_zeros()
 
-        D_mat_pure = (test_mat_pure.dot(E+fault_mat_pure) > 0.75).astype(np.int)
+        D_mat_pure = (test_mat_pure.dot(E+fault_mat_pure) > 0.75).astype(np.int64)
         D_mat_pure.eliminate_zeros()
         unfuzzy_node = D_mat_pure.indices.tolist()
     
-        fuzzy_mat = ((D_mat.T.dot(D_mat) - fault_mat - fault_mat.T - E).tocsr()> 0.75).astype(np.int)
+        fuzzy_mat = ((D_mat.T.dot(D_mat) - fault_mat - fault_mat.T - E).tocsr()> 0.75).astype(np.int64)
         fuzzy_mat[unfuzzy_node, :] = 0
         fuzzy_mat.eliminate_zeros()
 
-        F_mat = ((fault_mat- E)> 0.75).astype(np.int)
+        F_mat = ((fault_mat- E)> 0.75).astype(np.int64)
         F_mat.eliminate_zeros()
         
         return F_mat, D_mat.T, fuzzy_mat, testName, faultName
@@ -273,13 +273,13 @@ class multiInfoGraph:
         self._faultName = config["faultName"]
         
         D_indptr, D_indices = config["D_mat"]
-        self._D_mat = csc_matrix(([1]*len(D_indices), D_indices, D_indptr),shape=(len(self._faultName), len(self._testName)), dtype=np.int)
+        self._D_mat = csc_matrix(([1]*len(D_indices), D_indices, D_indptr),shape=(len(self._faultName), len(self._testName)), dtype=np.int64)
 
         F_indptr, F_indices = config["F_mat"]
-        self._F_mat = csr_matrix(([1]*len(F_indices), F_indices, F_indptr),shape=(len(self._faultName), len(self._faultName)), dtype=np.int)
+        self._F_mat = csr_matrix(([1]*len(F_indices), F_indices, F_indptr),shape=(len(self._faultName), len(self._faultName)), dtype=np.int64)
 
         fuzzy_indptr, fuzzy_indices = config["fuzzy_mat"]
-        self._fuzzy_mat = csr_matrix(([1]*len(fuzzy_indices), fuzzy_indices, fuzzy_indptr),shape=(len(self._faultName), len(self._faultName)), dtype=np.int)
+        self._fuzzy_mat = csr_matrix(([1]*len(fuzzy_indices), fuzzy_indices, fuzzy_indptr),shape=(len(self._faultName), len(self._faultName)), dtype=np.int64)
 
         self._D_mat_full, self.F_or_mat = self.get_or_flow()
         
@@ -327,7 +327,7 @@ class multiInfoGraph:
         fuzzyIdList_ = np.where(np.asarray(self._fuzzy_mat.sum(axis=1)) > 0.75)[0]
 
         m, _ = self._F_mat.shape
-        #E = coo_matrix(([1]*m, (range(m), range(m))), shape=(m,m), dtype=np.int)
+        #E = coo_matrix(([1]*m, (range(m), range(m))), shape=(m,m), dtype=np.int64)
         indices = [(sId,fId) for sId, fId in zip(self._F_mat.indices, [ind for ind, count in enumerate(np.diff(self._F_mat.indptr)) for _ in range(count)]) if sId!=fId]
         collisionList_ = [sId for sId, fId in indices if (fId, sId) in indices]
 
@@ -448,7 +448,7 @@ class multiInfoGraph:
 
 
 if __name__ == "__main__":
-    with open("data.json", "r+", encoding="utf-8") as f:
+    with open("platform/data.json", "r+", encoding="utf-8") as f:
         data = json.load(f)
     mig = multiInfoGraph(data)
     print("测点名称：", mig.ckpts_algos)
