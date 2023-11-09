@@ -1,3 +1,6 @@
 Flask
 flask_cors
 jieba
+sklearn
+openpyxl
+```
