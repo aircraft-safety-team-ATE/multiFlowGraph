@@ -52,7 +52,7 @@ export default {
 
         // 3. 更新G_DATA
         this.$emit("update-g-data", new_system)
-
+        properties.SubsystemId = new_system.system_id
 
         this.$props.lf.dnd.startDrag({
           text: "子系统",
