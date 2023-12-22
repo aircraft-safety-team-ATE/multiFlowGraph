@@ -1,5 +1,8 @@
 <template>
   <div class="logic-flow-view">
+  <div class="model—tree">
+    <el-tree :data="module_tree" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
+  </div>
     <Control
       class="demo-control"
       v-if="lf"
@@ -32,6 +35,45 @@ export default {
   },
   data () {
     return {
+      module_tree: [{
+          label: '一级 1',
+          children: [{
+            label: '二级 1-1',
+            children: [{
+              label: '三级 1-1-1'
+            }]
+          }]
+        }, {
+          label: '一级 2',
+          children: [{
+            label: '二级 2-1',
+            children: [{
+              label: '三级 2-1-1'
+            }]
+          }, {
+            label: '二级 2-2',
+            children: [{
+              label: '三级 2-2-1'
+            }]
+          }]
+        }, {
+          label: '一级 3',
+          children: [{
+            label: '二级 3-1',
+            children: [{
+              label: '三级 3-1-1'
+            }]
+          }, {
+            label: '二级 3-2',
+            children: [{
+              label: '三级 3-2-1'
+            }]
+          }]
+        }],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        },
       lf: null,
       dialogVisible: false,
       nodeList,
@@ -47,7 +89,10 @@ export default {
       let node = this.lf.graphModel.getNodeModelById(_node.id)
       node.updateText(_node.text.value)
       node.setProperties({..._node.properties})
-    }
+    },
+          handleNodeClick(data) {
+        console.log(data);
+      }
   }
 }
 </script>
@@ -56,6 +101,12 @@ export default {
 .logic-flow-view {
   height: 95%;
   position: relative;
+}
+.model—tree{
+  position: absolute;
+  top: 200px;
+  left: 0px;
+  outline: none;
 }
 .demo-control {
   position: absolute;
