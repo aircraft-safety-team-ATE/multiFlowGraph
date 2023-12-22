@@ -8,6 +8,17 @@ const listeners = {
     // 单击节点 测试用
     this.lf.on('node:click', ({ data }) => {
       console.log(data) // for test
+
+    })
+
+
+    // 画布变化触发
+    this.lf.on('history:change', () => {
+      
+      let currentSystem = this.G_DATA.SystemData.find(item => item.system_id === this.G_DATA.currentSystemId)
+      if (currentSystem) {
+        currentSystem.data = this.lf.getGraphData()
+      }
     })
     // 双击节点
     this.lf.on('node:dbclick', ({ data }) => {

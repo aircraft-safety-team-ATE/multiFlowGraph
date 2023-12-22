@@ -41,21 +41,7 @@ export default {
           label: 'label'
         },
       // 全局数据
-      G_DATA: [
-        {"system_id":1,
-        "name":"root",
-        "parent_id":null,
-        "data":[1,2]},
-        {"system_id":2,
-        "name":"root",
-        "parent_id":1,
-        "data":[1,2]},
-        {"system_id":3,
-        "name":"root",
-        "parent_id":2,
-        "data":[1,2]},
-      
-      ],
+      G_DATA: {},
       lf: null,
       dialogVisible: false,
       nodeList,
@@ -64,7 +50,7 @@ export default {
   },
   mounted () {
     this.$_initLf()
-    this.module_tree =   this.getModuleTree(this.G_DATA)
+    this.module_tree =   this.getModuleTree(this.G_DATA.SystemData)
     console.log("data",this.module_tree)
   },
   methods: {

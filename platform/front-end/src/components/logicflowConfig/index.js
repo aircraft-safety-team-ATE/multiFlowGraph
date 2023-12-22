@@ -52,6 +52,16 @@ const methods = {
         SelectionSelect
       ]
     })
+    this.G_DATA = {
+      currentSystemId: 1,
+      SystemData:[
+      {
+        system_id:1,
+      name:"root",
+      parent_id:null,
+      data:{}},
+],
+  },
     this.lf = lf
     this.lf.extension.selectionSelect.setSelectionSense(extraConfig.SelectionSense.isWholeEdge, extraConfig.SelectionSense.isWholeNode)
     this.$_registerNode()
