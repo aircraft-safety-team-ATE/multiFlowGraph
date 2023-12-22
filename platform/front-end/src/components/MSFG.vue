@@ -1,7 +1,7 @@
 <template>
   <div class="logic-flow-view">
   <div class="model—tree">
-    <el-tree :data="module_tree" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
+    <el-tree :data="module_tree" :expand-on-click-node="false" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
   </div>
     <Control
       class="demo-control"
@@ -101,8 +101,11 @@ export default {
       node.updateText(_node.text.value)
       node.setProperties({..._node.properties})
     },
-          handleNodeClick(data) {
-        console.log(data);
+    handleNodeClick(data) {
+      console.log(data.id)
+        this.G_DATA.currentSystemId = data.id
+        this.lf.render(this.G_DATA.SystemData.find(item => item.system_id == data.id).data)
+
       }
   }
 }
