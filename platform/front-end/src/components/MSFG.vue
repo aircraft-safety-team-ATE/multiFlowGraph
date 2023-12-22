@@ -1,7 +1,7 @@
 <template>
   <div class="logic-flow-view">
   <div class="model—tree">
-    <el-tree :data="module_tree" :expand-on-click-node="false" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
+    <el-tree :data="module_tree" :expand-on-click-node="false" :default-expand-all="true" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
   </div>
     <Control
       class="demo-control"

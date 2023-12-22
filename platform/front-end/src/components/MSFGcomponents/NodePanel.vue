@@ -18,8 +18,8 @@ var properties = {
   tableName: "子系统",
   SubsystemId: 0,
   fields: {
-    input: [1, 2, 3],
-    output: [1, 2, 3, 4]
+    input: 3,
+    output: 4
   }
 
 }

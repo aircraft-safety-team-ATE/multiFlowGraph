@@ -33,20 +33,21 @@ class SubsystemNode extends HtmlNode {
     tableNameElement.className = "table-name"
     container.appendChild(tableNameElement)
     const fragment = document.createDocumentFragment()
-    const max_length = fields.input.length>fields.output.length ? fields.input.length : fields.output.length
+
+    const max_length = fields.input>fields.output ? fields.input : fields.output
     for (let i = 0; i < max_length; i++) {
       const itemElement = document.createElement("div")
       itemElement.className = "table-feild"
       const itemInput = document.createElement("span")
-      if (fields.input.length > i) {
-        itemInput.innerText = fields.input[i]
+      if (fields.input > i) {
+        itemInput.innerText = "IN "+(i+1)
       } else {
         itemInput.innerText = ' '
       }
       itemInput.className = "input-feild-type"
       const itemOutput = document.createElement("span")
-      if (fields.output.length > i) {
-        itemOutput.innerText = fields.output[i]
+      if (fields.output > i) {
+        itemOutput.innerText = "OUT "+(i+1)
       } else {
         itemOutput.innerText = ' '
       }
@@ -87,7 +88,7 @@ class SubsystemNodeModel extends HtmlNodeModel {
     const {
       properties: { fields }
     } = this
-    const max_length = fields.input.length>fields.output.length ? fields.input.length : fields.output.length
+    const max_length = fields.input>fields.output ? fields.input : fields.output
     this.height = 60 + max_length * 24
     const circleOnlyAsTarget = {
       message: "只允许从右边的锚点连出",
@@ -117,7 +118,7 @@ class SubsystemNodeModel extends HtmlNodeModel {
     const anchors = []
     // 如果是连出，就不显示左边的锚点
     // if (isConnection || !(isHovered || isSelected)) {
-      for (var i = 0; i <fields.input.length; i++){
+      for (var i = 0; i <fields.input; i++){
         anchors.push({
           x: x - width / 2 + 10,
           y: y - height / 2 + 60 + i * 24,
@@ -128,7 +129,7 @@ class SubsystemNodeModel extends HtmlNodeModel {
       }
     // }
     // if (!isConnection ) {
-      for (var i = 0; i <fields.output.length; i++){
+      for (var i = 0; i <fields.output; i++){
         anchors.push({
           x: x - width / 2 + 190,
           y: y - height / 2 + 60 + i * 24,
