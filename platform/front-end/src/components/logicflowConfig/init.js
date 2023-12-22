@@ -70,13 +70,13 @@ const nodeList = [
       ...common,
       icon: require("@/assets/images/delay.svg"),
       typeColor: '#85C1E9',
-      // special
-      // algorithm: 0, // 算法
-      // tableName: "子系统",
-      // fields: {
-      //   input: ['input1','input2','input3'],
-      //   output:['output1','output2','output3','output4']
-      // }
+      
+        tableName: "子系统",
+        fields: {
+          input: [1, 2, 3],
+          output: [1,2,3,4]
+        }
+      
     }
   },
   {
@@ -88,12 +88,7 @@ const nodeList = [
       icon: require("@/assets/images/delay.svg"),
       typeColor: '#85C1E9',
       // special
-      // algorithm: 0, // 算法
-      // tableName: "子系统",
-      // fields: {
-      //   input: ['input1','input2','input3'],
-      //   output:['output1','output2','output3','output4']
-      // }
+
     }
   },{
     type:"output-node",
@@ -104,16 +99,9 @@ const nodeList = [
       icon: require("@/assets/images/delay.svg"),
       typeColor: '#85C1E9',
       // special
-      // algorithm: 0, // 算法
-      // tableName: "子系统",
-      // fields: {
-      //   input: ['input1','input2','input3'],
-      //   output:['output1','output2','output3','output4']
-      // }
+
     }
   }
-
-
 ]
 
 /**

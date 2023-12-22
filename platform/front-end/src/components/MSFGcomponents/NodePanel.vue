@@ -14,15 +14,7 @@
 
 <script>
 
-var properties = {
-  tableName: "子系统",
-  fields: {
-    input: ['input1', 'input2', 'input3'],
-    output: ['output1', 'output2', 'output3', 'output4']
-  }
 
-
-}
 
 
 export default {
@@ -34,13 +26,7 @@ export default {
   methods: {
     $_dragNode(item) {
 
-      if (item.type == 'subsystem-node') {
-        this.$props.lf.dnd.startDrag({
-          type: item.type,
-          properties: properties
-        })
-      }
-      else {
+
         this.$props.lf.dnd.startDrag({
           type: item.type,
           text: item.text,
@@ -48,7 +34,7 @@ export default {
         })
       }
 
-    }
+    
   },
 }
 </script>
