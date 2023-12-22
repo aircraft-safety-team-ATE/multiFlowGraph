@@ -61,7 +61,59 @@ const nodeList = [
       // special
       algorithm: 0, // 算法
     }
+  },
+  {
+    type:"subsystem-node",
+    text:"子系统",
+    properties: {
+      // common
+      ...common,
+      icon: require("@/assets/images/delay.svg"),
+      typeColor: '#85C1E9',
+      // special
+      // algorithm: 0, // 算法
+      // tableName: "子系统",
+      // fields: {
+      //   input: ['input1','input2','input3'],
+      //   output:['output1','output2','output3','output4']
+      // }
+    }
+  },
+  {
+    type:"input-node",
+    text:"输入",
+    properties: {
+      // common
+      ...common,
+      icon: require("@/assets/images/delay.svg"),
+      typeColor: '#85C1E9',
+      // special
+      // algorithm: 0, // 算法
+      // tableName: "子系统",
+      // fields: {
+      //   input: ['input1','input2','input3'],
+      //   output:['output1','output2','output3','output4']
+      // }
+    }
+  },{
+    type:"output-node",
+    text:"输出",
+    properties: {
+      // common
+      ...common,
+      icon: require("@/assets/images/delay.svg"),
+      typeColor: '#85C1E9',
+      // special
+      // algorithm: 0, // 算法
+      // tableName: "子系统",
+      // fields: {
+      //   input: ['input1','input2','input3'],
+      //   output:['output1','output2','output3','output4']
+      // }
+    }
   }
+
+
 ]
 
 /**

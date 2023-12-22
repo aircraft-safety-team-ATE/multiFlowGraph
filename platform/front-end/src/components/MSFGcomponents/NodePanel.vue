@@ -1,15 +1,10 @@
 <template>
   <div class="node-panel">
-    <div
-      class="red-ui-palette-node ui-draggable ui-draggable-handle"
-      @mousedown="$_dragNode(item)"
-      v-for="(item, index) in nodeList"
-      :key="index"
-      :style="{ backgroundColor: item.properties.typeColor }"
-    >
+    <div class="red-ui-palette-node ui-draggable ui-draggable-handle" @mousedown="$_dragNode(item)"
+      v-for="(item, index) in nodeList" :key="index" :style="{ backgroundColor: item.properties.typeColor }">
       <div class="red-ui-palette-label">{{ item.text }}</div>
       <div class="red-ui-palette-icon-container">
-        <div class="red-ui-palette-icon" :style="{ backgroundImage: `url(${item.properties.icon})`}"></div>
+        <div class="red-ui-palette-icon" :style="{ backgroundImage: `url(${item.properties.icon})` }"></div>
       </div>
       <!-- <div class="red-ui-palette-port red-ui-palette-port-input"></div>
       <div class="red-ui-palette-port red-ui-palette-port-output"></div> -->
@@ -18,6 +13,18 @@
 </template>
 
 <script>
+
+var properties = {
+  tableName: "子系统",
+  fields: {
+    input: ['input1', 'input2', 'input3'],
+    output: ['output1', 'output2', 'output3', 'output4']
+  }
+
+
+}
+
+
 export default {
   name: 'NodePanel',
   props: {
@@ -25,14 +32,24 @@ export default {
     nodeList: Array,
   },
   methods: {
-    $_dragNode (item) {
-      this.$props.lf.dnd.startDrag({
-        type: item.type,
-        text: item.text,
-        properties: item.properties
-      })
+    $_dragNode(item) {
+
+      if (item.type == 'subsystem-node') {
+        this.$props.lf.dnd.startDrag({
+          type: item.type,
+          properties: properties
+        })
+      }
+      else {
+        this.$props.lf.dnd.startDrag({
+          type: item.type,
+          text: item.text,
+          properties: item.properties
+        })
+      }
+
     }
-  }
+  },
 }
 </script>
 
@@ -49,20 +66,24 @@ export default {
   text-align: center;
   z-index: 101;
 }
+
 .node-item {
   margin-bottom: 20px;
 }
+
 .node-item-icon {
   width: 30px;
   height: 30px;
   margin-left: 20px;
   background-size: cover;
 }
+
 .node-label {
   font-size: 12px;
   margin-top: 5px;
   user-select: none;
 }
+
 .red-ui-palette-node {
   cursor: move;
   background: #fff;
@@ -76,6 +97,7 @@ export default {
   background-size: contain;
   position: relative;
 }
+
 .red-ui-palette-label {
   color: #333;
   font-size: 13px;
@@ -89,6 +111,7 @@ export default {
   -ms-user-select: none;
   user-select: none;
 }
+
 .red-ui-palette-icon-container {
   position: absolute;
   text-align: center;
@@ -96,9 +119,10 @@ export default {
   bottom: 0;
   left: 0;
   width: 30px;
-  border-right: 1px solid rgba(0,0,0,.05);
-  background-color: rgba(0,0,0,.05);
+  border-right: 1px solid rgba(0, 0, 0, .05);
+  background-color: rgba(0, 0, 0, .05);
 }
+
 .red-ui-palette-icon {
   display: inline-block;
   width: 20px;
@@ -107,6 +131,7 @@ export default {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
 /* .red-ui-palette-port-output {
   left: auto;
   right: -6px;
@@ -126,5 +151,4 @@ export default {
 .red-ui-palette-port-output {
   left: auto;
   right: -6px;
-} */
-</style>
+} */</style>

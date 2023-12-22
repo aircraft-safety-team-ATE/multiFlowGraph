@@ -124,7 +124,7 @@ export default {
 }
 .model—tree{
   position: absolute;
-  top: 200px;
+  top: 400px;
   left: 0px;
   outline: none;
 }
