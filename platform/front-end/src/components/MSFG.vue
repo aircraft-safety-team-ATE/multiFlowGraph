@@ -35,45 +35,27 @@ export default {
   },
   data () {
     return {
-      module_tree: [{
-          label: '一级 1',
-          children: [{
-            label: '二级 1-1',
-            children: [{
-              label: '三级 1-1-1'
-            }]
-          }]
-        }, {
-          label: '一级 2',
-          children: [{
-            label: '二级 2-1',
-            children: [{
-              label: '三级 2-1-1'
-            }]
-          }, {
-            label: '二级 2-2',
-            children: [{
-              label: '三级 2-2-1'
-            }]
-          }]
-        }, {
-          label: '一级 3',
-          children: [{
-            label: '二级 3-1',
-            children: [{
-              label: '三级 3-1-1'
-            }]
-          }, {
-            label: '二级 3-2',
-            children: [{
-              label: '三级 3-2-1'
-            }]
-          }]
-        }],
+      module_tree: [],
         defaultProps: {
           children: 'children',
           label: 'label'
         },
+      // 全局数据
+      G_DATA: [
+        {"system_id":1,
+        "name":"root",
+        "parent_id":null,
+        "data":[1,2]},
+        {"system_id":2,
+        "name":"root",
+        "parent_id":1,
+        "data":[1,2]},
+        {"system_id":3,
+        "name":"root",
+        "parent_id":2,
+        "data":[1,2]},
+      
+      ],
       lf: null,
       dialogVisible: false,
       nodeList,
@@ -82,8 +64,46 @@ export default {
   },
   mounted () {
     this.$_initLf()
+    this.module_tree =   this.getModuleTree(this.G_DATA)
+    console.log("data",this.module_tree)
   },
   methods: {
+
+    // 从G_DATA中解析module_tree
+    getModuleTree(G_DATA){
+
+      let root  = G_DATA.filter(item => item.parent_id == null)[0]
+
+      let root_node = {
+        label: root.name,
+        id:root.system_id,
+        children: []
+      }
+
+      function getModuleTreeRecursive(node,G_DATA){
+        
+        let children = G_DATA.filter(item => item.parent_id == node.id)
+        console.log("digui",children)
+        if(children.length == 0){
+          console.log("jieshi")
+          return null
+        }
+        children.forEach(item => {
+          let child_node = {
+            label: item.name,
+            id:item.system_id,
+            children: []
+          }
+          node.children.push(child_node)
+          getModuleTreeRecursive(child_node,G_DATA)
+        })
+      }
+    
+    console.log("start",root_node,G_DATA)
+    getModuleTreeRecursive(root_node,G_DATA)
+      return [root_node]
+  },
+
     ...methods,
     $_dataUpdate (_node) {
       let node = this.lf.graphModel.getNodeModelById(_node.id)
