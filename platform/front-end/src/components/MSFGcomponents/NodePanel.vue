@@ -16,9 +16,10 @@
 
 var properties = {
   tableName: "子系统",
+  SubsystemId: 0,
   fields: {
     input: [1, 2, 3],
-    output: [1,2,3,4]
+    output: [1, 2, 3, 4]
   }
 
 }
@@ -29,13 +30,32 @@ export default {
   props: {
     lf: Object,
     nodeList: Array,
+    G_DATA: Object
   },
   methods: {
+
+
     $_dragNode(item) {
 
       if (item.type == 'subsystem-node') {
+
+
+        // 1.创建新的的system 
+        let new_system = {
+          system_id: this.$props.G_DATA.SystemData.at(-1).system_id + 1,
+          name: "子系统",
+          parent_id: this.$props.G_DATA.currentSystemId,
+          data: {}
+        }
+
+        // 2. 根据input和output更新的system的data
+
+        // 3. 更新G_DATA
+        this.$emit("update-g-data", new_system)
+
+
         this.$props.lf.dnd.startDrag({
-          text:"子系统",
+          text: "子系统",
           type: item.type,
           properties: properties
         })
@@ -151,4 +171,5 @@ export default {
 .red-ui-palette-port-output {
   left: auto;
   right: -6px;
-} */</style>
+} */
+</style>

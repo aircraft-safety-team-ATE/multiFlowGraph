@@ -8,7 +8,7 @@
       v-if="lf"
       :lf="lf"
     />
-    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" />
+    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA" @update-g-data="hangdle_update_gdata"/>
     <div ref="container" class="LF-view"></div>
     <EditDialog
       :dialog-visible.sync="dialogVisible"
@@ -54,7 +54,12 @@ export default {
     console.log("data",this.module_tree)
   },
   methods: {
-
+    // 更新G_data数据
+    hangdle_update_gdata(new_system){
+      console.log("new_system",new_system)
+      this.G_DATA.SystemData.push(new_system)
+      this.module_tree =   this.getModuleTree(this.G_DATA.SystemData)
+    },
     // 从G_DATA中解析module_tree
     getModuleTree(G_DATA){
 
