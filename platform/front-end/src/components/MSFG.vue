@@ -115,6 +115,12 @@ export default {
       let node = this.lf.graphModel.getNodeModelById(_node.id)
       node.updateText(_node.text.value)
       node.setProperties({..._node.properties})
+      // 如果是更新子系统的text 则G_DATA中的数据也要更新
+      if (_node.type == 'subsystem-node') {
+        this.G_DATA.SystemData.find(item => item.system_id == _node.properties.SubsystemId).name = _node.text.value
+        this.module_tree =   this.getModuleTree(this.G_DATA.SystemData)
+      }
+      console.log("node",_node.type)
     },
     handleNodeClick(data) {
       console.log(data.id)
