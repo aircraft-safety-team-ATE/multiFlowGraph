@@ -73,8 +73,8 @@ const nodeList = [
       
         tableName: "子系统",
         fields: {
-          input: [1, 2, 3],
-          output: [1,2,3,4]
+          input: 0,
+          output: 0
         }
       
     }
@@ -88,6 +88,7 @@ const nodeList = [
       icon: require("@/assets/images/delay.svg"),
       typeColor: '#85C1E9',
       // special
+      index: 1, // 输入序号
 
     }
   },{
@@ -99,7 +100,7 @@ const nodeList = [
       icon: require("@/assets/images/delay.svg"),
       typeColor: '#85C1E9',
       // special
-
+      index:1,
     }
   }
 ]

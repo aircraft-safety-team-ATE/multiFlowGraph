@@ -8,7 +8,7 @@
       v-if="lf"
       :lf="lf"
     />
-    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA" @update-g-data="hangdle_update_gdata"/>
+    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA" @updata-g-data="hangdle_update_gdata" @updata-g-data-subsystem="hangdle_update_gdata_subsystem"/>
     <div ref="container" class="LF-view"></div>
     <EditDialog
       :dialog-visible.sync="dialogVisible"
@@ -54,7 +54,22 @@ export default {
     console.log("data",this.module_tree)
   },
   methods: {
-    // 更新G_data数据
+    // 跟新G_data数据 更新子系统的input或output
+    hangdle_update_gdata_subsystem(data){
+      // 根据子系统的id找到父系统
+      let parent_id = this.G_DATA.SystemData.find(item => item.system_id == data.system_id).parent_id
+      let parent_system = this.G_DATA.SystemData.find(item => item.system_id == parent_id)
+
+      // 更新parent_system的中对应子系统的input或output
+      if(data.type == 'input'){
+        parent_system.data.nodes.find(item => item.properties.SubsystemId == data.system_id).properties.fields.input = data.value
+      }else if(data.type == 'output'){
+        parent_system.data.nodes.find(item => item.properties.SubsystemId == data.system_id).properties.fields.output = data.value
+      }
+
+      
+    },
+    // 更新G_data数据 添加新子系统
     hangdle_update_gdata(new_system){
       console.log("new_system",new_system)
       this.G_DATA.SystemData.push(new_system)

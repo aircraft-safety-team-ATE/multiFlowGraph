@@ -18,8 +18,8 @@ var properties = {
   tableName: "子系统",
   SubsystemId: 0,
   fields: {
-    input: 3,
-    output: 4
+    input: 0,
+    output: 0
   }
 
 }
@@ -38,8 +38,6 @@ export default {
     $_dragNode(item) {
 
       if (item.type == 'subsystem-node') {
-
-
         // 1.创建新的的system 
         let new_system = {
           system_id: this.$props.G_DATA.SystemData.at(-1).system_id + 1,
@@ -47,11 +45,8 @@ export default {
           parent_id: this.$props.G_DATA.currentSystemId,
           data: {}
         }
-
-        // 2. 根据input和output更新的system的data
-
         // 3. 更新G_DATA
-        this.$emit("update-g-data", new_system)
+        this.$emit("updata-g-data", new_system)
         properties.SubsystemId = new_system.system_id
 
         this.$props.lf.dnd.startDrag({
@@ -59,7 +54,42 @@ export default {
           type: item.type,
           properties: properties
         })
+      }else if(item.type == 'input-node'){
+        // 1.获取当前画布中 存在多少个input-node
+        let input_node_num = this.$props.lf.getGraphData().nodes.filter(item => item.type == 'input-node').length
+        // 2.修改所属子系统的input
+        this.$emit("updata-g-data-subsystem",{
+          system_id: this.$props.G_DATA.currentSystemId,
+          type: 'input',
+          value: input_node_num+1
+        })
+        // 3.开始拖拽
+        item.properties.index = input_node_num+1
+        this.$props.lf.dnd.startDrag({
+          type: item.type,
+          text: item.text+(input_node_num+1),
+          properties: item.properties
+        })
+
+
+      }else if(item.type == 'output-node'){
+        // 1.获取当前画布中 存在多少个input-node
+        let output_node_num = this.$props.lf.getGraphData().nodes.filter(item => item.type == 'output-node').length
+        // 2.修改所属子系统的output
+        this.$emit("updata-g-data-subsystem",{
+          system_id: this.$props.G_DATA.currentSystemId,
+          type: 'output',
+          value: output_node_num+1
+        })
+        // 3.开始拖拽
+        item.properties.index = output_node_num+1
+        this.$props.lf.dnd.startDrag({
+          type: item.type,
+          text: item.text+(output_node_num+1),
+          properties: item.properties
+        })
       }
+
       else {
         this.$props.lf.dnd.startDrag({
           type: item.type,
