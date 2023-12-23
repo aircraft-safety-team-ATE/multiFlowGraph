@@ -10,7 +10,14 @@ const listeners = {
       console.log(data) // for test
 
     })
-
+    // 画布重新渲染记录
+    this.lf.on('graph:rendered', () => {
+      
+      let currentSystem = this.G_DATA.SystemData.find(item => item.system_id === this.G_DATA.currentSystemId)
+      if (currentSystem) {
+        currentSystem.data = this.lf.getGraphData()
+      }
+    })
 
     // 画布变化触发
     this.lf.on('history:change', () => {

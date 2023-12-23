@@ -34,6 +34,51 @@ const menu = {
               // 2. 更新module tree
               console.log("delsset", this.G_DATA.SystemData)
               this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
+            } else if(node.type === "input-node"){
+              // 1. 将剩余input节点的index重新排序和命名
+              let graph_data = this.lf.getGraphData()
+              let input_nodes = graph_data.nodes.filter((item) => {
+                return item.type === "input-node"})
+
+              input_nodes.forEach((item, index) => {
+                item.properties.index = index + 1
+                item.text = "输入" + (index + 1)
+              })
+              // 2. 将父系统中的子系统组件的input属性更新
+
+                    // 根据子系统的id找到父系统
+              let parent_id = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId).parent_id
+              let parent_system = this.G_DATA.SystemData.find(item => item.system_id == parent_id)
+
+              // 更新parent_system的中对应子系统的input或output
+
+                parent_system.data.nodes.find(item => item.properties.SubsystemId == this.G_DATA.currentSystemId).properties.fields.input = input_nodes.length
+
+              // 3. 重新渲染页面
+              this.lf.render(graph_data)
+            } else if(node.type === "output-node"){
+              // 1. 将剩余input节点的index重新排序和命名
+              let graph_data = this.lf.getGraphData()
+              let output_nodes = graph_data.nodes.filter((item) => {
+                return item.type === "output-node"})
+
+              output_nodes.forEach((item, index) => {
+                item.properties.index = index + 1
+                item.text = "输出" + (index + 1)
+              })
+              // 2. 将父系统中的子系统组件的input属性更新
+
+                    // 根据子系统的id找到父系统
+              let parent_id = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId).parent_id
+              let parent_system = this.G_DATA.SystemData.find(item => item.system_id == parent_id)
+
+              // 更新parent_system的中对应子系统的input或output
+
+                parent_system.data.nodes.find(item => item.properties.SubsystemId == this.G_DATA.currentSystemId).properties.fields.output = output_nodes.length
+
+              // 3. 重新渲染页面
+              this.lf.render(graph_data)
+              
             }
             // 删除 输入或输出节点需要特殊处理
           }
@@ -87,7 +132,52 @@ const menu = {
                 // 2. 更新module tree
                 console.log("delsset", this.G_DATA.SystemData)
                 this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
+              }else if(item.type === "input-node"){
+                // 1. 将剩余input节点的index重新排序和命名
+                let graph_data = this.lf.getGraphData()
+                let input_nodes = graph_data.nodes.filter((item) => {
+                  return item.type === "input-node"})
+  
+                input_nodes.forEach((item, index) => {
+                  item.properties.index = index + 1
+                  item.text = "输入" + (index + 1)
+                })
+                // 2. 将父系统中的子系统组件的input属性更新
+  
+                      // 根据子系统的id找到父系统
+                let parent_id = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId).parent_id
+                let parent_system = this.G_DATA.SystemData.find(item => item.system_id == parent_id)
+  
+                // 更新parent_system的中对应子系统的input或output
+  
+                  parent_system.data.nodes.find(item => item.properties.SubsystemId == this.G_DATA.currentSystemId).properties.fields.input = input_nodes.length
+  
+                // 3. 重新渲染页面
+                this.lf.render(graph_data)
+              } else if(item.type === "output-node"){
+                // 1. 将剩余input节点的index重新排序和命名
+                let graph_data = this.lf.getGraphData()
+                let output_nodes = graph_data.nodes.filter((item) => {
+                  return item.type === "output-node"})
+  
+                output_nodes.forEach((item, index) => {
+                  item.properties.index = index + 1
+                  item.text = "输出" + (index + 1)
+                })
+                // 2. 将父系统中的子系统组件的input属性更新
+  
+                      // 根据子系统的id找到父系统
+                let parent_id = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId).parent_id
+                let parent_system = this.G_DATA.SystemData.find(item => item.system_id == parent_id)
+  
+                // 更新parent_system的中对应子系统的input或output
+  
+                  parent_system.data.nodes.find(item => item.properties.SubsystemId == this.G_DATA.currentSystemId).properties.fields.output = output_nodes.length
+  
+                // 3. 重新渲染页面
+                this.lf.render(graph_data)
               }
+              // 删除 输入或输出节点需要特殊处理
             })
             select.edges.map((item) => { this.lf.deleteEdge(item.id) })
           }
