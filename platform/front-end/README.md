@@ -274,3 +274,34 @@ export default {
 - 新增 Dockerfile 文件支持创建 Docker 镜像
 - 修复了一个由于大小写不一致可能引发的 bug
 	- 后续如果遇到组件加载出错大概率还是这个问题
+
+### 2023.12.23 冯
+- 新增子系统建模功能 基本已经实现
+- 待完善
+	- 在根系统中，加入输入和输出模块后，存在找不到父系统的问题(应该采用什么逻辑去解决呢？)
+	- 无法框选一堆组件然后构建子系统，
+	- 子系统模块有点丑陋
+	- 面对新的数据结构需要重新编写导出流图 载入流图的逻辑，以及后端生成D矩阵的逻辑
+	- 代码很丑陋 待重构
+
+子系统建模实现逻辑
+维护一个G_DATA的全局变量，currentSystemId表示当前所在的系统，SystemData表示系统的数据，每个系统的数据结构如下，非嵌套式，data中的数据就是this.lf.getGraphData()的数据，
+```js
+    this.G_DATA = {
+      currentSystemId: 1,
+      SystemData:[
+      {
+        system_id:1,
+      name:"root",
+      parent_id:null,
+      data:{},
+	  }
+	  {
+        system_id:2,
+      name:"sub2",
+      parent_id:1,
+      data:{},
+	  },
+],
+	}
+```
