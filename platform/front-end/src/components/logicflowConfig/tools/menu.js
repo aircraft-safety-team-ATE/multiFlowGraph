@@ -2,7 +2,7 @@
  * 自定义菜单栏 参考 http://logic-flow.org/guide/extension/component-menu.html
  */
 const menu = {
-  $_render () {
+  $_render() {
     // 自定义常规右键菜单
     this.lf.extension.menu.setMenuConfig({
       // 节点右键菜单
@@ -11,6 +11,31 @@ const menu = {
           text: '删除',
           callback: (node) => {
             this.lf.deleteNode(node.id)
+            // 删除子系统需要特殊处理
+            if (node.type === "subsystem-node") {
+              // 1.在G_DATA中删除该子系统,递归的删除该子系统下的所有节点
+              function deleteSubsystem(delete_system_id, G_DATA) {
+
+                G_DATA.SystemData = G_DATA.SystemData.filter((item) => {
+                  return item.system_id !== delete_system_id
+                })
+
+                let list_systems = G_DATA.SystemData.filter((item) => {
+                  return item.parent_id == delete_system_id
+                })
+
+                list_systems.forEach((item) => {
+                  deleteSubsystem(item.system_id, G_DATA)
+                })
+              }
+
+              deleteSubsystem(node.properties.SubsystemId, this.G_DATA)
+
+              // 2. 更新module tree
+              console.log("delsset", this.G_DATA.SystemData)
+              this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
+            }
+            // 删除 输入或输出节点需要特殊处理
           }
         },
         {
@@ -35,14 +60,40 @@ const menu = {
       type: 'lf:defaultSelectionMenu',
       menu: [
         {
-          text:'删除',
+          text: '删除',
           callback: (select) => {
-            select.nodes.map((item) => {this.lf.deleteNode(item.id)})
-            select.edges.map((item) => {this.lf.deleteEdge(item.id)})
+            select.nodes.map((item) => {
+              this.lf.deleteNode(item.id)
+              // 删除子系统需要特殊处理
+              if (item.type === "subsystem-node") {
+                // 1.在G_DATA中删除该子系统,递归的删除该子系统下的所有节点
+                function deleteSubsystem(delete_system_id, G_DATA) {
+
+                  G_DATA.SystemData = G_DATA.SystemData.filter((item) => {
+                    return item.system_id !== delete_system_id
+                  })
+
+                  let list_systems = G_DATA.SystemData.filter((item) => {
+                    return item.parent_id == delete_system_id
+                  })
+
+                  list_systems.forEach((item) => {
+                    deleteSubsystem(item.system_id, G_DATA)
+                  })
+                }
+
+                deleteSubsystem(item.properties.SubsystemId, this.G_DATA)
+
+                // 2. 更新module tree
+                console.log("delsset", this.G_DATA.SystemData)
+                this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
+              }
+            })
+            select.edges.map((item) => { this.lf.deleteEdge(item.id) })
           }
         },
         {
-          text:'分组',
+          text: '分组',
           callback: this.createSub
         }
       ]
@@ -52,13 +103,13 @@ const menu = {
       type: 'sub-system',
       menu: [
         {
-          text:'删除子系统',
+          text: '删除子系统',
           callback: (node) => {
             this.lf.deleteNode(node.id)
           }
         },
         {
-          text:'解除子系统',
+          text: '解除子系统',
           callback: (node) => {
             let sub = this.lf.getNodeModelById(node.id)
             let { nodes } = this.lf.getGraphRawData()
