@@ -54,38 +54,58 @@ export default {
           type: item.type,
           properties: properties
         })
-      }else if(item.type == 'input-node'){
+      } else if (item.type == 'input-node') {
+        // 禁止在根系统中创建输入或者输出节点
+        let current_system = this.$props.G_DATA.SystemData.find(item => item.system_id == this.$props.G_DATA.currentSystemId)
+        if (current_system.parent_id == null) {
+          this.$message({
+            message: '禁止在根系统中创建输入或者输出节点',
+            type: 'warning'
+          });
+          return
+        }
+
         // 1.获取当前画布中 存在多少个input-node
         let input_node_num = this.$props.lf.getGraphData().nodes.filter(item => item.type == 'input-node').length
         // 2.修改所属子系统的input
-        this.$emit("updata-g-data-subsystem",{
+        this.$emit("updata-g-data-subsystem", {
           system_id: this.$props.G_DATA.currentSystemId,
           type: 'input',
-          value: input_node_num+1
+          value: input_node_num + 1
         })
         // 3.开始拖拽
-        item.properties.index = input_node_num+1
+        item.properties.index = input_node_num + 1
         this.$props.lf.dnd.startDrag({
           type: item.type,
-          text: item.text+(input_node_num+1),
+          text: item.text + (input_node_num + 1),
           properties: item.properties
         })
 
 
-      }else if(item.type == 'output-node'){
+      } else if (item.type == 'output-node') {
+        // 禁止在根系统中创建输入或者输出节点
+        let current_system = this.$props.G_DATA.SystemData.find(item => item.system_id == this.$props.G_DATA.currentSystemId)
+        if (current_system.parent_id == null) {
+          this.$message({
+            message: '禁止在根系统中创建输入或者输出节点',
+            type: 'warning'
+          });
+          return
+        }
+
         // 1.获取当前画布中 存在多少个input-node
         let output_node_num = this.$props.lf.getGraphData().nodes.filter(item => item.type == 'output-node').length
         // 2.修改所属子系统的output
-        this.$emit("updata-g-data-subsystem",{
+        this.$emit("updata-g-data-subsystem", {
           system_id: this.$props.G_DATA.currentSystemId,
           type: 'output',
-          value: output_node_num+1
+          value: output_node_num + 1
         })
         // 3.开始拖拽
-        item.properties.index = output_node_num+1
+        item.properties.index = output_node_num + 1
         this.$props.lf.dnd.startDrag({
           type: item.type,
-          text: item.text+(output_node_num+1),
+          text: item.text + (output_node_num + 1),
           properties: item.properties
         })
       }
