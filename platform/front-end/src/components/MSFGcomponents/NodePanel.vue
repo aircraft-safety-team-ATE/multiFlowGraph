@@ -15,7 +15,7 @@
 <script>
 
 var properties = {
-  tableName: "子系统",
+  tableName: "",
   SubsystemId: 0,
   fields: {
     input: 0,
@@ -48,7 +48,7 @@ export default {
 
         // 3. 更新G_DATA
         this.$emit("updata-g-data", new_system)
-        
+
         properties.SubsystemId = new_system.system_id
 
         this.$props.lf.dnd.startDrag({
