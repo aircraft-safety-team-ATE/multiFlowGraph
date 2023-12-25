@@ -64,6 +64,12 @@ class SubsystemNode extends HtmlNode {
 
 
 class SubsystemNodeModel extends HtmlNodeModel {
+  getData(){
+    // 记录数据时也将锚点id记录下来
+    const data = super.getData()
+    data.anchors = this.anchors
+    return data;
+  }
   getOutlineStyle () {
     const style = super.getOutlineStyle()
     style.stroke = "none"

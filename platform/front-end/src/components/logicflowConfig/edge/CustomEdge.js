@@ -3,6 +3,12 @@ import { PolylineEdge, PolylineEdgeModel } from '@logicflow/core'
 
 class CustomEdgeModel extends PolylineEdgeModel {
   customTextPosition = true
+  getData() {
+    const data = super.getData();
+    data.sourceAnchorId = this.sourceAnchorId;
+    data.targetAnchorId = this.targetAnchorId;
+    return data;
+  }
   getTextStyle () {
     const style = super.getTextStyle()
     style.className = "custom-text"

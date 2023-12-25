@@ -4,15 +4,20 @@
  * 也可以监听基于 LogicFlow eventCenter 抛出的自定义事件，如何抛出自定义事件参考 http://logic-flow.org/api/graphModelApi.html#eventcenter
  */
 const listeners = {
-  $_LfEvent () {
+  $_LfEvent() {
     // 单击节点 测试用
     this.lf.on('node:click', ({ data }) => {
       console.log(data) // for test
 
     })
+    // 单击节点 测试用
+    this.lf.on('edge:click', ({ data }) => {
+      console.log(data) // for test
+
+    })
     // 画布重新渲染记录
     this.lf.on('graph:rendered', () => {
-      
+
       let currentSystem = this.G_DATA.SystemData.find(item => item.system_id === this.G_DATA.currentSystemId)
       if (currentSystem) {
         currentSystem.data = this.lf.getGraphData()
@@ -21,7 +26,7 @@ const listeners = {
 
     // 画布变化触发
     this.lf.on('history:change', () => {
-      
+
       let currentSystem = this.G_DATA.SystemData.find(item => item.system_id === this.G_DATA.currentSystemId)
       if (currentSystem) {
         currentSystem.data = this.lf.getGraphData()
@@ -75,7 +80,7 @@ const listeners = {
       if (element) { element.remove() }
     })
     // 连线删除
-    this.lf.on('edge:delete', ({data}) => {
+    this.lf.on('edge:delete', ({ data }) => {
       let node = this.lf.graphModel.getNodeModelById(data.targetNodeId)
       if (node.type === 'switch-node' && node.properties.control === data.sourceNodeId) {
         node.properties.control = null
