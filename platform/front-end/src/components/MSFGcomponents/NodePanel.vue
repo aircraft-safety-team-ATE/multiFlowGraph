@@ -41,19 +41,22 @@ export default {
         // 1.创建新的的system 
         let new_system = {
           system_id: this.$props.G_DATA.SystemData.at(-1).system_id + 1,
-          name: "子系统",
+          name: "子系统"+(this.$props.G_DATA.SystemData.at(-1).system_id + 1),
           parent_id: this.$props.G_DATA.currentSystemId,
           data: {}
         }
+
         // 3. 更新G_DATA
         this.$emit("updata-g-data", new_system)
+        
         properties.SubsystemId = new_system.system_id
 
         this.$props.lf.dnd.startDrag({
-          text: "子系统",
+          text: "子系统" + new_system.system_id,
           type: item.type,
           properties: properties
         })
+
       } else if (item.type == 'input-node') {
         // 禁止在根系统中创建输入或者输出节点
         let current_system = this.$props.G_DATA.SystemData.find(item => item.system_id == this.$props.G_DATA.currentSystemId)
