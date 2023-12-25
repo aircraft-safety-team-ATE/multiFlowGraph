@@ -1,7 +1,11 @@
 <template>
   <div class="logic-flow-view">
+  <!-- 显示一些文本 -->
+  <h1 class = "current-system-breadcrumb">
+    {{ current_system_breadcrumb }}
+  </h1>
   <div class="model—tree">
-    <el-tree :data="module_tree" :expand-on-click-node="false" :default-expand-all="true" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
+    <el-tree :data="module_tree" :expand-on-click-node="false" :indent="8" :default-expand-all="true" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
   </div>
     <Control
       class="demo-control"
@@ -35,6 +39,7 @@ export default {
   },
   data () {
     return {
+      current_system_breadcrumb:'root',
       module_tree: [],
         defaultProps: {
           children: 'children',
@@ -52,6 +57,8 @@ export default {
     this.$_initLf()
     this.module_tree =   this.getModuleTree(this.G_DATA.SystemData)
     console.log("data",this.module_tree)
+    
+    this.current_system_breadcrumb = "所在系统: " + this.G_DATA.SystemData.find(item =>item.system_id==this.G_DATA.currentSystemId).name
   },
   methods: {
     // 跟新G_data数据 更新子系统的input或output
@@ -123,8 +130,26 @@ export default {
       console.log("node",_node.type)
     },
     handleNodeClick(data) {
-      console.log(data.id)
+      console.log(data)
         this.G_DATA.currentSystemId = data.id
+        
+        let name_stack = []
+        let current_system= this.G_DATA.SystemData.find(item => item.system_id == data.id)
+        while(current_system!=undefined){
+          name_stack.push(current_system.name)
+          current_system = this.G_DATA.SystemData.find(item => item.system_id==current_system.parent_id)
+        }
+        this.current_system_breadcrumb = '所在系统: '
+        while(name_stack.length>1){
+          this.current_system_breadcrumb += name_stack.pop()+' > '
+        }
+        this.current_system_breadcrumb+=name_stack.pop()
+        this.$message({
+          message:this.current_system_breadcrumb,
+          type:'success'
+        })
+
+
         this.lf.render(this.G_DATA.SystemData.find(item => item.system_id == data.id).data)
 
       }
@@ -133,6 +158,11 @@ export default {
 </script>
 
 <style scoped>
+.current-system-breadcrumb{
+  position: absolute;
+  top:0px;
+  left:200px;
+}
 .logic-flow-view {
   height: 95%;
   position: relative;
@@ -145,13 +175,13 @@ export default {
 }
 .demo-control {
   position: absolute;
-  top: 0px;
+  top: 50px;
   right: 50px;
   z-index: 2;
 }
 .LF-view {
   position: absolute;
-  top: 0px;
+  top: 50px;
   left: 150px;
   width: calc(100% - 200px);
   height: 100%;
