@@ -1,9 +1,15 @@
 <template>
   <div class="logic-flow-view">
   <!-- 显示一些文本 -->
-  <h1 class = "current-system-breadcrumb">
-    {{ current_system_breadcrumb }}
-  </h1>
+  <div style="float: left" class="current-system-breadcrumb">
+					<span> 所在系统：</span>
+					<span v-for="(item, itemid) in current_system_breadcrumb" >
+						<el-tag v-if="item.name" @click="handleTagClick(item.id)" size="mini" type="primary">
+							{{ item.name }}
+						</el-tag> 
+						<span v-if="itemid !== current_system_breadcrumb.length-1">{{'>'}}</span>
+					</span>
+				</div>
   <div class="model—tree">
     <el-tree :data="module_tree" :expand-on-click-node="false" :indent="8" :default-expand-all="true" :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
   </div>
@@ -58,9 +64,16 @@ export default {
     this.module_tree =   this.getModuleTree(this.G_DATA.SystemData)
     console.log("data",this.module_tree)
     
-    this.current_system_breadcrumb = "所在系统: " + this.G_DATA.SystemData.find(item =>item.system_id==this.G_DATA.currentSystemId).name
+    let root_system = this.G_DATA.SystemData.find(item => item.parent_id == null)
+
+    this.current_system_breadcrumb = [{name:root_system.name,id:root_system.system_id}]
   },
   methods: {
+    // 面包屑处理
+    handleTagClick(sysid) {
+				
+				this.handleNodeClick({id: sysid});
+			},
     // 跟新G_data数据 更新子系统的input或output
     hangdle_update_gdata_subsystem(data){
       // 根据子系统的id找到父系统
@@ -133,19 +146,19 @@ export default {
       console.log(data)
         this.G_DATA.currentSystemId = data.id
         
-        let name_stack = []
+        // 更新面包屑 面包屑结构为 [{name:xxx,id:xxx},{name:xxx,id:xxx}] 从当前系统开始一直到root
+        this.current_system_breadcrumb = []
         let current_system= this.G_DATA.SystemData.find(item => item.system_id == data.id)
         while(current_system!=undefined){
-          name_stack.push(current_system.name)
+          this.current_system_breadcrumb.push({name:current_system.name,id:current_system.system_id})
           current_system = this.G_DATA.SystemData.find(item => item.system_id==current_system.parent_id)
         }
-        this.current_system_breadcrumb = '所在系统: '
-        while(name_stack.length>1){
-          this.current_system_breadcrumb += name_stack.pop()+' > '
-        }
-        this.current_system_breadcrumb+=name_stack.pop()
+
+        // 颠倒顺序，从root到当前系统
+        this.current_system_breadcrumb = this.current_system_breadcrumb.reverse()
+
         this.$message({
-          message:this.current_system_breadcrumb,
+          message: '当前系统已切换为' + this.current_system_breadcrumb.map(item => item.name).join(' > '),
           type:'success'
         })
 
