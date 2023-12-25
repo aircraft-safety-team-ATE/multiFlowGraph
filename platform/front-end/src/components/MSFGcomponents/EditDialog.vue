@@ -17,7 +17,8 @@
       <el-form-item label="类型" prop="type" :label-width="'120px'">
         <el-input v-model="form.type" :disabled="true"></el-input>
       </el-form-item>
-      <el-form-item label="名称" prop="text.value" :label-width="'120px'">
+      <el-form-item v-if="form.type!='input-node' && form.type!='output-node'"
+      label="名称" prop="text.value" :label-width="'120px'">
         <el-input v-model="form.text.value"></el-input>
       </el-form-item>
       <!-- fault-node -->
