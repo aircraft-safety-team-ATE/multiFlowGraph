@@ -154,6 +154,7 @@ export default {
             if (item.type == 'subsystem-node') {
               item.text.x += x_offset
               item.text.y += y_offset
+
             }
 
             current_system.data.nodes.push(item)
@@ -174,6 +175,9 @@ export default {
         }
         //2.将导入的子系统添加到this.G_DATA
         function getSubSystemRecursive(old_system_id, new_system_id, import_G_DATA, G_DATA) {
+          // 调整子系统节点的systemid
+          let current_system = G_DATA.SystemData.find(item => item.system_id == new_system_id)
+          let current_system_subsystem_nodes= current_system.data.nodes.filter(item => item.type == 'subsystem-node')
 
           let children = import_G_DATA.SystemData.filter(item => item.parent_id == old_system_id)
           function deepClone(obj) {
@@ -182,11 +186,19 @@ export default {
             return objClone
           }
           children.forEach(item => {
+
+            
             let item_copy = deepClone(item)
-            let old_system_id = item.system_id
+            let old_system_id = item_copy.system_id
             item_copy.system_id = G_DATA.SystemData.length + 1
             item_copy.parent_id = new_system_id
+            if (current_system_subsystem_nodes.find(item => item.properties.SubsystemId == old_system_id) !== undefined) {
+              current_system_subsystem_nodes.find(item => item.properties.SubsystemId == old_system_id).properties.SubsystemId = item_copy.system_id
+            }
+
             G_DATA.SystemData.push(item_copy)
+
+
             getSubSystemRecursive(old_system_id, item_copy.system_id, import_G_DATA, G_DATA)
           })
 
