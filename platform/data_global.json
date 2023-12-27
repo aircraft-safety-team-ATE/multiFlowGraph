@@ -1,0 +1,219 @@
+{
+    "currentSystemId": 1,
+    "SystemData": [
+        {
+            "system_id": 1,
+            "name": "root",
+            "parent_id": null,
+            "data": {
+                "nodes": [
+                    {
+                        "id": "8b85fe4b-0334-484c-a461-40a1bf7683cc",
+                        "type": "subsystem-node",
+                        "x": 770,
+                        "y": 300,
+                        "properties": {
+                            "tableName": "",
+                            "SubsystemId": 2,
+                            "fields": {
+                                "input": 1,
+                                "output": 0
+                            }
+                        },
+                        "text": {
+                            "x": 770,
+                            "y": 300,
+                            "value": "子系统2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 680,
+                                "y": 318,
+                                "id": "8b85fe4b-0334-484c-a461-40a1bf7683cc_0_left",
+                                "edgeAddable": false,
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "05201d42-4439-43c9-93bb-ccbec6c6a61a",
+                        "type": "algorithm-node",
+                        "x": 460,
+                        "y": 310,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#85C1E9",
+                            "algorithm": 0,
+                            "width": 100,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 470,
+                            "y": 310,
+                            "value": "算法"
+                        },
+                        "anchors": [
+                            {
+                                "x": 510,
+                                "y": 310,
+                                "id": "05201d42-4439-43c9-93bb-ccbec6c6a61a_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 410,
+                                "y": 310,
+                                "id": "05201d42-4439-43c9-93bb-ccbec6c6a61a_left",
+                                "type": "left"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "2f7ae0e9-c6e7-4c08-bd03-ec505dad8d20",
+                        "type": "custom-edge",
+                        "sourceNodeId": "05201d42-4439-43c9-93bb-ccbec6c6a61a",
+                        "targetNodeId": "8b85fe4b-0334-484c-a461-40a1bf7683cc",
+                        "startPoint": {
+                            "x": 510,
+                            "y": 310
+                        },
+                        "endPoint": {
+                            "x": 680,
+                            "y": 318
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 510,
+                                "y": 310
+                            },
+                            {
+                                "x": 595,
+                                "y": 310
+                            },
+                            {
+                                "x": 595,
+                                "y": 318
+                            },
+                            {
+                                "x": 680,
+                                "y": 318
+                            }
+                        ],
+                        "sourceAnchorId": "05201d42-4439-43c9-93bb-ccbec6c6a61a_right",
+                        "targetAnchorId": "8b85fe4b-0334-484c-a461-40a1bf7683cc_0_left"
+                    }
+                ]
+            }
+        },
+        {
+            "system_id": 2,
+            "name": "子系统2",
+            "parent_id": 1,
+            "data": {
+                "nodes": [
+                    {
+                        "id": "34957d47-5608-4921-b6cc-622de952ec85",
+                        "type": "input-node",
+                        "x": 510,
+                        "y": 260,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#85C1E9",
+                            "index": 1,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 510,
+                            "y": 260,
+                            "value": "输入1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 560,
+                                "y": 260,
+                                "id": "34957d47-5608-4921-b6cc-622de952ec85_right",
+                                "type": "right"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "164d7127-d26d-4a8b-a6bc-c37149d92217",
+                        "type": "subsystem-node",
+                        "x": 690,
+                        "y": 400,
+                        "properties": {
+                            "tableName": "",
+                            "SubsystemId": 3,
+                            "fields": {
+                                "input": 1,
+                                "output": 0
+                            }
+                        },
+                        "text": {
+                            "x": 690,
+                            "y": 400,
+                            "value": "子系统3"
+                        },
+                        "anchors": []
+                    }
+                ],
+                "edges": []
+            }
+        },
+        {
+            "system_id": 3,
+            "name": "子系统3",
+            "parent_id": 2,
+            "data": {
+                "nodes": [
+                    {
+                        "id": "35018f08-de64-4640-bab1-98ddc86ce4e1",
+                        "type": "input-node",
+                        "x": 540,
+                        "y": 370,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#85C1E9",
+                            "index": 1,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 540,
+                            "y": 370,
+                            "value": "输入1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 590,
+                                "y": 370,
+                                "id": "35018f08-de64-4640-bab1-98ddc86ce4e1_right",
+                                "type": "right"
+                            }
+                        ]
+                    }
+                ],
+                "edges": []
+            }
+        }
+    ]
+}

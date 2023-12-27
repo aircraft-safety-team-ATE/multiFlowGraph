@@ -91,6 +91,7 @@ class RedNodeModel extends RectNodeModel {
   getData () {
     const data = super.getData()
     data.properties.ui = 'node-red'
+    data.anchors = this.anchors
     return data
   }
 }

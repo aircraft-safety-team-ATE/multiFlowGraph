@@ -61,6 +61,47 @@ const nodeList = [
       // special
       algorithm: 0, // 算法
     }
+  },
+  {
+    type:"subsystem-node",
+    text:"子系统",
+    properties: {
+      // common
+      ...common,
+      icon: require("@/assets/images/delay.svg"),
+      typeColor: '#85C1E9',
+      
+        tableName: "子系统",
+        fields: {
+          input: 0,
+          output: 0
+        }
+      
+    }
+  },
+  {
+    type:"input-node",
+    text:"输入",
+    properties: {
+      // common
+      ...common,
+      icon: require("@/assets/images/delay.svg"),
+      typeColor: '#85C1E9',
+      // special
+      index: 1, // 输入序号
+
+    }
+  },{
+    type:"output-node",
+    text:"输出",
+    properties: {
+      // common
+      ...common,
+      icon: require("@/assets/images/delay.svg"),
+      typeColor: '#85C1E9',
+      // special
+      index:1,
+    }
   }
 ]
 
