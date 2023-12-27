@@ -136,7 +136,7 @@ export default {
             // 修复重复导入bug
             if (current_system.data.nodes.find(item2 => item2.id === item.id) !== undefined) {
               this.$message({
-                message: '禁止重复导入',
+                message: '禁止重复导入 (有残余模块也会触发)',
                 type: 'warning'
               });
               console.log('重复导入');

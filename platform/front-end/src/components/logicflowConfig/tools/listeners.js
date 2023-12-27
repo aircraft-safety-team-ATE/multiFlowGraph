@@ -34,8 +34,13 @@ const listeners = {
     })
     // 双击节点
     this.lf.on('node:dbclick', ({ data }) => {
-      this.formData = data
-      this.dialogVisible = true
+      if (data.type == 'subsystem-node') {
+        this.handleNodeClick({ id: data.properties.SubsystemId })
+      } else {
+
+        this.formData = data
+        this.dialogVisible = true
+      }
     })
     // ※节点信息编辑
     this.lf.on('node:edit', (data) => {
