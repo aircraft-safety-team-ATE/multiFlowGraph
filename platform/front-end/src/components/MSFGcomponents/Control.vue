@@ -1,40 +1,22 @@
 <template>
   <div>
-     <el-button-group>
+    <el-button-group>
       <!-- <el-button type="plain" size="small" @click="$_test">测试用</el-button> -->
-      <el-button
-        v-if="controlConfig.zoomIn"
-        type="plain" size="small" @click="$_zoomIn">放大</el-button>
-      <el-button
-        v-if="controlConfig.zoomOut"
-        type="plain" size="small" @click="$_zoomOut">缩小</el-button>
-      <el-button
-        v-if="controlConfig.zoomReset"
-        type="plain" size="small" @click="$_zoomReset">大小适应</el-button>
-      <el-button
-        v-if="controlConfig.translateRest"
-        type="plain" size="small" @click="$_translateRest">定位还原</el-button>
-      <el-button
-        v-if="controlConfig.reset"
-        type="plain" size="small" @click="$_reset">还原(大小&定位)</el-button>
-      <el-button
-        v-if="controlConfig.undo"
-        type="plain" size="small" @click="$_undo" :disabled="undoDisable">撤销(ctrl+z)</el-button>
-      <el-button
-        v-if="controlConfig.redo"
-        type="plain" size="small" @click="$_redo" :disabled="redoDisable">重做(ctrl+y)</el-button>
-      <el-button
-        v-if="controlConfig.clear"
-        type="plain" size="small" @click="$_clear">清空</el-button>
-      <el-button
-        v-if="controlConfig.reDraw"
-        type="plain" size="small" @click="$_reDraw">重绘</el-button>
-      <el-button
-        v-if="controlConfig.exportData"
-        type="plain" size="small" @click="exportData_dialogVisible = true">导出流图</el-button>
-      <el-button
-        v-if="controlConfig.importData"
-        type="plain" size="small" @click="importData_dialogVisible = true">载入流图</el-button>
+      <el-button v-if="controlConfig.zoomIn" type="plain" size="small" @click="$_zoomIn">放大</el-button>
+      <el-button v-if="controlConfig.zoomOut" type="plain" size="small" @click="$_zoomOut">缩小</el-button>
+      <el-button v-if="controlConfig.zoomReset" type="plain" size="small" @click="$_zoomReset">大小适应</el-button>
+      <el-button v-if="controlConfig.translateRest" type="plain" size="small" @click="$_translateRest">定位还原</el-button>
+      <el-button v-if="controlConfig.reset" type="plain" size="small" @click="$_reset">还原(大小&定位)</el-button>
+      <el-button v-if="controlConfig.undo" type="plain" size="small" @click="$_undo"
+        :disabled="undoDisable">撤销(ctrl+z)</el-button>
+      <el-button v-if="controlConfig.redo" type="plain" size="small" @click="$_redo"
+        :disabled="redoDisable">重做(ctrl+y)</el-button>
+      <el-button v-if="controlConfig.clear" type="plain" size="small" @click="$_clear">清空</el-button>
+      <el-button v-if="controlConfig.reDraw" type="plain" size="small" @click="$_reDraw">重绘</el-button>
+      <el-button v-if="controlConfig.exportData" type="plain" size="small"
+        @click="exportData_dialogVisible = true">导出流图</el-button>
+      <el-button v-if="controlConfig.importData" type="plain" size="small"
+        @click="importData_dialogVisible = true">载入流图</el-button>
     </el-button-group>
 
     <!-- <el-upload
@@ -49,62 +31,60 @@
       <el-button type="plain" size="small">载入流图</el-button>
     </el-upload> -->
 
-    <el-upload
-      v-if="controlConfig.importFMECA"
-      style="display:inline-block; margin-left: -5px;"
-      action=""
+    <el-upload v-if="controlConfig.importFMECA" style="display:inline-block; margin-left: -5px;" action=""
       :auto-upload="false"
       accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      :multiple="false"
-      :show-file-list="false"
-      :on-change="$_importFMECA">
+      :multiple="false" :show-file-list="false" :on-change="$_importFMECA">
       <el-button type="plain" size="small">载入FMECA</el-button>
     </el-upload>
 
-    <el-button
-        v-if="controlConfig.check"
-        type="plain" size="small" @click="$_check"
-        style="display:inline-block; margin-left: -5px;">流图评价</el-button>
+    <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check"
+      style="display:inline-block; margin-left: -5px;">流图评价</el-button>
 
-    <el-button
-      v-if="controlConfig.optimizeCkpt"
-      type="plain" size="small" @click="$_optimizeCkpt"
+    <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt"
       style="display:inline-block; margin-left: -5px;">测点优化</el-button>
 
 
-      
-    <el-upload
-      v-if="controlConfig.analyse"
-      style="display:inline-block; margin-left: -5px;"
-      action=""
-      :auto-upload="false"
-      accept=".csv"
-      :multiple="false"
-      :show-file-list="false"
-      :on-change="$_analyse">
+
+    <el-upload v-if="controlConfig.analyse" style="display:inline-block; margin-left: -5px;" action=""
+      :auto-upload="false" accept=".csv" :multiple="false" :show-file-list="false" :on-change="$_analyse">
       <el-button type="plain" size="small">故障分析</el-button>
     </el-upload>
 
-        <el-dialog width="60%" :title="'流图载入方式'" :visible.sync="importData_dialogVisible" :modal="false">
+    <el-dialog width="60%" :title="'流图载入方式'" :visible.sync="importData_dialogVisible" :modal="false">
 
-          <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
-          <el-button type="primary" @click="$_inportData('global')">载入全局数据</el-button>
-          <el-button type="primary" @click="$_inportData('part_incremental')">载入局部数据（增量式）</el-button>
-          <el-button type="primary" @click="$_inportData('partJustCurrent_incremental')">载入局部数据，仅当前页面（增量式）</el-button>
-            <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>  
-          </div>  
-        </el-dialog>
-    
-          <el-dialog width="60%" :title="'流图导出方式'" :visible.sync="exportData_dialogVisible" :modal="false">
-            <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
-          <el-button type="primary" @click="$_exportData('global')">导出全局数据</el-button>
-          <el-button type="primary" @click="$_exportData('part')">导出局部数据</el-button>
-            <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>  
-          </div>
-          </el-dialog>
+      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
+
+        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
+          :multiple="false" :show-file-list="false" :on-change="$_importData_global">
+          <el-button type="plain">载入全局数据</el-button>
+        </el-upload>
+
+
+        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
+          :multiple="false" :show-file-list="false" :on-change="$_importData_part_incremental">
+          <el-button type="plain">载入局部数据（增量式）</el-button>
+        </el-upload>
+
+        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
+          :multiple="false" :show-file-list="false" :on-change="$_importData_partJustSolo_incremental">
+          <el-button type="plain">载入全局数据</el-button>
+        </el-upload>
+
+        <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog width="60%" :title="'流图导出方式'" :visible.sync="exportData_dialogVisible" :modal="false">
+      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
+        <el-button type="primary" @click="$_exportData('global')">导出全局数据</el-button>
+        <el-button type="primary" @click="$_exportData('part')">导出局部数据</el-button>
+        <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
+      </div>
+    </el-dialog>
 
     <el-dialog width="60%" :title="dialogTitle" :visible.sync="Visible" :modal="false">
-      <el-descriptions title="性能指标" :column="3" border v-if="dialogType==='check'">
+      <el-descriptions title="性能指标" :column="3" border v-if="dialogType === 'check'">
         <el-descriptions-item label="检出率">
           <span>{{ result.detect_isolat_ratio[0] }}</span>
         </el-descriptions-item>
@@ -115,18 +95,10 @@
           <span>{{ result.detect_isolat_ratio[2] }}</span>
         </el-descriptions-item>
       </el-descriptions>
-      <el-table
-        :data="result.D_mat"
-        size="mini"
-        v-if="dialogType==='check'"
-        border>
-        <el-table-column
-          v-for="k in result.col_names"
-          :label="k ==='row_name'? '' : k"
-          :key="k"
-          :prop="k">
+      <el-table :data="result.D_mat" size="mini" v-if="dialogType === 'check'" border>
+        <el-table-column v-for="k in result.col_names" :label="k === 'row_name' ? '' : k" :key="k" :prop="k">
           <template slot-scope="scope">
-            <span v-if="scope.row[k]===1" style="background-color: red; color: white;">{{ scope.row[k] }}</span>
+            <span v-if="scope.row[k] === 1" style="background-color: red; color: white;">{{ scope.row[k] }}</span>
             <span v-else>{{ scope.row[k] }}</span>
           </template>
         </el-table-column>
@@ -145,7 +117,7 @@ export default {
     lf: Object || String,
     G_DATA: Object
   },
-  data () {
+  data() {
     return {
       controlConfig,
       undoDisable: true,
@@ -165,7 +137,7 @@ export default {
     }
   },
   computed: {
-    dialogTitle () {
+    dialogTitle() {
       if (this.dialogType === 'check') {
         return '信号流图模型评价'
       } else {
@@ -173,51 +145,51 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.$props.lf.on('history:change', ({ data: { undoAble, redoAble } }) => {
       this.$data.undoDisable = !undoAble
       this.$data.redoDisable = !redoAble
     })
   },
   methods: {
-    $_zoomIn () {
+    $_zoomIn() {
       this.$props.lf.zoom(true)
     },
-    $_zoomOut () {
+    $_zoomOut() {
       this.$props.lf.zoom(false)
     },
-    $_zoomReset () {
+    $_zoomReset() {
       this.$props.lf.resetZoom()
     },
-    $_translateRest () {
+    $_translateRest() {
       this.$props.lf.resetTranslate()
     },
-    $_reset () {
+    $_reset() {
       this.$props.lf.resetZoom()
       this.$props.lf.resetTranslate()
     },
-    $_undo () {
+    $_undo() {
       this.$props.lf.undo()
     },
-    $_redo () {
+    $_redo() {
       this.$props.lf.redo()
     },
-    $_clear () {
+    $_clear() {
       this.$props.lf.clearData()
     },
-    $_reDraw () {
+    $_reDraw() {
       let data = this.$props.lf.getGraphRawData()
       data.nodes.forEach((node) => {
         node.properties.showType = 'edit'
       })
       this.$props.lf.render(data)
     },
-    $_exportData (type) {
-      
-    if (type === 'global') {
-      // 全局导出
-      let data = this.$props.G_DATA
-      this.$Modal.confirm({
+    $_exportData(type) {
+
+      if (type === 'global') {
+        // 全局导出
+        let data = this.$props.G_DATA
+        this.$Modal.confirm({
           render: (h) => {
             return h('Input', {
               props: {
@@ -235,59 +207,59 @@ export default {
           onOk: () => {
             this.jsonText = JSON.stringify(data, null, 4)
             this.a.download = this.fileName + '.json'
-            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], {type: 'text/json' }))
+            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], { type: 'text/json' }))
             this.a.dispatchEvent(new MouseEvent('click'))
           }
         })
-    }else if (type === 'part') {
-      // 局部导出
-      function deepClone(obj){
-        let _obj = JSON.stringify(obj),
-        objClone = JSON.parse(_obj);
-        return objClone
-      }
-
-      let data = {
-        currentSystemId:deepClone(this.$props.G_DATA.currentSystemId),
-        SystemData:[]
-      }
-      
-      // 1.获取当前系统的数据 
-      let currentSystemData_copy = deepClone(this.$props.G_DATA.SystemData.find(item => item.system_id == data.currentSystemId))
-      // 2. 删除一切输入和输出节点 以及相关的边
-      let inputORoutput_nodes = currentSystemData_copy.data.nodes.filter(item => item.type == 'input-node' || item.type == 'output-node')
-      // 2.1 删除所有的相关边与节点
-      for (let node of inputORoutput_nodes) {
-
-        let edges = currentSystemData_copy.data.edges.filter(item => item.sourceNodeId == node.id || item.targetNodeId == node.id)
-        for (let edge of edges) {
-          currentSystemData_copy.data.edges.splice(currentSystemData_copy.data.edges.indexOf(edge), 1)
+      } else if (type === 'part') {
+        // 局部导出
+        function deepClone(obj) {
+          let _obj = JSON.stringify(obj),
+            objClone = JSON.parse(_obj);
+          return objClone
         }
-        currentSystemData_copy.data.nodes.splice(currentSystemData_copy.data.nodes.indexOf(node), 1)
-      }
-      data.SystemData.push(currentSystemData_copy)
 
-      // 3. 递归获取当前系统的所有子系统的数据 
-      /**
-       * 递归获取当前系统的所有子系统的数据
-       * @param {number} system_id  当前系统的id
-       * @param {object} G_SyatemData 全局数据
-       * @param {object} data 需要改变的对象
-       */
-      function getChildrenSystemData(system_id,G_SystemData,data) {
-        
-      let  childrenSystems = deepClone(G_SystemData.filter(item => item.parent_id == system_id))
-        if (childrenSystems.length > 0) {
-          for (let child of childrenSystems) {
-            data.SystemData.push(child)
-            getChildrenSystemData(child.system_id,G_SystemData,data)
+        let data = {
+          currentSystemId: deepClone(this.$props.G_DATA.currentSystemId),
+          SystemData: []
+        }
+
+        // 1.获取当前系统的数据 
+        let currentSystemData_copy = deepClone(this.$props.G_DATA.SystemData.find(item => item.system_id == data.currentSystemId))
+        // 2. 删除一切输入和输出节点 以及相关的边
+        let inputORoutput_nodes = currentSystemData_copy.data.nodes.filter(item => item.type == 'input-node' || item.type == 'output-node')
+        // 2.1 删除所有的相关边与节点
+        for (let node of inputORoutput_nodes) {
+
+          let edges = currentSystemData_copy.data.edges.filter(item => item.sourceNodeId == node.id || item.targetNodeId == node.id)
+          for (let edge of edges) {
+            currentSystemData_copy.data.edges.splice(currentSystemData_copy.data.edges.indexOf(edge), 1)
+          }
+          currentSystemData_copy.data.nodes.splice(currentSystemData_copy.data.nodes.indexOf(node), 1)
+        }
+        data.SystemData.push(currentSystemData_copy)
+
+        // 3. 递归获取当前系统的所有子系统的数据 
+        /**
+         * 递归获取当前系统的所有子系统的数据
+         * @param {number} system_id  当前系统的id
+         * @param {object} G_SyatemData 全局数据
+         * @param {object} data 需要改变的对象
+         */
+        function getChildrenSystemData(system_id, G_SystemData, data) {
+
+          let childrenSystems = deepClone(G_SystemData.filter(item => item.parent_id == system_id))
+          if (childrenSystems.length > 0) {
+            for (let child of childrenSystems) {
+              data.SystemData.push(child)
+              getChildrenSystemData(child.system_id, G_SystemData, data)
+            }
           }
         }
-      }
-      getChildrenSystemData(data.currentSystemId,this.$props.G_DATA.SystemData,data)
+        getChildrenSystemData(data.currentSystemId, this.$props.G_DATA.SystemData, data)
 
-      // 1.
-      this.$Modal.confirm({
+        // 1.
+        this.$Modal.confirm({
           render: (h) => {
             return h('Input', {
               props: {
@@ -305,14 +277,14 @@ export default {
           onOk: () => {
             this.jsonText = JSON.stringify(data, null, 4)
             this.a.download = this.fileName + '.json'
-            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], {type: 'text/json' }))
+            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], { type: 'text/json' }))
             this.a.dispatchEvent(new MouseEvent('click'))
           }
         })
       }
 
     },
-    $_importData (file) {
+    $_importData(file) {
       return new Promise((resolve, reject) => {
         // 检验是否支持 FileRender
         if (typeof FileReader === 'undefined') {
@@ -342,7 +314,7 @@ export default {
       })
     },
 
-    $_importFMECA (file) {
+    $_importFMECA(file) {
       let fd = new FormData()
       fd.append('modelFile', file.raw)
       this.$axios({
@@ -356,7 +328,7 @@ export default {
       })
     },
 
-    $_optimizeCkpt () {
+    $_optimizeCkpt() {
       let data = this.$props.lf.getGraphData()
       if (data.nodes.length === 0) {
         this.$alert('流图为空')
@@ -375,7 +347,7 @@ export default {
       }
     },
 
-    $_check () {
+    $_check() {
       let data = this.$props.lf.getGraphData()
       if (data.nodes.length === 0) {
         this.$alert('流图为空')
@@ -406,7 +378,7 @@ export default {
         })
       }
     },
-    $_analyse (file) {
+    $_analyse(file) {
       let fd = new FormData()
       fd.append('graphStruct', JSON.stringify(exportStruct(this.$props.lf.getGraphData())))
       fd.append('dataFile', file.raw)
@@ -420,12 +392,11 @@ export default {
         this.$props.lf.render(importStruct(res.data, 'analyse'))
       })
     },
-    $_test () {
+    $_test() {
 
     },
   }
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
