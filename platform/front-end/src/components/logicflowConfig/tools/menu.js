@@ -325,6 +325,8 @@ const controlConfig = {
 
   // 故障分析 ※需要与后台交互
   analyse: true  // option value: true | false
+
+  
 }
 
 export { menu, controlConfig }

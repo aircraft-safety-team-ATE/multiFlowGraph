@@ -31,10 +31,13 @@
         type="plain" size="small" @click="$_reDraw">重绘</el-button>
       <el-button
         v-if="controlConfig.exportData"
-        type="plain" size="small" @click="$_exportData">导出流图</el-button>
+        type="plain" size="small" @click="exportData_dialogVisible = true">导出流图</el-button>
+      <el-button
+        v-if="controlConfig.importData"
+        type="plain" size="small" @click="importData_dialogVisible = true">载入流图</el-button>
     </el-button-group>
 
-    <el-upload
+    <!-- <el-upload
       v-if="controlConfig.importData"
       style="display:inline-block; margin-left: -5px;"
       action=""
@@ -44,7 +47,7 @@
       :show-file-list="false"
       :on-change="$_importData">
       <el-button type="plain" size="small">载入流图</el-button>
-    </el-upload>
+    </el-upload> -->
 
     <el-upload
       v-if="controlConfig.importFMECA"
@@ -68,6 +71,8 @@
       type="plain" size="small" @click="$_optimizeCkpt"
       style="display:inline-block; margin-left: -5px;">测点优化</el-button>
 
+
+      
     <el-upload
       v-if="controlConfig.analyse"
       style="display:inline-block; margin-left: -5px;"
@@ -79,6 +84,24 @@
       :on-change="$_analyse">
       <el-button type="plain" size="small">故障分析</el-button>
     </el-upload>
+
+        <el-dialog width="60%" :title="'流图载入方式'" :visible.sync="importData_dialogVisible" :modal="false">
+
+          <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
+          <el-button type="primary" @click="$_inportData('global')">载入全局数据</el-button>
+          <el-button type="primary" @click="$_inportData('part_incremental')">载入局部数据（增量式）</el-button>
+          <el-button type="primary" @click="$_inportData('partJustCurrent_incremental')">载入局部数据，仅当前页面（增量式）</el-button>
+            <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>  
+          </div>  
+        </el-dialog>
+    
+          <el-dialog width="60%" :title="'流图导出方式'" :visible.sync="exportData_dialogVisible" :modal="false">
+            <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
+          <el-button type="primary" @click="$_exportData('global')">导出全局数据</el-button>
+          <el-button type="primary" @click="$_exportData('part')">导出局部数据</el-button>
+            <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>  
+          </div>
+          </el-dialog>
 
     <el-dialog width="60%" :title="dialogTitle" :visible.sync="Visible" :modal="false">
       <el-descriptions title="性能指标" :column="3" border v-if="dialogType==='check'">
@@ -119,7 +142,8 @@ import { controlConfig } from '../logicflowConfig/tools/menu'
 export default {
   name: 'Control',
   props: {
-    lf: Object || String
+    lf: Object || String,
+    G_DATA: Object
   },
   data () {
     return {
@@ -130,6 +154,8 @@ export default {
       fileName: 'data',
       jsonText: '',
       reader: null,
+      importData_dialogVisible: false,
+      exportData_dialogVisible: false,
       Visible: false,
       dialogType: 'check',
       result: {
@@ -186,8 +212,11 @@ export default {
       })
       this.$props.lf.render(data)
     },
-    $_exportData () {
-      let data = exportStruct(this.$props.lf.getGraphData())
+    $_exportData (type) {
+      
+    if (type === 'global') {
+      // 全局导出
+      let data = this.$props.G_DATA
       this.$Modal.confirm({
           render: (h) => {
             return h('Input', {
@@ -210,6 +239,78 @@ export default {
             this.a.dispatchEvent(new MouseEvent('click'))
           }
         })
+    }else if (type === 'part') {
+      // 局部导出
+      function deepClone(obj){
+        let _obj = JSON.stringify(obj),
+        objClone = JSON.parse(_obj);
+        return objClone
+      }
+
+      let data = {
+        currentSystemId:deepClone(this.$props.G_DATA.currentSystemId),
+        SystemData:[]
+      }
+      
+      // 1.获取当前系统的数据 
+      let currentSystemData_copy = deepClone(this.$props.G_DATA.SystemData.find(item => item.system_id == data.currentSystemId))
+      // 2. 删除一切输入和输出节点 以及相关的边
+      let inputORoutput_nodes = currentSystemData_copy.data.nodes.filter(item => item.type == 'input-node' || item.type == 'output-node')
+      // 2.1 删除所有的相关边与节点
+      for (let node of inputORoutput_nodes) {
+
+        let edges = currentSystemData_copy.data.edges.filter(item => item.sourceNodeId == node.id || item.targetNodeId == node.id)
+        for (let edge of edges) {
+          currentSystemData_copy.data.edges.splice(currentSystemData_copy.data.edges.indexOf(edge), 1)
+        }
+        currentSystemData_copy.data.nodes.splice(currentSystemData_copy.data.nodes.indexOf(node), 1)
+      }
+      data.SystemData.push(currentSystemData_copy)
+
+      // 3. 递归获取当前系统的所有子系统的数据 
+      /**
+       * 递归获取当前系统的所有子系统的数据
+       * @param {number} system_id  当前系统的id
+       * @param {object} G_SyatemData 全局数据
+       * @param {object} data 需要改变的对象
+       */
+      function getChildrenSystemData(system_id,G_SystemData,data) {
+        
+      let  childrenSystems = deepClone(G_SystemData.filter(item => item.parent_id == system_id))
+        if (childrenSystems.length > 0) {
+          for (let child of childrenSystems) {
+            data.SystemData.push(child)
+            getChildrenSystemData(child.system_id,G_SystemData,data)
+          }
+        }
+      }
+      getChildrenSystemData(data.currentSystemId,this.$props.G_DATA.SystemData,data)
+
+      // 1.
+      this.$Modal.confirm({
+          render: (h) => {
+            return h('Input', {
+              props: {
+                value: this.fileName,
+                placeholder: '请输入文件名',
+                autofocus: true
+              },
+              on: {
+                input: (val) => {
+                  this.fileName = val
+                }
+              }
+            })
+          },
+          onOk: () => {
+            this.jsonText = JSON.stringify(data, null, 4)
+            this.a.download = this.fileName + '.json'
+            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], {type: 'text/json' }))
+            this.a.dispatchEvent(new MouseEvent('click'))
+          }
+        })
+      }
+
     },
     $_importData (file) {
       return new Promise((resolve, reject) => {

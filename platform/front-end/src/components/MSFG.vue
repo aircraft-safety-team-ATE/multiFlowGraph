@@ -14,7 +14,7 @@
       <el-tree :data="module_tree" :expand-on-click-node="false" :indent="8" :default-expand-all="true"
         :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
     </div>
-    <Control class="demo-control" v-if="lf" :lf="lf" />
+    <Control class="demo-control" v-if="lf" :lf="lf" :G_DATA="G_DATA" />
     <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA" @updata-g-data="hangdle_update_gdata"
       @updata-g-data-subsystem="hangdle_update_gdata_subsystem" />
     <div ref="container" class="LF-view"></div>
