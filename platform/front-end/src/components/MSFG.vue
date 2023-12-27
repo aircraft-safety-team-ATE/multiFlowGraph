@@ -79,17 +79,23 @@ export default {
         let current_system = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId)
         let root_system_import = data.value.SystemData.find(item => item.parent_id == null)
         function isEmptyObject(obj) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
-}
+          return Object.keys(obj).length === 0 && obj.constructor === Object;
+        }
+
         if (isEmptyObject(current_system.data)) {
           current_system.data = root_system_import.data
-        } else {
+        } else if (current_system.data.nodes.length == 0) {
+          current_system.data = root_system_import.data
+        }
+        else {
+
+
           let current_system_rectangle = {
             x_leftUP: 1000000,
             y_leftUP: 1000000,
             x_rightDOWN: -1000000,
             y_rightDOWN: -1000000,
-            
+
           }
           let root_system_import_rectangle = {
             x_leftUP: 1000000,
@@ -113,31 +119,41 @@ export default {
             }
           })
 
-          root_system_import.data.nodes.forEach(item => {
+          for (const item of root_system_import.data.nodes) {
             if (item.x < root_system_import_rectangle.x_leftUP) {
-              root_system_import_rectangle.x_leftUP = item.x
+              root_system_import_rectangle.x_leftUP = item.x;
             }
             if (item.y < root_system_import_rectangle.y_leftUP) {
-              root_system_import_rectangle.y_leftUP = item.y
+              root_system_import_rectangle.y_leftUP = item.y;
             }
             if (item.x > root_system_import_rectangle.x_rightDOWN) {
-              root_system_import_rectangle.x_rightDOWN = item.x
+              root_system_import_rectangle.x_rightDOWN = item.x;
             }
             if (item.y > root_system_import_rectangle.y_rightDOWN) {
-              root_system_import_rectangle.y_rightDOWN = item.y
+              root_system_import_rectangle.y_rightDOWN = item.y;
             }
-          })
+
+            // 修复重复导入bug
+            if (current_system.data.nodes.find(item2 => item2.id === item.id) !== undefined) {
+              this.$message({
+                message: '禁止重复导入',
+                type: 'warning'
+              });
+              console.log('重复导入');
+              return; // 这会停止整个函数的执行
+            }
+          }
 
           let x_offset = current_system_rectangle.x_rightDOWN - root_system_import_rectangle.x_leftUP + 300
           let y_offset = current_system_rectangle.y_leftUP - root_system_import_rectangle.y_leftUP
-          
+
           // 将导入的根系统的节点坐标进行偏移
           root_system_import.data.nodes.forEach(item => {
             item.x += x_offset
             item.y += y_offset
-            if(item.type == 'subsystem-node'){
-              item.text.x+=x_offset
-              item.text.y+=y_offset
+            if (item.type == 'subsystem-node') {
+              item.text.x += x_offset
+              item.text.y += y_offset
             }
 
             current_system.data.nodes.push(item)
@@ -157,26 +173,26 @@ export default {
 
         }
         //2.将导入的子系统添加到this.G_DATA
-        function getSubSystemRecursive(old_system_id,new_system_id,import_G_DATA, G_DATA) {
+        function getSubSystemRecursive(old_system_id, new_system_id, import_G_DATA, G_DATA) {
 
-          let children =import_G_DATA.SystemData.filter(item => item.parent_id == old_system_id)
+          let children = import_G_DATA.SystemData.filter(item => item.parent_id == old_system_id)
           function deepClone(obj) {
-          let _obj = JSON.stringify(obj),
-            objClone = JSON.parse(_obj);
-          return objClone
-        }
+            let _obj = JSON.stringify(obj),
+              objClone = JSON.parse(_obj);
+            return objClone
+          }
           children.forEach(item => {
             let item_copy = deepClone(item)
             let old_system_id = item.system_id
-            item_copy.system_id = G_DATA.SystemData.length+1
+            item_copy.system_id = G_DATA.SystemData.length + 1
             item_copy.parent_id = new_system_id
             G_DATA.SystemData.push(item_copy)
-            getSubSystemRecursive(old_system_id,item_copy.system_id,import_G_DATA, G_DATA)
+            getSubSystemRecursive(old_system_id, item_copy.system_id, import_G_DATA, G_DATA)
           })
 
         }
-        
-        getSubSystemRecursive(root_system_import.system_id,current_system.system_id,data.value, this.G_DATA)
+
+        getSubSystemRecursive(root_system_import.system_id, current_system.system_id, data.value, this.G_DATA)
         this.handleNodeClick({ id: this.G_DATA.currentSystemId })
       }
       this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
