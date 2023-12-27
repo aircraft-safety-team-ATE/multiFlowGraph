@@ -32,7 +32,6 @@ const menu = {
               deleteSubsystem(node.properties.SubsystemId, this.G_DATA)
 
               // 2. 更新module tree
-              console.log("delsset", this.G_DATA.SystemData)
               this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
             } else if (node.type === "input-node") {
               // 1. 将剩余input节点的index重新排序和命名
@@ -164,7 +163,6 @@ const menu = {
                 deleteSubsystem(item.properties.SubsystemId, this.G_DATA)
 
                 // 2. 更新module tree
-                console.log("delsset", this.G_DATA.SystemData)
                 this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
               } else if (item.type === "input-node") {
                 // 1. 将剩余input节点的index重新排序和命名

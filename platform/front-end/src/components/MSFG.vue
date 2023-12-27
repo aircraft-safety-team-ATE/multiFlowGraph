@@ -57,7 +57,6 @@ export default {
   mounted() {
     this.$_initLf()
     this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
-    console.log("data", this.module_tree)
 
     let root_system = this.G_DATA.SystemData.find(item => item.parent_id == null)
 
@@ -79,8 +78,10 @@ export default {
         //1.将当前系统与导入的根系统进行合并
         let current_system = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId)
         let root_system_import = data.value.SystemData.find(item => item.parent_id == null)
-
-        if (current_system.data.nodes.length == 0) {
+        function isEmptyObject(obj) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+        if (isEmptyObject(current_system.data)) {
           current_system.data = root_system_import.data
         } else {
           let current_system_rectangle = {
@@ -159,15 +160,20 @@ export default {
         function getSubSystemRecursive(old_system_id,new_system_id,import_G_DATA, G_DATA) {
 
           let children =import_G_DATA.SystemData.filter(item => item.parent_id == old_system_id)
-      
+          function deepClone(obj) {
+          let _obj = JSON.stringify(obj),
+            objClone = JSON.parse(_obj);
+          return objClone
+        }
           children.forEach(item => {
+            let item_copy = deepClone(item)
             let old_system_id = item.system_id
-            item.system_id = G_DATA.SystemData.length+1
-            item.parent_id = new_system_id
-            G_DATA.SystemData.push(item)
-            getSubSystemRecursive(old_system_id,item.system_id,import_G_DATA, G_DATA)
+            item_copy.system_id = G_DATA.SystemData.length+1
+            item_copy.parent_id = new_system_id
+            G_DATA.SystemData.push(item_copy)
+            getSubSystemRecursive(old_system_id,item_copy.system_id,import_G_DATA, G_DATA)
           })
-          console.log("G_DATA",G_DATA)
+
         }
         
         getSubSystemRecursive(root_system_import.system_id,current_system.system_id,data.value, this.G_DATA)
@@ -180,20 +186,17 @@ export default {
       // 根据子系统的id找到父系统
       let parent_id = this.G_DATA.SystemData.find(item => item.system_id == data.system_id).parent_id
       let parent_system = this.G_DATA.SystemData.find(item => item.system_id == parent_id)
-      console.log("修改前", parent_system.data.nodes.find(item => item.properties.SubsystemId == data.system_id))
       // 更新parent_system的中对应子系统的input或output
       if (data.type == 'input') {
         parent_system.data.nodes.find(item => item.properties.SubsystemId == data.system_id).properties.fields.input = data.value
       } else if (data.type == 'output') {
         parent_system.data.nodes.find(item => item.properties.SubsystemId == data.system_id).properties.fields.output = data.value
       }
-      console.log("修改后", parent_system.data.nodes.find(item => item.properties.SubsystemId == data.system_id))
 
 
     },
     // 更新G_data数据 添加新子系统
     hangdle_update_gdata(new_system) {
-      console.log("new_system", new_system)
       this.G_DATA.SystemData.push(new_system)
       this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
     },
@@ -211,9 +214,7 @@ export default {
       function getModuleTreeRecursive(node, G_DATA) {
 
         let children = G_DATA.filter(item => item.parent_id == node.id)
-        console.log("digui", children)
         if (children.length == 0) {
-          console.log("jieshi")
           return null
         }
         children.forEach(item => {
@@ -227,7 +228,6 @@ export default {
         })
       }
 
-      console.log("start", root_node, G_DATA)
       getModuleTreeRecursive(root_node, G_DATA)
       return [root_node]
     },
@@ -242,10 +242,8 @@ export default {
         this.G_DATA.SystemData.find(item => item.system_id == _node.properties.SubsystemId).name = _node.text.value
         this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
       }
-      console.log("node", _node.type)
     },
     handleNodeClick(data) {
-      console.log(data)
       this.G_DATA.currentSystemId = data.id
 
       // 更新面包屑 面包屑结构为 [{name:xxx,id:xxx},{name:xxx,id:xxx}] 从当前系统开始一直到root
@@ -277,7 +275,6 @@ export default {
         for (let anchor of node.anchors) {
           if (anchor.type == 'left') {
             // 调整连线的终点位置
-            console.log("终点位置",)
             let relative_edges = current_system_data.edges.filter(item => item.targetAnchorId == anchor.id)
             relative_edges.forEach(item => {
 

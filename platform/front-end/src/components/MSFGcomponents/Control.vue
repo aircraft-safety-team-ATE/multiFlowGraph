@@ -307,7 +307,6 @@ export default {
           }
         }
       }).then((res) => {
-        console.log(res)
         // this.$props.lf.render(importStruct(res))
         this.$emit("updata-import-data", {
           type: 'global',
@@ -340,7 +339,6 @@ export default {
           }
         }
       }).then((res) => {
-        console.log(res)
         // let data = importStruct(res)
         // this.$props.lf.render(data)
         this.$emit("updata-import-data", {
@@ -389,7 +387,7 @@ export default {
         method: 'post',
         data: fd
       }).then((res) => {
-        console.log(res)
+        (res)
         this.$props.lf.render(importStruct(res.data))
         //this.Visible = true
       })
@@ -407,7 +405,7 @@ export default {
           method: 'post',
           data: fd
         }).then((res) => {
-          console.log(res)
+          (res)
           this.$props.lf.render(importStruct(res.data))
           //this.Visible = true
         })
@@ -426,7 +424,6 @@ export default {
           method: 'post',
           data: fd
         }).then((res) => {
-          console.log(res)
           this.dialogType = 'check'
           this.result.detect_isolat_ratio = res.detect_isolat_ratio
           this.result.col_names = ['row_name', ...res.col_names]
