@@ -66,10 +66,7 @@
           <el-button type="plain">载入局部数据（增量式）</el-button>
         </el-upload>
 
-        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
-          :multiple="false" :show-file-list="false" :on-change="$_importData_partJustSolo_incremental">
-          <el-button type="plain">载入全局数据</el-button>
-        </el-upload>
+
 
         <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
       </div>
@@ -226,6 +223,8 @@ export default {
 
         // 1.获取当前系统的数据 
         let currentSystemData_copy = deepClone(this.$props.G_DATA.SystemData.find(item => item.system_id == data.currentSystemId))
+        // 当前系统变为root系统
+        currentSystemData_copy.parent_id =null
         // 2. 删除一切输入和输出节点 以及相关的边
         let inputORoutput_nodes = currentSystemData_copy.data.nodes.filter(item => item.type == 'input-node' || item.type == 'output-node')
         // 2.1 删除所有的相关边与节点
@@ -284,7 +283,7 @@ export default {
       }
 
     },
-    $_importData(file) {
+    $_importData_global(file) {
       return new Promise((resolve, reject) => {
         // 检验是否支持 FileRender
         if (typeof FileReader === 'undefined') {
@@ -309,10 +308,78 @@ export default {
         }
       }).then((res) => {
         console.log(res)
-        let data = importStruct(res)
-        this.$props.lf.render(data)
+        // this.$props.lf.render(importStruct(res))
+        this.$emit("updata-import-data", {
+          type: 'global',
+          value: res
+        })
+        this.importData_dialogVisible = false
       })
     },
+    $_importData_part_incremental(file) {
+      return new Promise((resolve, reject) => {
+        // 检验是否支持 FileRender
+        if (typeof FileReader === 'undefined') {
+          reject('当前浏览器不支持FileReader')
+        }
+        // 执行读取json数据操作
+        this.reader = new FileReader()
+        this.reader.readAsText(file.raw)
+        this.reader.onerror = (error) => {
+          reject('读取流图文件解析失败', error)
+        }
+        this.reader.onload = () => {
+          if (this.reader.result) {
+            try {
+              resolve(JSON.parse(this.reader.result))
+            } catch (error) {
+              reject('读取流图文件解析失败', error)
+            }
+          } else {
+            reject('读取流图文件解析失败', error)
+          }
+        }
+      }).then((res) => {
+        console.log(res)
+        // let data = importStruct(res)
+        // this.$props.lf.render(data)
+        this.$emit("updata-import-data", {
+          type: 'part_incremental',
+          value: res
+        })
+        this.importData_dialogVisible = false
+      })
+    },
+
+    // $_importData(file) {
+    //   return new Promise((resolve, reject) => {
+    //     // 检验是否支持 FileRender
+    //     if (typeof FileReader === 'undefined') {
+    //       reject('当前浏览器不支持FileReader')
+    //     }
+    //     // 执行读取json数据操作
+    //     this.reader = new FileReader()
+    //     this.reader.readAsText(file.raw)
+    //     this.reader.onerror = (error) => {
+    //       reject('读取流图文件解析失败', error)
+    //     }
+    //     this.reader.onload = () => {
+    //       if (this.reader.result) {
+    //         try {
+    //           resolve(JSON.parse(this.reader.result))
+    //         } catch (error) {
+    //           reject('读取流图文件解析失败', error)
+    //         }
+    //       } else {
+    //         reject('读取流图文件解析失败', error)
+    //       }
+    //     }
+    //   }).then((res) => {
+    //     console.log(res)
+    //     let data = importStruct(res)
+    //     this.$props.lf.render(data)
+    //   })
+    // },
 
     $_importFMECA(file) {
       let fd = new FormData()

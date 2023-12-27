@@ -14,7 +14,7 @@
       <el-tree :data="module_tree" :expand-on-click-node="false" :indent="8" :default-expand-all="true"
         :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
     </div>
-    <Control class="demo-control" v-if="lf" :lf="lf" :G_DATA="G_DATA" />
+    <Control class="demo-control" v-if="lf" :lf="lf" :G_DATA="G_DATA" @updata-import-data="handle_update_import_data" />
     <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA" @updata-g-data="hangdle_update_gdata"
       @updata-g-data-subsystem="hangdle_update_gdata_subsystem" />
     <div ref="container" class="LF-view"></div>
@@ -70,6 +70,112 @@ export default {
       this.handleNodeClick({ id: sysid });
     },
     // 跟新G_data数据 更新子系统的input或output
+    handle_update_import_data(data) {
+      if (data.type == 'global') {
+        this.G_DATA = data.value
+        let root_id = this.G_DATA.SystemData.find(item => item.parent_id == null).system_id
+        this.handleNodeClick({ id: root_id })
+      } else if (data.type == 'part_incremental') {
+        //1.将当前系统与导入的根系统进行合并
+        let current_system = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId)
+        let root_system_import = data.value.SystemData.find(item => item.parent_id == null)
+
+        if (current_system.data.nodes.length == 0) {
+          current_system.data = root_system_import.data
+        } else {
+          let current_system_rectangle = {
+            x_leftUP: 1000000,
+            y_leftUP: 1000000,
+            x_rightDOWN: -1000000,
+            y_rightDOWN: -1000000,
+            
+          }
+          let root_system_import_rectangle = {
+            x_leftUP: 1000000,
+            y_leftUP: 1000000,
+            x_rightDOWN: -1000000,
+            y_rightDOWN: -1000000,
+          }
+
+          current_system.data.nodes.forEach(item => {
+            if (item.x < current_system_rectangle.x_leftUP) {
+              current_system_rectangle.x_leftUP = item.x
+            }
+            if (item.y < current_system_rectangle.y_leftUP) {
+              current_system_rectangle.y_leftUP = item.y
+            }
+            if (item.x > current_system_rectangle.x_rightDOWN) {
+              current_system_rectangle.x_rightDOWN = item.x
+            }
+            if (item.y > current_system_rectangle.y_rightDOWN) {
+              current_system_rectangle.y_rightDOWN = item.y
+            }
+          })
+
+          root_system_import.data.nodes.forEach(item => {
+            if (item.x < root_system_import_rectangle.x_leftUP) {
+              root_system_import_rectangle.x_leftUP = item.x
+            }
+            if (item.y < root_system_import_rectangle.y_leftUP) {
+              root_system_import_rectangle.y_leftUP = item.y
+            }
+            if (item.x > root_system_import_rectangle.x_rightDOWN) {
+              root_system_import_rectangle.x_rightDOWN = item.x
+            }
+            if (item.y > root_system_import_rectangle.y_rightDOWN) {
+              root_system_import_rectangle.y_rightDOWN = item.y
+            }
+          })
+
+          let x_offset = current_system_rectangle.x_rightDOWN - root_system_import_rectangle.x_leftUP + 300
+          let y_offset = current_system_rectangle.y_leftUP - root_system_import_rectangle.y_leftUP
+          
+          // 将导入的根系统的节点坐标进行偏移
+          root_system_import.data.nodes.forEach(item => {
+            item.x += x_offset
+            item.y += y_offset
+            if(item.type == 'subsystem-node'){
+              item.text.x+=x_offset
+              item.text.y+=y_offset
+            }
+
+            current_system.data.nodes.push(item)
+          })
+          // 将导入的根系统的边进行偏移
+          root_system_import.data.edges.forEach(item => {
+            item.startPoint.x += x_offset
+            item.startPoint.y += y_offset
+            item.endPoint.x += x_offset
+            item.endPoint.y += y_offset
+            item.pointsList.forEach(point => {
+              point.x += x_offset
+              point.y += y_offset
+            })
+            current_system.data.edges.push(item)
+          })
+
+        }
+        //2.将导入的子系统添加到this.G_DATA
+        function getSubSystemRecursive(old_system_id,new_system_id,import_G_DATA, G_DATA) {
+
+          let children =import_G_DATA.SystemData.filter(item => item.parent_id == old_system_id)
+      
+          children.forEach(item => {
+            let old_system_id = item.system_id
+            item.system_id = G_DATA.SystemData.length+1
+            item.parent_id = new_system_id
+            G_DATA.SystemData.push(item)
+            getSubSystemRecursive(old_system_id,item.system_id,import_G_DATA, G_DATA)
+          })
+          console.log("G_DATA",G_DATA)
+        }
+        
+        getSubSystemRecursive(root_system_import.system_id,current_system.system_id,data.value, this.G_DATA)
+        this.handleNodeClick({ id: this.G_DATA.currentSystemId })
+      }
+      this.module_tree = this.getModuleTree(this.G_DATA.SystemData)
+    },
+
     hangdle_update_gdata_subsystem(data) {
       // 根据子系统的id找到父系统
       let parent_id = this.G_DATA.SystemData.find(item => item.system_id == data.system_id).parent_id
