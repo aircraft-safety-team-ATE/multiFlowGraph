@@ -2,6 +2,7 @@
   <div class="logic-flow-view">
     <!-- 显示一些文本 -->
     <div style="float: left" class="current-system-breadcrumb">
+      
       <span> 所在系统：</span>
       <span v-for="(item, itemid) in current_system_breadcrumb">
         <el-tag v-if="item.name" @click="handleTagClick(item.id)" size="mini" type="primary">
@@ -10,6 +11,8 @@
         <span v-if="itemid !== current_system_breadcrumb.length - 1">{{ '>' }}</span>
       </span>
     </div>
+    <p>访问我们的 GitHub 项目(欢迎发现bug 并提交issue):</p>
+    <a href="https://github.com/aircraft-safety-team-ATE/multiFlowGraph/tree/feature-subsystemSetting-fengzhaoyu" target="_blank">multiFlowGraph 项目</a>
     <div class="model—tree">
       <el-tree :data="module_tree" :expand-on-click-node="false" :indent="8" :default-expand-all="true"
         :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
