@@ -3,6 +3,10 @@ import os
 import re
 import xml.etree.ElementTree as ET
 
+DIR_PATH = os.path.dirname(os.path.abspath(__file__))
+SIMULINK_FILE = r"slAccelDemoF14.mdl"
+
+# 画布缩放比例
 WIDTH_RATE = 3
 HEIGHT_RATE = 3
 
@@ -310,64 +314,61 @@ def get_parent_map(xml_system_dict):
 
 
 
-DIR_PATH = os.path.dirname(os.path.abspath(__file__))
-SIMULINK_FILE = r"slAccelDemoF14.mdl"
+
+
+if __name__ == "__main__":
+    with open(os.path.join(DIR_PATH, SIMULINK_FILE), 'r', encoding='utf-8') as f:
+        content = f.readlines()
 
 
 
-with open(os.path.join(DIR_PATH, SIMULINK_FILE), 'r', encoding='utf-8') as f:
-    content = f.readlines()
+    xml_dict = {}
+    FLAG = False
+    for index, text in enumerate(content):
+        # 正则表达式匹配__MWOPC_PART_BEGIN__
+        if re.search("__MWOPC_PART_BEGIN__", text):
 
-print(content)
-
-
-xml_dict = {}
-FLAG = False
-for index, text in enumerate(content):
-    # 正则表达式匹配__MWOPC_PART_BEGIN__
-    if re.search("__MWOPC_PART_BEGIN__", text):
-
-        # 哈希值跳过
-        if re.search("BASE64", text):
+            # 哈希值跳过
+            if re.search("BASE64", text):
+                continue
+            name = text.split(' ')[-1]
+            start_index = index+2
+            if re.search("Version information", content[start_index]):
+                start_index += 1
+            start = re.search(r"<[A-Z|a-z|:]+", content[start_index]).group()
+            start = start[1:]
+            FLAG = True
             continue
-        name = text.split(' ')[-1]
-        start_index = index+2
-        if re.search("Version information", content[start_index]):
-            start_index += 1
-        start = re.search(r"<[A-Z|a-z|:]+", content[start_index]).group()
-        start = start[1:]
-        FLAG = True
-        continue
 
-    if FLAG:
-        if re.search("/"+start, text):
-            FLAG = False
-            end_index = index
-            xml_dict[name] = "".join(content[start_index:end_index+1])
+        if FLAG:
+            if re.search("/"+start, text):
+                FLAG = False
+                end_index = index
+                xml_dict[name] = "".join(content[start_index:end_index+1])
 
-xml_system_dict = {}
+    xml_system_dict = {}
 
-for name, xml in xml_dict.items():
-    if re.search("systems", name):
-        
-        if name.split("/")[2] == "systems":
-            name = name.split("/")[-1].replace("\n", "")
-            xml_system_dict[name] = ET.fromstring(xml)
+    for name, xml in xml_dict.items():
+        if re.search("systems", name):
+            
+            if name.split("/")[2] == "systems":
+                name = name.split("/")[-1].replace("\n", "")
+                xml_system_dict[name] = ET.fromstring(xml)
 
-parent_map = get_parent_map(xml_system_dict)
-G_data = {
-    "currentSystemId": "system_root",
-    "SystemData": []
-}
-for name, xml in xml_system_dict.items():
-    if name.split(".")[-1] == "xml":
-        G_data["SystemData"].append(get_system(name,xml,parent_map))
+    parent_map = get_parent_map(xml_system_dict)
+    G_data = {
+        "currentSystemId": "system_root",
+        "SystemData": []
+    }
+    for name, xml in xml_system_dict.items():
+        if name.split(".")[-1] == "xml":
+            G_data["SystemData"].append(get_system(name,xml,parent_map))
 
-with open(os.path.join(DIR_PATH,"data.json"),"w+",encoding='utf-8') as f:
-    import json
-    json.dump(G_data,f,ensure_ascii=False,indent=4)
+    with open(os.path.join(DIR_PATH,"data.json"),"w+",encoding='utf-8') as f:
+        import json
+        json.dump(G_data,f,ensure_ascii=False,indent=4)
 
-print("parent_map",parent_map)
+    print("parent_map",parent_map)
 
-print("ok")
+    print("ok")
 
