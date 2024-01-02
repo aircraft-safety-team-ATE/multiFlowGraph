@@ -10,6 +10,7 @@ SIMULINK_FILE = r"slAccelDemoF14.mdl"
 WIDTH_RATE = 3
 HEIGHT_RATE = 3
 
+
 def _get_system(xml):
     system_data = {"nodes": [], "edges": []}
     input_index = 1
@@ -17,75 +18,74 @@ def _get_system(xml):
     # 处理节点
     for node_xml in xml.findall("Block"):
 
-        if(node_xml.attrib["BlockType"] == "SubSystem"):
-          
+        if (node_xml.attrib["BlockType"] == "SubSystem"):
+
             # 1.提取关键信息
             node_id = node_xml.attrib["SID"]
             node_text = node_xml.attrib["Name"]
             subsystem_id = node_xml.findall("System")[0].attrib["Ref"]
-            
+
             for ele in node_xml.findall("P"):
                 if ele.attrib["Name"] == "Position":
                     Position = eval(ele.text)
                     node_x = Position[0]*WIDTH_RATE
                     node_y = Position[1]*HEIGHT_RATE
 
-
                 if ele.attrib["Name"] == "Ports":
                     ports = eval(ele.text)
                     if len(ports) == 2:
                         node_input = ports[0]
                         node_output = ports[1]
-                    else:    
+                    else:
                         node_input = 0
                         node_output = 0
 
             node_width = 200
-            node_height = 60 + max(node_input,node_output)*24
+            node_height = 60 + max(node_input, node_output)*24
 
             # 2.构造subsystem Data
             node_data = {
-                "id":node_id,
-                "type":"subsystem-node",
-                "x":node_x,
-                "y":node_y,
-                "properties":{
-                    "tableName":"",
-                    "SubsystemId":subsystem_id,
-                    "fields":{
-                        "input":node_input,
-                        "output":node_output
+                "id": node_id,
+                "type": "subsystem-node",
+                "x": node_x,
+                "y": node_y,
+                "properties": {
+                    "tableName": "",
+                    "SubsystemId": subsystem_id,
+                    "fields": {
+                        "input": node_input,
+                        "output": node_output
                     }
 
                 },
-                "text":{
-                    "x":node_x,
-                    "y":node_y,
-                    "value":node_text
+                "text": {
+                    "x": node_x,
+                    "y": node_y,
+                    "value": node_text
                 },
-                "anchors":[]
+                "anchors": []
             }
 
             # 3 构造subsystem Data 中的anchors信息
 
             # 3.1 构造输入anchors
-            for i in range(0,node_input):
+            for i in range(0, node_input):
                 node_data["anchors"].append({
-                    "x":node_x - node_width/2+10,
-                    "y":node_y - node_height/2 +60+i *24,
-                    "id":node_data['id']+'_'+str(i)+'_left',
-                    "edgeAddable":False,
-                    "type":"left"
+                    "x": node_x - node_width/2+10,
+                    "y": node_y - node_height/2 + 60+i * 24,
+                    "id": node_data['id']+'_'+str(i)+'_left',
+                    "edgeAddable": False,
+                    "type": "left"
                 })
-                
+
             # 3.2 构造输出anchors
-            for i in range(0,node_output):
+            for i in range(0, node_output):
                 node_data["anchors"].append({
-                    "x":node_x - node_width/2+190,
-                    "y":node_y - node_height/2 +60+i *24,
-                    "id":node_data['id']+'_'+str(i)+'_right',
-                    "edgeAddable":False,
-                    "type":"right"
+                    "x": node_x - node_width/2+190,
+                    "y": node_y - node_height/2 + 60+i * 24,
+                    "id": node_data['id']+'_'+str(i)+'_right',
+                    "edgeAddable": False,
+                    "type": "right"
                 })
         else:
             # 共用的属性信息
@@ -113,97 +113,98 @@ def _get_system(xml):
 
             node_data = {
                 "id": node_id,
-                "type":"",
+                "type": "",
                 "x": node_x,
                 "y": node_y,
-                "properties":properties,
-                "text":{
-                    "x":node_x,
-                    "y":node_y,
-                    "value":node_text
+                "properties": properties,
+                "text": {
+                    "x": node_x,
+                    "y": node_y,
+                    "value": node_text
                 },
-                "anchors":[]
+                "anchors": []
             }
             # 不同节点定制化策略
-            if node_xml.attrib["BlockType"]=="Inport":
+            if node_xml.attrib["BlockType"] == "Inport":
                 node_data["type"] = "input-node"
                 node_data["properties"]["index"] = input_index
                 node_data["properties"]["typeColor"] = "#85C1E9"
                 node_data["text"]["value"] = "输入"+str(input_index)
                 node_data["anchors"].append({
-                    "x":node_x + 50,
-                    "y":node_y,
-                    "id":node_id+"_right",
-                    "edgeAddable":False,
-                    "type":"right"
+                    "x": node_x + 50,
+                    "y": node_y,
+                    "id": node_id+"_right",
+                    "edgeAddable": False,
+                    "type": "right"
                 })
                 input_index += 1
-            elif node_xml.attrib["BlockType"]=="Outport":
+            elif node_xml.attrib["BlockType"] == "Outport":
                 node_data["type"] = "output-node"
                 node_data["properties"]["index"] = output_index
                 node_data["properties"]["typeColor"] = "#85C1E9"
                 node_data["text"]["value"] = "输出"+str(output_index)
                 node_data["anchors"].append({
-                    "x":node_x - 50,
-                    "y":node_y,
-                    "id":node_id+"_left",
-                    "edgeAddable":False,
-                    "type":"left"
+                    "x": node_x - 50,
+                    "y": node_y,
+                    "id": node_id+"_left",
+                    "edgeAddable": False,
+                    "type": "left"
                 })
-                output_index += 1                
+                output_index += 1
             else:
                 node_data["type"] = "fault-node"
                 node_data["anchors"].append({
-                    "x":node_x + 50,
-                    "y":node_y,
-                    "id":node_id+"_right",
-                    "edgeAddable":False,
-                    "type":"right"
+                    "x": node_x + 50,
+                    "y": node_y,
+                    "id": node_id+"_right",
+                    "edgeAddable": False,
+                    "type": "right"
                 })
                 node_data["anchors"].append({
-                    "x":node_x - 50,
-                    "y":node_y,
-                    "id":node_id+"_left",
-                    "edgeAddable":False,
-                    "type":"left"
+                    "x": node_x - 50,
+                    "y": node_y,
+                    "id": node_id+"_left",
+                    "edgeAddable": False,
+                    "type": "left"
                 })
         system_data["nodes"].append(node_data)
 
     # 处理连线
-    for index,edge_xml in enumerate(xml.findall("Line")):
+    for index, edge_xml in enumerate(xml.findall("Line")):
         # 1. 初始化edge
         edge_data = {
-            "id":index,
-            "type":"custom-edge",
-            "properties":{},
-            "pointsList":[]
+            "id": index,
+            "type": "custom-edge",
+            "properties": {},
+            "pointsList": []
         }
         # 2. 处理起点
         for ele in edge_xml.findall("P"):
             if ele.attrib["Name"] == "Src":
                 Source_ID = ele.text.split("#")[0]
                 Source_Port = int(ele.text.split(":")[-1])
-        
+
         edge_data["sourceNodeId"] = Source_ID
 
         for node in system_data["nodes"]:
             if node["id"] == Source_ID:
                 if node["type"] == "subsystem-node":
-                    edge_data["sourceAnchorId"] = node["id"]+"_"+str(Source_Port-1)+"_right"
+                    edge_data["sourceAnchorId"] = node["id"] + \
+                        "_"+str(Source_Port-1)+"_right"
                     for anchor in node["anchors"]:
                         if anchor["id"] == edge_data["sourceAnchorId"]:
                             edge_data["startPoint"] = {
-                                "x":anchor["x"],
-                                "y":anchor["y"]
+                                "x": anchor["x"],
+                                "y": anchor["y"]
                             }
                 else:
                     edge_data["sourceAnchorId"] = node["id"]+"_right"
                     for anchor in node["anchors"]:
                         if anchor["id"] == edge_data["sourceAnchorId"]:
                             edge_data["startPoint"] = {
-                                "x":anchor["x"],
-                                "y":anchor["y"]
-                            }    
+                                "x": anchor["x"],
+                                "y": anchor["y"]
+                            }
         # 3. 处理终点
         # 多分支
         Target_ID = None
@@ -214,61 +215,64 @@ def _get_system(xml):
                     if ele2.attrib["Name"] == "Dst":
                         Target_ID = ele2.text.split("#")[0]
                         Target_Port = int(ele2.text.split(":")[-1])
-                
+
                 edge_data["targetNodeId"] = Target_ID
                 for node in system_data["nodes"]:
                     if node["id"] == Target_ID:
                         if node["type"] == "subsystem-node":
-                            edge_data["targetAnchorId"] = node["id"]+"_"+str(Target_Port-1)+"_left"
+                            edge_data["targetAnchorId"] = node["id"] + \
+                                "_"+str(Target_Port-1)+"_left"
                             for anchor in node["anchors"]:
                                 if anchor["id"] == edge_data["targetAnchorId"]:
                                     edge_data["endPoint"] = {
-                                        "x":anchor["x"],
-                                        "y":anchor["y"]
+                                        "x": anchor["x"],
+                                        "y": anchor["y"]
                                     }
                         else:
                             edge_data["targetAnchorId"] = node["id"]+"_left"
                             for anchor in node["anchors"]:
                                 if anchor["id"] == edge_data["targetAnchorId"]:
                                     edge_data["endPoint"] = {
-                                        "x":anchor["x"],
-                                        "y":anchor["y"]
+                                        "x": anchor["x"],
+                                        "y": anchor["y"]
                                     }
-                    system_data["edges"].append(edge_data)
+                system_data["edges"].append(edge_data)
         else:
             for ele in edge_xml.findall("P"):
                 if ele.attrib["Name"] == "Dst":
                     Target_ID = ele.text.split("#")[0]
                     Target_Port = int(ele.text.split(":")[-1])
-            
+
             edge_data["targetNodeId"] = Target_ID
             for node in system_data["nodes"]:
                 if node["id"] == Target_ID:
                     if node["type"] == "subsystem-node":
-                        edge_data["targetAnchorId"] = node["id"]+"_"+str(Target_Port-1)+"_left"
+                        edge_data["targetAnchorId"] = node["id"] + \
+                            "_"+str(Target_Port-1)+"_left"
                         for anchor in node["anchors"]:
                             if anchor["id"] == edge_data["targetAnchorId"]:
                                 edge_data["endPoint"] = {
-                                    "x":anchor["x"],
-                                    "y":anchor["y"]
-                                }                    
+                                    "x": anchor["x"],
+                                    "y": anchor["y"]
+                                }
                     else:
                         edge_data["targetAnchorId"] = node["id"]+"_left"
                         for anchor in node["anchors"]:
                             if anchor["id"] == edge_data["targetAnchorId"]:
                                 edge_data["endPoint"] = {
-                                    "x":anchor["x"],
-                                    "y":anchor["y"]
-                                }            
+                                    "x": anchor["x"],
+                                    "y": anchor["y"]
+                                }
             system_data["edges"].append(edge_data)
         # 4. 添加到system_data中
 
     return system_data
 
-def get_system(name,xml,parent_map):
+
+def get_system(name, xml, parent_map):
     '''
     从xml中提取system信息
-    
+
     Args:
         name: system的名称 例如: system_root.xml
         xml: xml对象
@@ -276,51 +280,42 @@ def get_system(name,xml,parent_map):
     '''
 
     system_id = name.split(".")[0]
-    
-    if(system_id == "system_root"):
+
+    if (system_id == "system_root"):
         parent_id = None
     else:
         parent_id = parent_map[system_id]
-    
+
     return {
-        "system_id":system_id,
-        "name":system_id,
-        "parent_id":parent_id,
-        "data":_get_system(xml)
+        "system_id": system_id,
+        "name": system_id,
+        "parent_id": parent_id,
+        "data": _get_system(xml)
     }
 
-def get_parent_map(xml_system_dict):
 
+def get_parent_map(xml_system_dict):
     '''
     从xml中提取父节点信息
-    
+
     Args:
         xml: xml对象
     '''
     parent_map = {}
     for name, xml in xml_system_dict.items():
-        
+
         if name.split(".")[-1] == "rels":
             parent_id = name.split(".")[0]
 
             for ele in xml:
                 parent_map[ele.attrib["Id"]] = parent_id
-        
+
     return parent_map
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
     with open(os.path.join(DIR_PATH, SIMULINK_FILE), 'r', encoding='utf-8') as f:
         content = f.readlines()
-
-
 
     xml_dict = {}
     FLAG = False
@@ -350,7 +345,7 @@ if __name__ == "__main__":
 
     for name, xml in xml_dict.items():
         if re.search("systems", name):
-            
+
             if name.split("/")[2] == "systems":
                 name = name.split("/")[-1].replace("\n", "")
                 xml_system_dict[name] = ET.fromstring(xml)
@@ -362,13 +357,12 @@ if __name__ == "__main__":
     }
     for name, xml in xml_system_dict.items():
         if name.split(".")[-1] == "xml":
-            G_data["SystemData"].append(get_system(name,xml,parent_map))
+            G_data["SystemData"].append(get_system(name, xml, parent_map))
 
-    with open(os.path.join(DIR_PATH,"data.json"),"w+",encoding='utf-8') as f:
+    with open(os.path.join(DIR_PATH, "data.json"), "w+", encoding='utf-8') as f:
         import json
-        json.dump(G_data,f,ensure_ascii=False,indent=4)
+        json.dump(G_data, f, ensure_ascii=False, indent=4)
 
-    print("parent_map",parent_map)
+    print("parent_map", parent_map)
 
     print("ok")
-
