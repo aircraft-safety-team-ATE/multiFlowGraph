@@ -2,7 +2,7 @@
 import os
 import re
 import xml.etree.ElementTree as ET
-
+from copy import deepcopy
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 SIMULINK_FILE = r"slAccelDemoF14.mdl"
 
@@ -173,7 +173,7 @@ def _get_system(xml):
     for index, edge_xml in enumerate(xml.findall("Line")):
         # 1. 初始化edge
         edge_data = {
-            "id": index,
+            "id": str(index),
             "type": "custom-edge",
             "properties": {},
             "pointsList": []
@@ -236,7 +236,8 @@ def _get_system(xml):
                                         "x": anchor["x"],
                                         "y": anchor["y"]
                                     }
-                system_data["edges"].append(edge_data)
+
+                system_data["edges"].append(deepcopy(edge_data))
         else:
             for ele in edge_xml.findall("P"):
                 if ele.attrib["Name"] == "Dst":
@@ -263,6 +264,7 @@ def _get_system(xml):
                                     "x": anchor["x"],
                                     "y": anchor["y"]
                                 }
+
             system_data["edges"].append(edge_data)
         # 4. 添加到system_data中
 
