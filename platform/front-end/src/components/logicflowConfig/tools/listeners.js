@@ -95,8 +95,8 @@ const listeners = {
     this.lf.on('anchor:drop', (data) => {
       let model = data.edgeModel
       let edges = this.lf.getEdgeModels({
-        sourceNodeId: model.sourceNodeId,
-        targetNodeId: model.targetNodeId
+        sourceNodeId: model.sourceAnchorId,
+        targetNodeId: model.targetAnchorId
       })
       if (edges.length > 1) {
         this.$alert('重复连线')
