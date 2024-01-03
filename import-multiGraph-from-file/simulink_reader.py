@@ -4,7 +4,7 @@ import re
 import xml.etree.ElementTree as ET
 from copy import deepcopy
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
-SIMULINK_FILE = r"slAccelDemoF14.mdl"
+SIMULINK_FILE = r"test2.mdl"
 
 # 画布缩放比例
 WIDTH_RATE = 3
@@ -36,6 +36,9 @@ def _get_system(xml):
                     if len(ports) == 2:
                         node_input = ports[0]
                         node_output = ports[1]
+                    elif len(ports) == 1:
+                        node_input = ports[0]
+                        node_output = 0
                     else:
                         node_input = 0
                         node_output = 0
@@ -209,64 +212,47 @@ def _get_system(xml):
         # 多分支
         Target_ID = None
         Target_Port = None
-        if edge_xml.findall("Branch"):
-            for ele in edge_xml.findall("Branch"):
+        stack_branch = []
+        stack_branch.append(edge_xml)
+
+        # 深度优先搜索 终止节点
+
+        while (len(stack_branch) > 0):
+            ele = stack_branch.pop()
+            if ele.findall("Branch"):
+                for ele2 in ele.findall("Branch"):
+                    stack_branch.append(ele2)
+            else:
+                edge_data_copy = deepcopy(edge_data)
                 for ele2 in ele.findall("P"):
                     if ele2.attrib["Name"] == "Dst":
                         Target_ID = ele2.text.split("#")[0]
                         Target_Port = int(ele2.text.split(":")[-1])
+                        edge_data_copy["id"] = edge_data_copy["id"] + \
+                            "_"+ele2.text
 
-                edge_data["targetNodeId"] = Target_ID
+                edge_data_copy["targetNodeId"] = Target_ID
                 for node in system_data["nodes"]:
                     if node["id"] == Target_ID:
                         if node["type"] == "subsystem-node":
-                            edge_data["targetAnchorId"] = node["id"] + \
+                            edge_data_copy["targetAnchorId"] = node["id"] + \
                                 "_"+str(Target_Port-1)+"_left"
                             for anchor in node["anchors"]:
-                                if anchor["id"] == edge_data["targetAnchorId"]:
-                                    edge_data["endPoint"] = {
+                                if anchor["id"] == edge_data_copy["targetAnchorId"]:
+                                    edge_data_copy["endPoint"] = {
                                         "x": anchor["x"],
                                         "y": anchor["y"]
                                     }
                         else:
-                            edge_data["targetAnchorId"] = node["id"]+"_left"
+                            edge_data_copy["targetAnchorId"] = node["id"]+"_left"
                             for anchor in node["anchors"]:
-                                if anchor["id"] == edge_data["targetAnchorId"]:
-                                    edge_data["endPoint"] = {
+                                if anchor["id"] == edge_data_copy["targetAnchorId"]:
+                                    edge_data_copy["endPoint"] = {
                                         "x": anchor["x"],
                                         "y": anchor["y"]
                                     }
 
-                system_data["edges"].append(deepcopy(edge_data))
-        else:
-            for ele in edge_xml.findall("P"):
-                if ele.attrib["Name"] == "Dst":
-                    Target_ID = ele.text.split("#")[0]
-                    Target_Port = int(ele.text.split(":")[-1])
-
-            edge_data["targetNodeId"] = Target_ID
-            for node in system_data["nodes"]:
-                if node["id"] == Target_ID:
-                    if node["type"] == "subsystem-node":
-                        edge_data["targetAnchorId"] = node["id"] + \
-                            "_"+str(Target_Port-1)+"_left"
-                        for anchor in node["anchors"]:
-                            if anchor["id"] == edge_data["targetAnchorId"]:
-                                edge_data["endPoint"] = {
-                                    "x": anchor["x"],
-                                    "y": anchor["y"]
-                                }
-                    else:
-                        edge_data["targetAnchorId"] = node["id"]+"_left"
-                        for anchor in node["anchors"]:
-                            if anchor["id"] == edge_data["targetAnchorId"]:
-                                edge_data["endPoint"] = {
-                                    "x": anchor["x"],
-                                    "y": anchor["y"]
-                                }
-
-            system_data["edges"].append(edge_data)
-        # 4. 添加到system_data中
+                system_data["edges"].append(edge_data_copy)
 
     return system_data
 
