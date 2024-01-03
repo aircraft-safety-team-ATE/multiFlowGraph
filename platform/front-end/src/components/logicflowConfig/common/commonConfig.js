@@ -15,10 +15,10 @@ const editConfig = {
   stopMoveGraph: false, // option value: true | false
 
   // 允许调整边
-  adjustEdge: true, // option value: true | false
+  adjustEdge: false, // option value: true | false
 
   // 只对折线生效，只允许调整边的中间线段，不允许调整与起点终点相连的线段
-  adjustEdgeMiddle: true, // option value: true | false
+  adjustEdgeMiddle: false, // option value: true | false
 
   // 允许调整边起点/终点
   adjustEdgeStartAndEnd: false, // option value: true | false
