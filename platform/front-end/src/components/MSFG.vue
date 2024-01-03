@@ -2,7 +2,7 @@
   <div class="logic-flow-view">
     <!-- 显示一些文本 -->
     <div style="float: left" class="current-system-breadcrumb">
-      
+
       <span> 所在系统：</span>
       <span v-for="(item, itemid) in current_system_breadcrumb">
         <el-tag v-if="item.name" @click="handleTagClick(item.id)" size="mini" type="primary">
@@ -12,9 +12,10 @@
       </span>
     </div>
     <p>访问我们的 GitHub 项目(欢迎发现bug 并提交issue):</p>
-    <a href="https://github.com/aircraft-safety-team-ATE/multiFlowGraph/tree/feature-subsystemSetting-fengzhaoyu" target="_blank">multiFlowGraph 项目</a>
+    <a href="https://github.com/aircraft-safety-team-ATE/multiFlowGraph/tree/feature-subsystemSetting-fengzhaoyu"
+      target="_blank">multiFlowGraph 项目</a>
     <div class="model—tree">
-      <el-tree :data="module_tree" :expand-on-click-node="false" :indent="8" :default-expand-all="true"
+      <el-tree :data="module_tree" :expand-on-click-node="false" :indent="16" :default-expand-all="true"
         :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
     </div>
     <Control class="demo-control" v-if="lf" :lf="lf" :G_DATA="G_DATA" @updata-import-data="handle_update_import_data" />
@@ -73,10 +74,26 @@ export default {
     },
     // 跟新G_data数据 更新子系统的input或output
     handle_update_import_data(data) {
+
+      let root_system_import = data.value.SystemData.find(item => item.parent_id == null)
+      // 1. 删除一切输入和输出节点 以及相关的边
+      let inputORoutput_nodes = root_system_import.data.nodes.filter(item => item.type == 'input-node' || item.type == 'output-node')
+      // 1.1 删除所有的相关边与节点
+      for (let node of inputORoutput_nodes) {
+
+        let edges = root_system_import.data.edges.filter(item => item.sourceNodeId == node.id || item.targetNodeId == node.id)
+        for (let edge of edges) {
+          root_system_import.data.edges.splice(root_system_import.data.edges.indexOf(edge), 1)
+        }
+        root_system_import.data.nodes.splice(root_system_import.data.nodes.indexOf(node), 1)
+      }
+
       if (data.type == 'global') {
         this.G_DATA = data.value
         let root_id = this.G_DATA.SystemData.find(item => item.parent_id == null).system_id
         this.handleNodeClick({ id: root_id })
+
+        // 
       } else if (data.type == 'part_incremental') {
         //1.将当前系统与导入的根系统进行合并
         let current_system = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId)
@@ -180,7 +197,7 @@ export default {
         function getSubSystemRecursive(old_system_id, new_system_id, import_G_DATA, G_DATA) {
           // 调整子系统节点的systemid
           let current_system = G_DATA.SystemData.find(item => item.system_id == new_system_id)
-          let current_system_subsystem_nodes= current_system.data.nodes.filter(item => item.type == 'subsystem-node')
+          let current_system_subsystem_nodes = current_system.data.nodes.filter(item => item.type == 'subsystem-node')
 
           let children = import_G_DATA.SystemData.filter(item => item.parent_id == old_system_id)
           function deepClone(obj) {
@@ -190,7 +207,7 @@ export default {
           }
           children.forEach(item => {
 
-            
+
             let item_copy = deepClone(item)
             let old_system_id = item_copy.system_id
             item_copy.system_id = G_DATA.SystemData.length + 1
