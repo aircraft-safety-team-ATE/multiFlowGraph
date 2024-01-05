@@ -264,7 +264,7 @@ def get_system(name, xml, parent_map):
     Args:
         name: system的名称 例如: system_root.xml
         xml: xml对象
-        parent_map: 父节点信息 {child:parent}
+        parent_map: 父节点信息 {child:parent,child:parent...}
     '''
 
     system_id = name.split(".")[0]
