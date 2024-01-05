@@ -3,6 +3,7 @@ import os
 import re
 import xml.etree.ElementTree as ET
 from copy import deepcopy
+from typing import List, Dict, Tuple
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 SIMULINK_FILE = r"test2.mdl"
 
@@ -11,7 +12,18 @@ WIDTH_RATE = 3
 HEIGHT_RATE = 3
 
 
-def _get_system(xml):
+def _get_system(
+    xml: ET.Element
+) -> Dict:
+    ''' 从单个system的XML提取system_data数据
+
+    args:
+        xml: system的xml对象
+            <Element 'System' at 0x000001D8EDDA6D10>
+    return:
+        system_data: system的数据
+            {'nodes': [{...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, ...], 'edges': [{...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, ...]}
+    '''
     system_data = {"nodes": [], "edges": []}
     input_index = 1
     output_index = 1
@@ -257,14 +269,29 @@ def _get_system(xml):
     return system_data
 
 
-def get_system(name, xml, parent_map):
+def get_system(
+    name: str, 
+    xml: ET.Element, 
+    parent_map: Dict
+)->Dict:
     '''
     从xml中提取system信息
 
     Args:
-        name: system的名称 例如: system_root.xml
+        name: system的名称 
+            例如: system_root.xml
         xml: xml对象
+            <Element 'System' at 0x000001F39C775D10>
         parent_map: 父节点信息 {child:parent,child:parent...}
+            {'system_2939': 'system_2927', 'system_3750': 'system_2927', 'system_3753': 'system_2927', 'system_3757': 'system_2927', 'system_3761': 'system_2927', 'system_3773': 'system_2927', 'system_3396': 'system_3388', 'system_3412': 'system_3388', 'system_3430': 'system_3388', 'system_3451': 'system_3388', 'system_3469': 'system_3388', 'system_3484': 'system_3388', 'system_3490': 'system_3388', 'system_3496': 'system_3388', ...}
+    
+    Return:system_data
+        {
+        "system_id": system_id,
+        "name": system_id,
+        "parent_id": parent_id,
+        "data": _get_system(xml)
+        }
     '''
 
     system_id = name.split(".")[0]
@@ -282,7 +309,9 @@ def get_system(name, xml, parent_map):
     }
 
 
-def get_parent_map(xml_system_dict):
+def get_parent_map(
+    xml_system_dict: Dict
+):
     '''
     从xml中提取父节点信息
 
@@ -300,9 +329,19 @@ def get_parent_map(xml_system_dict):
 
     return parent_map
 
+def simulink_reader(
+    file_path: str
+)->Dict:
+    '''
+    从simulink文件中提取数据
 
-if __name__ == "__main__":
-    with open(os.path.join(DIR_PATH, SIMULINK_FILE), 'r', encoding='utf-8') as f:
+    Args:
+        file_path: simulink文件绝对路径 仅支持读取.mdl格式的simulink文件 且无法处理GOTO等特殊情况
+    Return:
+        G_data: 能够被前端渲染的数据
+            {'currentSystemId': 'system_root', 'SystemData': [{...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, ...]}
+    '''
+    with open(file_path, 'r', encoding='utf-8') as f:
         content = f.readlines()
 
     xml_dict = {}
@@ -347,10 +386,17 @@ if __name__ == "__main__":
         if name.split(".")[-1] == "xml":
             G_data["SystemData"].append(get_system(name, xml, parent_map))
 
+    return G_data
+
+
+if __name__ == "__main__":
+    with open(os.path.join(DIR_PATH, SIMULINK_FILE), 'r', encoding='utf-8') as f:
+        content = f.readlines()
+
+    G_data = simulink_reader(os.path.join(DIR_PATH, SIMULINK_FILE))
+
     with open(os.path.join(DIR_PATH, "data.json"), "w+", encoding='utf-8') as f:
         import json
         json.dump(G_data, f, ensure_ascii=False, indent=4)
 
-    print("parent_map", parent_map)
-
-    print("ok")
+    
