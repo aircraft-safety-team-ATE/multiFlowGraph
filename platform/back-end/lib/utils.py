@@ -2,8 +2,8 @@
 import uuid
 import copy
 import json
-from fmecaReader import read_fmeca
-from gui_utils import render_node_pos
+from .fmecaReader import read_fmeca
+from .gui_utils import render_node_pos
 from typing import Iterable
 import numpy as np
 from scipy.sparse import coo_matrix, csr_matrix
@@ -480,6 +480,7 @@ def to_D_mat(
             "nodesId": [faultInd.index(nid) for nid in sysv["nodesId"] if nid in faultInd]
         } for sysk, sysv in system.items()
     }
+    collision_node = []
     return D_mat, testName, faultName, testLoc, faultLoc, sysmap, collision_node
 
 # D矩阵推理依赖方法
@@ -680,10 +681,7 @@ def _get_detect_isolat_ratio(checkLen, fuzzyLen, faultLen, testLen):
     ]
 
 # 流图性能评测
-def check_graph(
-    convertStruct: str, 
-    eps=1e-9
-):
+def check_graph(convertStruct, eps=1e-9):
     D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node = from_json(
         convertStruct)
     fnodes = [struct[act_id]["data"]["nodes"][node_id]

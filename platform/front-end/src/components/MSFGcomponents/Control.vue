@@ -39,9 +39,7 @@
     </el-upload>
 
     <el-upload v-if="controlConfig.importSimulink" style="display:inline-block; margin-left: -5px;" action=""
-      :auto-upload="false"
-      accept=".mdl"
-      :multiple="false" :show-file-list="false" :on-change="$_importSimulink">
+      :auto-upload="false" accept=".mdl" :multiple="false" :show-file-list="false" :on-change="$_importSimulink">
       <el-button type="plain" size="small">载入Simulink</el-button>
     </el-upload>
 
@@ -231,7 +229,7 @@ export default {
         // 1.获取当前系统的数据 
         let currentSystemData_copy = deepClone(this.$props.G_DATA.SystemData.find(item => item.system_id == data.currentSystemId))
         // 当前系统变为root系统
-        currentSystemData_copy.parent_id =null
+        currentSystemData_copy.parent_id = null
         // 2. 删除一切输入和输出节点 以及相关的边
         let inputORoutput_nodes = currentSystemData_copy.data.nodes.filter(item => item.type == 'input-node' || item.type == 'output-node')
         // 2.1 删除所有的相关边与节点
@@ -407,14 +405,13 @@ export default {
     },
 
     $_check() {
-      let data = this.$props.lf.getGraphData()
-      console.log("data",data)
-      console.log("export",exportStruct(data))
-      if (data.nodes.length === 0) {
+      let data = this.$props.G_DATA.SystemData
+
+      if (this.$props.lf.getGraphData().nodes.length === 0) {
         this.$alert('流图为空')
       } else {
         let fd = new FormData()
-        fd.append('graphStruct', JSON.stringify(exportStruct(data)))
+        fd.append('graphStruct', JSON.stringify(data))
         this.$axios({
           url: '/multi-info-edit/check-graph/',
           method: 'post',
@@ -432,7 +429,14 @@ export default {
             D_mat.push(map)
           })
           this.result.D_mat = D_mat
-          this.$props.lf.render(importStruct(res.data, 'check'))
+          this.$emit("updata-import-data", {
+            type: 'global',
+            value: {
+              SystemData: res.data,
+              currentSystemId: this.$props.G_DATA.currentSystemId
+            }
+          })
+
           this.Visible = true;
           //this.$forceUpdate();
         })
