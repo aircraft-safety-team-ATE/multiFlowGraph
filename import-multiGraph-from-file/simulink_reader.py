@@ -330,19 +330,17 @@ def get_parent_map(
     return parent_map
 
 def simulink_reader(
-    file_path: str
+    content: List[str]
 )->Dict:
     '''
     从simulink文件中提取数据
 
     Args:
-        file_path: simulink文件绝对路径 仅支持读取.mdl格式的simulink文件 且无法处理GOTO等特殊情况
+        content: 按行读取后的.mdl文件内容 仅支持读取.mdl格式的simulink文件 且无法处理GOTO等特殊情况
     Return:
         G_data: 能够被前端渲染的数据
             {'currentSystemId': 'system_root', 'SystemData': [{...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, {...}, ...]}
     '''
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.readlines()
 
     xml_dict = {}
     FLAG = False
@@ -393,7 +391,7 @@ if __name__ == "__main__":
     with open(os.path.join(DIR_PATH, SIMULINK_FILE), 'r', encoding='utf-8') as f:
         content = f.readlines()
 
-    G_data = simulink_reader(os.path.join(DIR_PATH, SIMULINK_FILE))
+    G_data = simulink_reader(content)
 
     with open(os.path.join(DIR_PATH, "data.json"), "w+", encoding='utf-8') as f:
         import json
