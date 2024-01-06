@@ -318,6 +318,9 @@ const controlConfig = {
   // 载入FMECA
   importFMECA: true,  // option value: true | false
 
+  // 载入simulink 
+  importSimulink: true,  // option value: true | false
+
   // 流图评价 ※需要与后台交互
   check: true,  // option value: true | false
 

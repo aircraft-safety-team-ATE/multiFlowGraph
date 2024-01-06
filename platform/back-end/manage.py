@@ -4,7 +4,7 @@ from io import BytesIO
 from flask import Flask, request, render_template, jsonify, send_file
 from flask_cors import CORS
 from lib.msfgEngine import multiInfoGraph
-
+from lib.simulinkReader import simulink_reader
 app = Flask(__name__, static_folder=os.path.join(r".", "static"), static_url_path='/static')#, template_folder=os.path.join(r".", "templates"), )
 
 CORS(app)
@@ -36,6 +36,17 @@ def upload_fmeca():
     return json.dumps({
         "data": MIG.state["data"],
         }).replace("NaN", "null")
+
+#
+@app.route("/multi-info-edit/upload-simulink/", methods=['POST'])
+def upload_simulink():
+    file = request.files.get("modelFile")
+    if file:
+        content = file.readlines()
+        content = [byte.decode('utf-8') for byte in content]
+        G_DATA = simulink_reader(content)
+        # print(G_DATA)
+        return jsonify({"data": G_DATA})
 
 # 导出流图配置（[{nodes:...,edges:...}] -> axios -> ↓ -> [JSON File(BytesFlow)] -> axios)
 @app.route("/multi-info-edit/export-model/",methods=['POST'])

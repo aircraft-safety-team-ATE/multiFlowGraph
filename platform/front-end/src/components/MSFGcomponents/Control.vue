@@ -38,6 +38,13 @@
       <el-button type="plain" size="small">载入FMECA</el-button>
     </el-upload>
 
+    <el-upload v-if="controlConfig.importSimulink" style="display:inline-block; margin-left: -5px;" action=""
+      :auto-upload="false"
+      accept=".mdl"
+      :multiple="false" :show-file-list="false" :on-change="$_importSimulink">
+      <el-button type="plain" size="small">载入Simulink</el-button>
+    </el-upload>
+
     <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check"
       style="display:inline-block; margin-left: -5px;">流图评价</el-button>
 
@@ -348,37 +355,6 @@ export default {
         this.importData_dialogVisible = false
       })
     },
-
-    // $_importData(file) {
-    //   return new Promise((resolve, reject) => {
-    //     // 检验是否支持 FileRender
-    //     if (typeof FileReader === 'undefined') {
-    //       reject('当前浏览器不支持FileReader')
-    //     }
-    //     // 执行读取json数据操作
-    //     this.reader = new FileReader()
-    //     this.reader.readAsText(file.raw)
-    //     this.reader.onerror = (error) => {
-    //       reject('读取流图文件解析失败', error)
-    //     }
-    //     this.reader.onload = () => {
-    //       if (this.reader.result) {
-    //         try {
-    //           resolve(JSON.parse(this.reader.result))
-    //         } catch (error) {
-    //           reject('读取流图文件解析失败', error)
-    //         }
-    //       } else {
-    //         reject('读取流图文件解析失败', error)
-    //       }
-    //     }
-    //   }).then((res) => {
-    //     console.log(res)
-    //     let data = importStruct(res)
-    //     this.$props.lf.render(data)
-    //   })
-    // },
-
     $_importFMECA(file) {
       let fd = new FormData()
       fd.append('modelFile', file.raw)
@@ -392,14 +368,32 @@ export default {
         //this.Visible = true
       })
     },
-
+    $_importSimulink(file) {
+      let fd = new FormData()
+      fd.append('modelFile', file.raw)
+      this.$axios({
+        url: '/multi-info-edit/upload-simulink/',
+        method: 'post',
+        data: fd
+      }).then((res) => {
+        (res)
+        this.$emit("updata-import-data", {
+          type: 'global',
+          value: res.data
+        })
+        // this.$props.lf.render(importStruct(res.data))
+        //this.Visible = true
+      })
+    },
     $_optimizeCkpt() {
       let data = this.$props.lf.getGraphData()
+
       if (data.nodes.length === 0) {
         this.$alert('流图为空')
       } else {
         let fd = new FormData()
         fd.append('graphStruct', JSON.stringify(exportStruct(data)))
+
         this.$axios({
           url: '/multi-info-edit/optimize-graph/',
           method: 'post',
@@ -414,6 +408,8 @@ export default {
 
     $_check() {
       let data = this.$props.lf.getGraphData()
+      console.log("data",data)
+      console.log("export",exportStruct(data))
       if (data.nodes.length === 0) {
         this.$alert('流图为空')
       } else {
