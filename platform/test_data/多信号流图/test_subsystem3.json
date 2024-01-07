@@ -1,0 +1,626 @@
+{
+    "SystemData": [
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "cb8f710d-e703-4a0a-8099-436f3edb24d4",
+                        "type": "test-node",
+                        "x": 1630,
+                        "y": 130,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#eea2a4",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 1640,
+                            "y": 130,
+                            "value": "测试1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1580,
+                                "y": 130,
+                                "id": "cb8f710d-e703-4a0a-8099-436f3edb24d4_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "99aa9a22-125c-42af-881a-d655f5941443",
+                        "type": "fault-node",
+                        "x": 950,
+                        "y": 130,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 960,
+                            "y": 130,
+                            "value": "故障1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1000,
+                                "y": 130,
+                                "id": "99aa9a22-125c-42af-881a-d655f5941443_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 900,
+                                "y": 130,
+                                "id": "99aa9a22-125c-42af-881a-d655f5941443_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "a08785bb-f75e-4310-af57-707c6e229094",
+                        "type": "subsystem-node",
+                        "x": 1310,
+                        "y": 170,
+                        "properties": {
+                            "SubsystemId": 2,
+                            "collision": false,
+                            "detectable": false,
+                            "fields": {
+                                "input": 2,
+                                "output": 2
+                            },
+                            "fuzzible": false,
+                            "tableName": ""
+                        },
+                        "text": {
+                            "x": 1310,
+                            "y": 170,
+                            "value": "子系统2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1220,
+                                "y": 176,
+                                "id": "a08785bb-f75e-4310-af57-707c6e229094_0_left",
+                                "edgeAddable": false,
+                                "type": "left"
+                            },
+                            {
+                                "x": 1220,
+                                "y": 200,
+                                "id": "a08785bb-f75e-4310-af57-707c6e229094_1_left",
+                                "edgeAddable": false,
+                                "type": "left"
+                            },
+                            {
+                                "x": 1400,
+                                "y": 176,
+                                "id": "a08785bb-f75e-4310-af57-707c6e229094_0_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 1400,
+                                "y": 200,
+                                "id": "a08785bb-f75e-4310-af57-707c6e229094_1_right",
+                                "type": "right"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "e18aac6f-2eba-4043-b75a-3b8f94394476",
+                        "type": "fault-node",
+                        "x": 970,
+                        "y": 180,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 980,
+                            "y": 180,
+                            "value": "故障2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1020,
+                                "y": 180,
+                                "id": "e18aac6f-2eba-4043-b75a-3b8f94394476_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 920,
+                                "y": 180,
+                                "id": "e18aac6f-2eba-4043-b75a-3b8f94394476_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "9304093b-28e2-45eb-8094-4d110a065b65",
+                        "type": "test-node",
+                        "x": 1660,
+                        "y": 190,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#eea2a4",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 1670,
+                            "y": 190,
+                            "value": "测试2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1610,
+                                "y": 190,
+                                "id": "9304093b-28e2-45eb-8094-4d110a065b65_left",
+                                "type": "left"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "fd30330d-b496-43f6-af7b-ab73a68c64bc",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "99aa9a22-125c-42af-881a-d655f5941443",
+                        "targetNodeId": "a08785bb-f75e-4310-af57-707c6e229094",
+                        "startPoint": {
+                            "x": 1000,
+                            "y": 130
+                        },
+                        "endPoint": {
+                            "x": 1220,
+                            "y": 176
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 1000,
+                                "y": 130
+                            },
+                            {
+                                "x": 1100,
+                                "y": 130
+                            },
+                            {
+                                "x": 1110,
+                                "y": 176
+                            },
+                            {
+                                "x": 1220,
+                                "y": 176
+                            }
+                        ],
+                        "sourceAnchorId": "99aa9a22-125c-42af-881a-d655f5941443_right",
+                        "targetAnchorId": "a08785bb-f75e-4310-af57-707c6e229094_0_left"
+                    },
+                    {
+                        "id": "70f648d3-dbe3-4cdb-848e-c3f0010b1b1f",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "a08785bb-f75e-4310-af57-707c6e229094",
+                        "targetNodeId": "cb8f710d-e703-4a0a-8099-436f3edb24d4",
+                        "startPoint": {
+                            "x": 1400,
+                            "y": 176
+                        },
+                        "endPoint": {
+                            "x": 1580,
+                            "y": 130
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 1400,
+                                "y": 176
+                            },
+                            {
+                                "x": 1510,
+                                "y": 176
+                            },
+                            {
+                                "x": 1480,
+                                "y": 130
+                            },
+                            {
+                                "x": 1580,
+                                "y": 130
+                            }
+                        ],
+                        "sourceAnchorId": "a08785bb-f75e-4310-af57-707c6e229094_0_right",
+                        "targetAnchorId": "cb8f710d-e703-4a0a-8099-436f3edb24d4_left"
+                    },
+                    {
+                        "id": "18d99cd4-8a24-4144-b137-037466535bd7",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "e18aac6f-2eba-4043-b75a-3b8f94394476",
+                        "targetNodeId": "a08785bb-f75e-4310-af57-707c6e229094",
+                        "startPoint": {
+                            "x": 1020,
+                            "y": 180
+                        },
+                        "endPoint": {
+                            "x": 1220,
+                            "y": 200
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 1020,
+                                "y": 180
+                            },
+                            {
+                                "x": 1120,
+                                "y": 180
+                            },
+                            {
+                                "x": 1110,
+                                "y": 200
+                            },
+                            {
+                                "x": 1220,
+                                "y": 200
+                            }
+                        ],
+                        "sourceAnchorId": "e18aac6f-2eba-4043-b75a-3b8f94394476_right",
+                        "targetAnchorId": "a08785bb-f75e-4310-af57-707c6e229094_1_left"
+                    },
+                    {
+                        "id": "c8a12bd7-86c9-44dd-9534-88f079f5f1b4",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "a08785bb-f75e-4310-af57-707c6e229094",
+                        "targetNodeId": "9304093b-28e2-45eb-8094-4d110a065b65",
+                        "startPoint": {
+                            "x": 1400,
+                            "y": 200
+                        },
+                        "endPoint": {
+                            "x": 1610,
+                            "y": 190
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 1400,
+                                "y": 200
+                            },
+                            {
+                                "x": 1510,
+                                "y": 200
+                            },
+                            {
+                                "x": 1510,
+                                "y": 190
+                            },
+                            {
+                                "x": 1610,
+                                "y": 190
+                            }
+                        ],
+                        "sourceAnchorId": "a08785bb-f75e-4310-af57-707c6e229094_1_right",
+                        "targetAnchorId": "9304093b-28e2-45eb-8094-4d110a065b65_left"
+                    }
+                ]
+            },
+            "name": "root",
+            "parent_id": null,
+            "sysmap": {
+                "1": 0,
+                "2": 1
+            },
+            "system_id": 1
+        },
+        {
+            "data": {
+                "edges": [
+                    {
+                        "endPoint": {
+                            "x": 1250,
+                            "y": 90
+                        },
+                        "id": "ed800516-87d3-4431-bcc9-b310e2e6f92d",
+                        "pointsList": [
+                            {
+                                "x": 1080,
+                                "y": 140
+                            },
+                            {
+                                "x": 1180,
+                                "y": 140
+                            },
+                            {
+                                "x": 1150,
+                                "y": 90
+                            },
+                            {
+                                "x": 1250,
+                                "y": 90
+                            }
+                        ],
+                        "properties": {},
+                        "sourceAnchorId": "8e22d6b2-4201-4071-98a9-a218380da5ae_right",
+                        "sourceNodeId": "8e22d6b2-4201-4071-98a9-a218380da5ae",
+                        "startPoint": {
+                            "x": 1080,
+                            "y": 140
+                        },
+                        "targetAnchorId": "363c001e-f9ab-46e9-82b3-16daedcececd_left",
+                        "targetNodeId": "363c001e-f9ab-46e9-82b3-16daedcececd",
+                        "type": "flow-bazier-edge"
+                    },
+                    {
+                        "endPoint": {
+                            "x": 1510,
+                            "y": 130
+                        },
+                        "id": "fdaca805-727d-436b-af2c-9ecf5716cea8",
+                        "pointsList": [
+                            {
+                                "x": 1350,
+                                "y": 90
+                            },
+                            {
+                                "x": 1450,
+                                "y": 90
+                            },
+                            {
+                                "x": 1410,
+                                "y": 130
+                            },
+                            {
+                                "x": 1510,
+                                "y": 130
+                            }
+                        ],
+                        "properties": {},
+                        "sourceAnchorId": "363c001e-f9ab-46e9-82b3-16daedcececd_right",
+                        "sourceNodeId": "363c001e-f9ab-46e9-82b3-16daedcececd",
+                        "startPoint": {
+                            "x": 1350,
+                            "y": 90
+                        },
+                        "targetAnchorId": "984fcf27-c7c3-4b96-b6d5-ceb10437de8b_left",
+                        "targetNodeId": "984fcf27-c7c3-4b96-b6d5-ceb10437de8b",
+                        "type": "flow-bazier-edge"
+                    },
+                    {
+                        "endPoint": {
+                            "x": 1510,
+                            "y": 230
+                        },
+                        "id": "5102f41b-ca60-4f4d-9894-cab187ce2007",
+                        "pointsList": [
+                            {
+                                "x": 1090,
+                                "y": 220
+                            },
+                            {
+                                "x": 1190,
+                                "y": 220
+                            },
+                            {
+                                "x": 1410,
+                                "y": 230
+                            },
+                            {
+                                "x": 1510,
+                                "y": 230
+                            }
+                        ],
+                        "properties": {},
+                        "sourceAnchorId": "aee1cc3c-4edb-40cc-8ae5-65fdb7450f50_right",
+                        "sourceNodeId": "aee1cc3c-4edb-40cc-8ae5-65fdb7450f50",
+                        "startPoint": {
+                            "x": 1090,
+                            "y": 220
+                        },
+                        "targetAnchorId": "3f6e1f34-ed97-40ca-bb9e-b8bc05e8accc_left",
+                        "targetNodeId": "3f6e1f34-ed97-40ca-bb9e-b8bc05e8accc",
+                        "type": "flow-bazier-edge"
+                    }
+                ],
+                "nodes": [
+                    {
+                        "anchors": [
+                            {
+                                "id": "984fcf27-c7c3-4b96-b6d5-ceb10437de8b_left",
+                                "type": "left",
+                                "x": 1510,
+                                "y": 130
+                            }
+                        ],
+                        "id": "984fcf27-c7c3-4b96-b6d5-ceb10437de8b",
+                        "properties": {
+                            "collision": false,
+                            "detectable": false,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "index": 1,
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#85C1E9",
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "value": "输出1",
+                            "x": 1560,
+                            "y": 130
+                        },
+                        "type": "output-node",
+                        "x": 1560,
+                        "y": 130
+                    },
+                    {
+                        "anchors": [
+                            {
+                                "id": "8e22d6b2-4201-4071-98a9-a218380da5ae_right",
+                                "type": "right",
+                                "x": 1080,
+                                "y": 140
+                            }
+                        ],
+                        "id": "8e22d6b2-4201-4071-98a9-a218380da5ae",
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "index": 1,
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#85C1E9",
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "value": "输入1",
+                            "x": 1030,
+                            "y": 140
+                        },
+                        "type": "input-node",
+                        "x": 1030,
+                        "y": 140
+                    },
+                    {
+                        "anchors": [
+                            {
+                                "id": "aee1cc3c-4edb-40cc-8ae5-65fdb7450f50_right",
+                                "type": "right",
+                                "x": 1090,
+                                "y": 220
+                            }
+                        ],
+                        "id": "aee1cc3c-4edb-40cc-8ae5-65fdb7450f50",
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "index": 2,
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#85C1E9",
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "value": "输入2",
+                            "x": 1040,
+                            "y": 220
+                        },
+                        "type": "input-node",
+                        "x": 1040,
+                        "y": 220
+                    },
+                    {
+                        "anchors": [
+                            {
+                                "id": "3f6e1f34-ed97-40ca-bb9e-b8bc05e8accc_left",
+                                "type": "left",
+                                "x": 1510,
+                                "y": 230
+                            }
+                        ],
+                        "id": "3f6e1f34-ed97-40ca-bb9e-b8bc05e8accc",
+                        "properties": {
+                            "collision": false,
+                            "detectable": false,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "index": 2,
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#85C1E9",
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "value": "输出2",
+                            "x": 1560,
+                            "y": 230
+                        },
+                        "type": "output-node",
+                        "x": 1560,
+                        "y": 230
+                    },
+                    {
+                        "anchors": [
+                            {
+                                "id": "363c001e-f9ab-46e9-82b3-16daedcececd_right",
+                                "type": "right",
+                                "x": 1380,
+                                "y": 90
+                            },
+                            {
+                                "id": "363c001e-f9ab-46e9-82b3-16daedcececd_left",
+                                "type": "left",
+                                "x": 1220,
+                                "y": 90
+                            }
+                        ],
+                        "id": "363c001e-f9ab-46e9-82b3-16daedcececd",
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 160
+                        },
+                        "text": {
+                            "value": "子系统2：故障1",
+                            "x": 1310,
+                            "y": 90
+                        },
+                        "type": "fault-node",
+                        "x": 1300,
+                        "y": 90
+                    }
+                ]
+            },
+            "name": "子系统2",
+            "parent_id": 1,
+            "system_id": 2
+        }
+    ],
+    "currentSystemId": 1
+}

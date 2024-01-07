@@ -1,0 +1,180 @@
+{
+    "SystemData": [
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "e34bbaf9-69cc-48ac-9702-8cdb9805c59f",
+                        "type": "fault-node",
+                        "x": 740,
+                        "y": 360,
+                        "properties": {
+                            "collision": false,
+                            "detectable": false,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 750,
+                            "y": 360,
+                            "value": "故障1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 790,
+                                "y": 360,
+                                "id": "e34bbaf9-69cc-48ac-9702-8cdb9805c59f_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 690,
+                                "y": 360,
+                                "id": "e34bbaf9-69cc-48ac-9702-8cdb9805c59f_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "5aa29f81-3fb0-46f1-b2f0-15ed36019916",
+                        "type": "test-node",
+                        "x": 1150,
+                        "y": 360,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#eea2a4",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 1160,
+                            "y": 360,
+                            "value": "测试1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1100,
+                                "y": 360,
+                                "id": "5aa29f81-3fb0-46f1-b2f0-15ed36019916_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "6db412e2-e324-4bb3-9f42-b9aa8789d94c",
+                        "type": "fault-node",
+                        "x": 930,
+                        "y": 360,
+                        "properties": {
+                            "collision": false,
+                            "detectable": false,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 940,
+                            "y": 360,
+                            "value": "故障2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 980,
+                                "y": 360,
+                                "id": "6db412e2-e324-4bb3-9f42-b9aa8789d94c_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 880,
+                                "y": 360,
+                                "id": "6db412e2-e324-4bb3-9f42-b9aa8789d94c_left",
+                                "type": "left"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "b797aadb-cf56-497b-ab33-990d81462c55",
+                        "type": "custom-edge",
+                        "sourceNodeId": "e34bbaf9-69cc-48ac-9702-8cdb9805c59f",
+                        "targetNodeId": "6db412e2-e324-4bb3-9f42-b9aa8789d94c",
+                        "startPoint": {
+                            "x": 790,
+                            "y": 360
+                        },
+                        "endPoint": {
+                            "x": 880,
+                            "y": 360
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 790,
+                                "y": 360
+                            },
+                            {
+                                "x": 880,
+                                "y": 360
+                            }
+                        ],
+                        "sourceAnchorId": "e34bbaf9-69cc-48ac-9702-8cdb9805c59f_right",
+                        "targetAnchorId": "6db412e2-e324-4bb3-9f42-b9aa8789d94c_left"
+                    },
+                    {
+                        "id": "016de43c-2abe-4c9f-bbe4-73b4ab263c5f",
+                        "type": "custom-edge",
+                        "sourceNodeId": "6db412e2-e324-4bb3-9f42-b9aa8789d94c",
+                        "targetNodeId": "5aa29f81-3fb0-46f1-b2f0-15ed36019916",
+                        "startPoint": {
+                            "x": 980,
+                            "y": 360
+                        },
+                        "endPoint": {
+                            "x": 1100,
+                            "y": 360
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 980,
+                                "y": 360
+                            },
+                            {
+                                "x": 1100,
+                                "y": 360
+                            }
+                        ],
+                        "sourceAnchorId": "6db412e2-e324-4bb3-9f42-b9aa8789d94c_right",
+                        "targetAnchorId": "5aa29f81-3fb0-46f1-b2f0-15ed36019916_left"
+                    }
+                ]
+            },
+            "name": "root",
+            "parent_id": null,
+            "sysmap": {
+                "1": 0
+            },
+            "system_id": 1
+        }
+    ],
+    "currentSystemId": 1
+}

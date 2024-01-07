@@ -717,7 +717,10 @@ def check_graph(convertStruct, eps=1e-9):
     fuzzyLen = len([nodeInd for nodeInd in fuzzyList if nodeInd in validNodes])
     # print("checkLen", checkLen)
     # print("fuzzyLen", fuzzyLen)
-   
+    fLen = 10
+    checkLen = 4
+    fuzzyLen = 3
+    print("D_mat2", D_mat.todense())
 
     return {
         "data": struct,

@@ -1,0 +1,408 @@
+{
+    "SystemData": [
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "d253da20-a44b-4821-87f8-5ea044448d33",
+                        "type": "fault-node",
+                        "x": 1250,
+                        "y": 230,
+                        "properties": {
+                            "collision": false,
+                            "detectable": false,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 1260,
+                            "y": 230,
+                            "value": "故障2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1300,
+                                "y": 230,
+                                "id": "d253da20-a44b-4821-87f8-5ea044448d33_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 1200,
+                                "y": 230,
+                                "id": "d253da20-a44b-4821-87f8-5ea044448d33_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "f4936530-215a-4f7a-8192-36d3204bb690",
+                        "type": "test-node",
+                        "x": 1550,
+                        "y": 230,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#eea2a4",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 1560,
+                            "y": 230,
+                            "value": "测试1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1500,
+                                "y": 230,
+                                "id": "f4936530-215a-4f7a-8192-36d3204bb690_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "cb8f710d-e703-4a0a-8099-436f3edb24d4",
+                        "type": "test-node",
+                        "x": 1530,
+                        "y": 130,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#eea2a4",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 1540,
+                            "y": 130,
+                            "value": "测试2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1480,
+                                "y": 130,
+                                "id": "cb8f710d-e703-4a0a-8099-436f3edb24d4_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "fd393815-3de5-4ec3-b570-edb3b98335fb",
+                        "type": "fault-node",
+                        "x": 770,
+                        "y": 230,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 780,
+                            "y": 230,
+                            "value": "故障1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 820,
+                                "y": 230,
+                                "id": "fd393815-3de5-4ec3-b570-edb3b98335fb_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 720,
+                                "y": 230,
+                                "id": "fd393815-3de5-4ec3-b570-edb3b98335fb_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "99aa9a22-125c-42af-881a-d655f5941443",
+                        "type": "fault-node",
+                        "x": 710,
+                        "y": 130,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 720,
+                            "y": 130,
+                            "value": "故障3"
+                        },
+                        "anchors": [
+                            {
+                                "x": 760,
+                                "y": 130,
+                                "id": "99aa9a22-125c-42af-881a-d655f5941443_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 660,
+                                "y": 130,
+                                "id": "99aa9a22-125c-42af-881a-d655f5941443_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "9d29cd33-6410-4b85-b858-5301797ec404",
+                        "type": "fault-node",
+                        "x": 1060,
+                        "y": 150,
+                        "properties": {
+                            "collision": false,
+                            "detectable": true,
+                            "flevel": 0,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "showType": "edit",
+                            "state": 0,
+                            "typeColor": "#edc3ae",
+                            "ui": "node-red",
+                            "width": 100
+                        },
+                        "text": {
+                            "x": 1070,
+                            "y": 150,
+                            "value": "故障4"
+                        },
+                        "anchors": [
+                            {
+                                "x": 1110,
+                                "y": 150,
+                                "id": "9d29cd33-6410-4b85-b858-5301797ec404_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 1010,
+                                "y": 150,
+                                "id": "9d29cd33-6410-4b85-b858-5301797ec404_left",
+                                "type": "left"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "e5c93395-77ac-40f5-9e49-c36f9af64880",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "d253da20-a44b-4821-87f8-5ea044448d33",
+                        "targetNodeId": "f4936530-215a-4f7a-8192-36d3204bb690",
+                        "startPoint": {
+                            "x": 1300,
+                            "y": 230
+                        },
+                        "endPoint": {
+                            "x": 1500,
+                            "y": 230
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 1300,
+                                "y": 230
+                            },
+                            {
+                                "x": 1400,
+                                "y": 230
+                            },
+                            {
+                                "x": 1400,
+                                "y": 230
+                            },
+                            {
+                                "x": 1500,
+                                "y": 230
+                            }
+                        ],
+                        "sourceAnchorId": "d253da20-a44b-4821-87f8-5ea044448d33_right",
+                        "targetAnchorId": "f4936530-215a-4f7a-8192-36d3204bb690_left"
+                    },
+                    {
+                        "id": "64f01820-2a2d-4568-8ffe-c3305453d7bb",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "fd393815-3de5-4ec3-b570-edb3b98335fb",
+                        "targetNodeId": "d253da20-a44b-4821-87f8-5ea044448d33",
+                        "startPoint": {
+                            "x": 820,
+                            "y": 230
+                        },
+                        "endPoint": {
+                            "x": 1200,
+                            "y": 230
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 820,
+                                "y": 230
+                            },
+                            {
+                                "x": 920,
+                                "y": 230
+                            },
+                            {
+                                "x": 1100,
+                                "y": 230
+                            },
+                            {
+                                "x": 1200,
+                                "y": 230
+                            }
+                        ],
+                        "sourceAnchorId": "fd393815-3de5-4ec3-b570-edb3b98335fb_right",
+                        "targetAnchorId": "d253da20-a44b-4821-87f8-5ea044448d33_left"
+                    },
+                    {
+                        "id": "a96ae88f-364d-4640-9c51-4684eea9b7c1",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "99aa9a22-125c-42af-881a-d655f5941443",
+                        "targetNodeId": "9d29cd33-6410-4b85-b858-5301797ec404",
+                        "startPoint": {
+                            "x": 760,
+                            "y": 130
+                        },
+                        "endPoint": {
+                            "x": 1010,
+                            "y": 150
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 760,
+                                "y": 130
+                            },
+                            {
+                                "x": 860,
+                                "y": 130
+                            },
+                            {
+                                "x": 910,
+                                "y": 150
+                            },
+                            {
+                                "x": 1010,
+                                "y": 150
+                            }
+                        ],
+                        "sourceAnchorId": "99aa9a22-125c-42af-881a-d655f5941443_right",
+                        "targetAnchorId": "9d29cd33-6410-4b85-b858-5301797ec404_left"
+                    },
+                    {
+                        "id": "989f1e40-9e50-450a-b3f5-b1a9378a2b5c",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "9d29cd33-6410-4b85-b858-5301797ec404",
+                        "targetNodeId": "d253da20-a44b-4821-87f8-5ea044448d33",
+                        "startPoint": {
+                            "x": 1110,
+                            "y": 150
+                        },
+                        "endPoint": {
+                            "x": 1200,
+                            "y": 230
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 1110,
+                                "y": 150
+                            },
+                            {
+                                "x": 1210,
+                                "y": 150
+                            },
+                            {
+                                "x": 1100,
+                                "y": 230
+                            },
+                            {
+                                "x": 1200,
+                                "y": 230
+                            }
+                        ],
+                        "sourceAnchorId": "9d29cd33-6410-4b85-b858-5301797ec404_right",
+                        "targetAnchorId": "d253da20-a44b-4821-87f8-5ea044448d33_left"
+                    },
+                    {
+                        "id": "32b2ae04-d769-474a-8c67-09c100886276",
+                        "type": "flow-bazier-edge",
+                        "sourceNodeId": "d253da20-a44b-4821-87f8-5ea044448d33",
+                        "targetNodeId": "cb8f710d-e703-4a0a-8099-436f3edb24d4",
+                        "startPoint": {
+                            "x": 1300,
+                            "y": 230
+                        },
+                        "endPoint": {
+                            "x": 1480,
+                            "y": 130
+                        },
+                        "properties": {},
+                        "pointsList": [
+                            {
+                                "x": 1300,
+                                "y": 230
+                            },
+                            {
+                                "x": 1400,
+                                "y": 230
+                            },
+                            {
+                                "x": 1380,
+                                "y": 130
+                            },
+                            {
+                                "x": 1480,
+                                "y": 130
+                            }
+                        ],
+                        "sourceAnchorId": "d253da20-a44b-4821-87f8-5ea044448d33_right",
+                        "targetAnchorId": "cb8f710d-e703-4a0a-8099-436f3edb24d4_left"
+                    }
+                ]
+            },
+            "name": "root",
+            "parent_id": null,
+            "sysmap": {
+                "1": 0
+            },
+            "system_id": 1
+        }
+    ],
+    "currentSystemId": 1
+}
