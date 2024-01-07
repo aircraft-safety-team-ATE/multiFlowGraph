@@ -91,11 +91,11 @@ const extraConfig = {
   },
 
   // 默认连线类型
-  defaultEdgeType: 'custom-edge' // option value: 'line' | 'polyline' | 'bezier' | 自定义连线类型
+  defaultEdgeType: 'flow-bazier-edge' // option value: 'line' | 'polyline' | 'bezier' | 自定义连线类型
 }
 
 export {
-  editConfig,
+  editConfig,   
   keyboardConfig,
   gridConfig,
   extraConfig
