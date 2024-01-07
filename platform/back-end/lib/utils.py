@@ -416,11 +416,11 @@ def to_D_mat(
             ({'x': 430, 'y': 250, 'value': '杈撳叆1'}, {'x': 430, 'y': 450, 'value': '杈撳叆2'}, {'x': 1090, 'y': 250, 'value': '杈撳嚭1'}, {'x': 1090, 'y': 460, 'value': '杈撳嚭2'}, {'x': 610, 'y': 250, 'value': '鏁呴殰'}, {'x': 760, 'y': 250, 'value': '鏁呴殰'}, {'x': 610, 'y': 460, 'value': '鏁呴殰'}, {'x': 760, 'y': 460, 'value': '鏁呴殰'}, {'x': 930, 'y': 380, 'value': '鏁呴殰'}, {'x': 960, 'y': 590, 'value': '鏁呴殰'}, {'x': 460, 'y': 260, 'value': '杈撳叆1'}, {'x': 460, 'y': 390, 'value': '杈撳叆2'}, {'x': 450, 'y': 510, 'value': '杈撳叆3'}, {'x': 770, 'y': 260, 'value': '鏁呴殰'}, ...)
         testLoc:
         faultLoc:
-        collision_node: 成环节点列表
+        collision_node: 成环节点列表    
     """
-    faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"], (node["SubsystemId"], node["NodeId"])]
+    faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
                                         for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
-    testInd, testName, testLoc = zip(*[[nodeId, node["text"], (node["SubsystemId"], node["NodeId"])]
+    testInd, testName, testLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
                                      for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
 
     faultMap = [[faultInd.index(srcId), faultInd.index(trgId), edgeP] for srcId, edge in enumerate(
@@ -715,6 +715,10 @@ def check_graph(convertStruct, eps=1e-9):
     checkLen = fLen - \
         len([nodeInd for nodeInd in unCheckIdList_ if nodeInd in validNodes])
     fuzzyLen = len([nodeInd for nodeInd in fuzzyList if nodeInd in validNodes])
+    # print("checkLen", checkLen)
+    # print("fuzzyLen", fuzzyLen)
+   
+
     return {
         "data": struct,
         "D_mat": D_mat.todense().tolist(),

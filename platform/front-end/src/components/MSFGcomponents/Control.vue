@@ -419,6 +419,11 @@ export default {
         }).then((res) => {
           this.dialogType = 'check'
           this.result.detect_isolat_ratio = res.detect_isolat_ratio
+          res.col_names.forEach((colName, index) => {
+            if (colName != 'row_name') {
+              res.col_names[index] = index+":"+colName
+            }
+          })
           this.result.col_names = ['row_name', ...res.col_names]
           let D_mat = []
           res.row_names.forEach((rowName, index) => {

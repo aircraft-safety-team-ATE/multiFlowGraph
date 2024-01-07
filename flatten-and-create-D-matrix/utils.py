@@ -407,6 +407,7 @@ def to_D_mat(
         eps:
         raise_collision: 是否启动成环检测
 
+
     return:
         D_mat:D矩阵
             <38x8 sparse matrix of type '<class 'numpy.float32'>' with 57 stored elements in Compressed Sparse Row format>
@@ -418,7 +419,7 @@ def to_D_mat(
         faultLoc:
         collision_node: 成环节点列表
     """
-    faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"], (node["SubsystemId"], node["NodeId"])]
+    faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
                                         for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
     testInd, testName, testLoc = zip(*[[nodeId, node["text"], (node["SubsystemId"], node["NodeId"])]
                                      for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
