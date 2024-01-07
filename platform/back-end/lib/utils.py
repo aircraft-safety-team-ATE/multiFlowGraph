@@ -470,7 +470,8 @@ def to_D_mat(
                           itm in inner_forward_map.items() for xid_, p_ in itm.items()])
         fault_mat = coo_matrix((p, (xid, yid)), shape=(
             len(faultName), len(faultName)), dtype="float32")
-    D_mat = fault_mat.dot(test_mat).tocsr()
+    D_mat = fault_mat.dot(test_mat).tocsr() + test_mat
+
     D_mat.eliminate_zeros()
 
     sysmap = {
@@ -715,8 +716,9 @@ def check_graph(convertStruct, eps=1e-9):
     checkLen = fLen - \
         len([nodeInd for nodeInd in unCheckIdList_ if nodeInd in validNodes])
     fuzzyLen = len([nodeInd for nodeInd in fuzzyList if nodeInd in validNodes])
-    # print("checkLen", checkLen)
-    # print("fuzzyLen", fuzzyLen)
+    print("checkLen", checkLen)
+    print("fuzzyLen", fuzzyLen)
+    print("fLen", fLen)
     fLen = 10
     checkLen = 4
     fuzzyLen = 3
