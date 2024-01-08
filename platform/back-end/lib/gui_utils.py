@@ -1,17 +1,19 @@
 from typing import Dict
 import uuid
+import numpy as np
 
 def _get_tree(topId, edges, decouvertIds=set(), root=-1):
     if topId and any([eid not in decouvertIds for eid in topId]):
         decouvertIds |= {eId for tId in topId  for eId in edges[tId]}
         branches = [_get_tree(edges[tId], edges, decouvertIds=decouvertIds, root=root) for tId in topId if tId not in decouvertIds]
         bnum = sum([bran["num"] for bran in branches])
-        return {"nid": root, "num": bnum, "braches": branches}
+        return {"nid": root, "num": bnum, "branches": branches}
     else:
-        return {"nid": root, "num": 1, "braches": []}
+        return {"nid": root, "num": 1, "branches": []}
 
 def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
     if len(tree["branches"]) == 0:
+        
         nodes[tree["nid"]]["x"] = x
         nodes[tree["nid"]]["y"] = y
         nodes[tree["nid"]]["type"] = nodes[tree["nid"]]["type"]
@@ -37,8 +39,8 @@ def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
             {
                 "x": x-width/2,
                 "y": y,
-                "id": nodes[tree["nid"]]+"_left"
-                }
+                "id": str(nodes[tree["nid"]]["id"])+"_left"
+            }
             ]
     else:
         branch_all = [bran["num"] for bran in tree["branches"]]
@@ -69,12 +71,12 @@ def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
             {
                 "x": x-width/2,
                 "y": y + y_dev,
-                "id": nodes[tree["nid"]]+"_left"
+                "id": str(nodes[tree["nid"]]["id"])+"_left"
                 },
             {
                 "x": x+width/2,
                 "y": y + y_dev,
-                "id": nodes[tree["nid"]]+"_right"
+                "id": str(nodes[tree["nid"]]["id"])+"_right"
                 }
             ]
         for brannum, braninfo, branoffset in zip(branch_all, tree["branches"], np.cumsum([0]+branch_all)[:-1]):
@@ -83,11 +85,11 @@ def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
 
 def render_node_pos(nodes, edges, width=100, height=24, padding=10):
     for nodid in range(len(nodes)):
-        nodes[nodid]["id"] = node.get("id", uuid.uuid1())
-    redges = [[srcid for srcid, edg in enumerate(edges) if trgid in edg] for trgid in range(len(node))]
+        nodes[nodid]["id"] = nodes[nodid].get("id", uuid.uuid1())
+    redges = [[srcid for srcid, edg in enumerate(edges) if trgid in edg] for trgid in range(len(nodes))]
     topId = [eid for eid, edg in enumerate(redges) if len(edg)==0]
     struct = _get_tree(topId, edges, decouvertIds=set(topId), root=-1)
-    nodes = _render_tree(tree, nodes, x=0, y=0, width=width, height=height, padding=padding)
+    nodes = _render_tree(struct, nodes, x=0, y=0, width=width, height=height, padding=padding)
     return nodes
     
     
