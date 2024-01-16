@@ -362,7 +362,14 @@ export default {
         data: fd
       }).then((res) => {
         (res)
-        this.$props.lf.render(importStruct(res.data))
+        this.$emit("updata-import-data", {
+            type: 'global',
+            value: {
+              SystemData: res.data,
+              currentSystemId: 0
+            }
+          })
+        // this.$props.lf.render(importStruct(res.data))
         //this.Visible = true
       })
     },
@@ -434,13 +441,13 @@ export default {
             D_mat.push(map)
           })
           this.result.D_mat = D_mat
-          this.$emit("updata-import-data", {
-            type: 'global',
-            value: {
-              SystemData: res.data,
-              currentSystemId: this.$props.G_DATA.currentSystemId
-            }
-          })
+          // this.$emit("updata-import-data", {
+          //   type: 'global',
+          //   value: {
+          //     SystemData: res.data,
+          //     currentSystemId: this.$props.G_DATA.currentSystemId
+          //   }
+          // })
 
           this.Visible = true;
           //this.$forceUpdate();
@@ -448,8 +455,9 @@ export default {
       }
     },
     $_analyse(file) {
+      let data = this.$props.G_DATA.SystemData
       let fd = new FormData()
-      fd.append('graphStruct', JSON.stringify(exportStruct(this.$props.lf.getGraphData())))
+      fd.append('graphStruct', JSON.stringify(data))
       fd.append('dataFile', file.raw)
       this.$axios({
         url: '/multi-info-analyse/analyse-data/',
@@ -458,7 +466,14 @@ export default {
       }).then((res) => {
         this.dialogType = 'analyse'
         // this.Visible = true
-        this.$props.lf.render(importStruct(res.data, 'analyse'))
+        this.$emit("updata-import-data", {
+          type: 'global',
+          value: {
+            SystemData: res.data,
+            currentSystemId: this.$props.G_DATA.currentSystemId
+          }
+        })
+
       })
     },
     $_test() {
