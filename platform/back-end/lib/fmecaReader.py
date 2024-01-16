@@ -318,7 +318,7 @@ def read_fmeca(df, check_invalid_col=["单元名称、型号或图号（2）", "
     edges = [[] for node in result_list['nodes']]
     for edge in result_list['edges']:
         edges[nodeNames.index(edge["from"])].append(nodeNames.index(edge["to"]))
-    subsystems = {subsysid: {"name": subsysInfo[0], "nodesId": sorted(subsysInfo[1])} for subsysid, subsysInfo in enumerate(subsystem.items())} 
+    subsystems = {subsysid: {"name": subsysInfo[0], "nodesId": sorted([nodeNames.index(noden) for noden in subsysInfo[1]])} for subsysid, subsysInfo in enumerate(subsystem.items())} 
 ##    for subsys, faults in subsystem.items():
 ##        result_list['nodes'].append({'text': subsys, 'type': SUBSYS, 'children': sorted(faults)})
     return result_list['nodes'], edges, subsystems
