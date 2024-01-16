@@ -2,8 +2,7 @@
 import uuid
 import copy
 import json
-from .fmecaReader import read_fmeca
-from .gui_utils import render_node_pos
+
 from typing import Iterable
 import numpy as np
 from scipy.sparse import coo_matrix, csr_matrix
@@ -34,9 +33,16 @@ FINAL_EFFECT_COL = "{最终影响}"
 WIDTH = 180
 NODEWIDTH = 100
 HEIGHT = 24
-PADDING = 10
+PADDING = 50
 
+DEBUG_MODE = False
 
+if DEBUG_MODE:
+    from gui_utils import render_node_pos
+    from fmecaReader import read_fmeca
+else:
+    from .gui_utils import render_node_pos
+    from .fmecaReader import read_fmeca
 # 拉直多子系统嵌套结构依赖方法
 
 
@@ -101,8 +107,26 @@ def _flatten_graph(
             edges.append({})
             nodes_cnt += 1
     for itm in struct[act_id]["data"]["edges"]:
-        edges[id_map[itm["sourceAnchorId"]]-start_cnt][id_map[itm["targetAnchorId"]]
-                                                       ] = itm.get("properties", {}).get("proba", 1.0)
+        if "sourceAnchorId" in itm.keys():
+            srcId = id_map[itm["sourceAnchorId"]]
+        else:
+            for nid, ninfo in enumerate(nodes):
+                if ninfo["id"] == itm["sourceNodeId"]:
+                    srcId = nid
+                    break
+            else:
+                continue
+        if "targetAnchorId" in itm.keys():
+            trgId = id_map[itm["targetAnchorId"]]
+        else:
+            for nid, ninfo in enumerate(nodes):
+                if ninfo["id"] == itm["targetNodeId"]:
+                    trgId = nid
+                    break
+            else:
+                continue
+        edges[srcId -
+              start_cnt][trgId] = itm.get("properties", {}).get("proba", 1.0)
     in_inds = [it[0] for it in sorted(in_inds, key=lambda it_: it_[1])]
     out_inds = [it[0] for it in sorted(out_inds, key=lambda it_: it_[1])]
     return nodes, edges, in_inds, out_inds, systems
@@ -147,6 +171,9 @@ def _render_edge(sysnodes, sysedges):
                     trggrpind, trgInd = trgInd
                 else:
                     trggrpind = 0
+                srcgrpind = min(srcgrpind, len(
+                    [anchor for anchor in sysnodes[srcInd]["anchors"] if anchor["type"] == "right"])-1)
+
                 srcAnc = [anchor for anchor in sysnodes[srcInd]
                           ["anchors"] if anchor["type"] == "right"][srcgrpind]
                 trgAnc = [anchor for anchor in sysnodes[trgInd]
@@ -161,10 +188,8 @@ def _render_edge(sysnodes, sysedges):
                     "properties": {},
                     "pointsList": [
                         {"x": srcAnc.get("x", -1), "y": srcAnc.get("y", -1)},
-                        {"x": (srcAnc.get("x", -1)+trgAnc.get("x", -1)) /
-                         2, "y": srcAnc.get("y", -1)},
-                        {"x": (srcAnc.get("x", -1)+trgAnc.get("x", -1)) /
-                         2, "y": trgAnc.get("y", -1)},
+                        # {"x": (srcAnc.get("x", -1)+trgAnc.get("x", -1))/2, "y": srcAnc.get("y", -1)},
+                        # {"x": (srcAnc.get("x", -1)+trgAnc.get("x", -1))/2, "y": trgAnc.get("y", -1)},
                         {"x": trgAnc.get("x", -1), "y": trgAnc.get("y", -1)}
                     ],
                     "sourceAnchorId": srcAnc["id"],
@@ -176,7 +201,7 @@ def _render_edge(sysnodes, sysedges):
 def _flatten_edge(edge):
     if all(map(lambda itm: isinstance(itm, Iterable), edge)):
         edge = [ed for edg in edge for ed in edg]
-    return [edg[0] if isinstance(edg, Iterable) else edg for edg in edge]
+    return [f"{edg[0]}#{edg[1]}" if isinstance(edg, Iterable) else f"0#{edg}" for edg in edge]
 
 
 def _check_node(node):
@@ -208,46 +233,70 @@ def _wash_nes(nodes, edges, system):
     for ind, rind in enumerate(pure_ind):
         for eid in edges[rind]:
             edges_[ind].extend(_getalledge(eid, pure_ind, edges))
-    return nodes, edges_, system
+    return nodes, [[[0, eit] for eit in eitm] for eitm in edges_], system
 
 
 def reconstruct_graph(nodes, edges, system):
     struct = []
     node2sys = {}
-    sysalllen = len(system)
     nodes = [_check_node(node) for node in nodes]
     nodes, edges, system = _wash_nes(nodes, edges, system)
+    system = sorted(system.values(), key=lambda itm: len(itm["nodesId"]))
+    system_names = [itm["name"] for itm in system]
+    sysalllen = len(system)
     nodeLen = len(nodes)
-    for sysind, sysinfo in enumerate(sorted(system.values(), key=lambda itm: len(itm["nodesId"]))):
-        for sysinfoid in [node2sys[ind] for ind in sysinfo["nodesId"] if ind in node2sys.keys()]:
-            nodes[sysinfoid]["parent_id"] = sysalllen - sysind
+    for sysind, sysinfo in enumerate(system):
+        xmin, xmax = float("inf"), -float("inf")
+        ymin, ymax = float("inf"), -float("inf")
         sysnodeInd = sorted(set([node2sys.get(ind, ind)
                             for ind in sysinfo["nodesId"]]))
-        node2sys.update({ind: len(nodes) for ind in sysinfo["nodesId"]})
+        for sysinfoid in sysnodeInd:
+            xmin = min(xmin, nodes[sysinfoid]["x"])
+            xmax = max(xmax, nodes[sysinfoid]["x"])
+            ymin = min(ymin, nodes[sysinfoid]["y"])
+            ymax = max(ymin, nodes[sysinfoid]["y"])
+            if nodes[sysinfoid]["type"] == SYS:
+                node_name = nodes[sysinfoid]["text"]["value"]
+                sysinnerind = system_names.index(node_name)
+                struct[sysinnerind]["parent_id"] = sysalllen - sysind
         in_map = {}
         out_map = {}
-        sysnodes = [nodes[ind] for ind in sysnodeInd]
+        sysnodes = [{
+            "anchors": [{**anc, "x": anc["x"]-xmin, "y": anc["y"]-ymin} for anc in nodes[ind]["anchors"]],
+            "text": {
+                "x": nodes[ind]["text"]["x"]-xmin,
+                "y": nodes[ind]["text"]["y"]-ymin,
+                "value": nodes[ind]["text"]["value"]
+            },
+            "type": nodes[ind]["type"],
+            "id": nodes[ind]["id"],
+            "x": nodes[ind]["x"]-xmin,
+            "y": nodes[ind]["y"]-ymin,
+            "properties": nodes[ind]["properties"]} for ind in sysnodeInd]
         sysedges = [[] for _ in sysnodeInd]
         for srcNind, trgNinds in enumerate(edges):
             if srcNind in sysnodeInd:
                 srcInnerInd = sysnodeInd.index(srcNind)
                 for trgNind in _flatten_edge(trgNinds):
-                    if trgNind in sysnodeInd:
+                    if int(trgNind.split("#")[1]) in sysnodeInd:
+                        trgportId, trgNind = map(int, trgNind.split("#"))
                         trgInnerInd = sysnodeInd.index(trgNind)
                         if trgInnerInd not in _flatten_edge(edges[srcInnerInd]):
-                            sysedges[srcInnerInd].append(trgInnerInd)
+                            sysedges[srcInnerInd].append(
+                                [trgportId, trgInnerInd])
                     elif trgNind not in out_map.keys():
                         out_map[trgNind] = {srcInnerInd}
                     else:
                         out_map[trgNind].add(srcInnerInd)
             else:
                 for trgNind in _flatten_edge(trgNinds):
-                    if trgNind in sysnodeInd:
+                    if int(trgNind.split("#")[1]) in sysnodeInd:
+                        trgportId, trgNind = map(int, trgNind.split("#"))
                         trgInnerInd = sysnodeInd.index(trgNind)
                         if srcNind not in in_map.keys():
-                            in_map[srcNind] = {trgInnerInd}
+                            in_map[srcNind] = {f"{trgportId}#{trgInnerInd}"}
                         else:
-                            in_map[srcNind].add(trgInnerInd)
+                            in_map[srcNind].add(f"{trgportId}#{trgInnerInd}")
         cnt = len(sysnodeInd)
         if nodeLen == len(sysinfo["nodesId"]):
             sysnodes_, sysedges_ = _render_edge(sysnodes, sysedges)
@@ -256,35 +305,53 @@ def reconstruct_graph(nodes, edges, system):
                     "nodes": sysnodes_,
                     "edges": sysedges_,
                 },
+                "name": sysinfo["name"],
                 "system_id": sysalllen-sysind,
                 "parent_id": None,
             })
         else:
             out_map_filter = []
             for trgNind, innerNindGrp in out_map.items():
+                trgportId, trgNind = map(int, trgNind.split("#"))
+                nodeRef = nodes[node2sys.get(trgNind, trgNind)]
                 for itmId, itm in enumerate(out_map_filter):
                     if itm["nodeInds"] == innerNindGrp:
-                        out_map_filter[itmId]["trgNinds"].append(srcNind)
+                        out_map_filter[itmId]["trgNinds"].append(
+                            [trgportId, trgNind])
                 else:
-                    for ind in sorted(innerNindGrp):
-                        if nodes[ind]:
-                            nodeRef = nodes[ind]
-                            break
-                    else:
-                        raise Exception(
-                            "[SubsysError] No vaild Node in subsystem")
                     out_map_filter.append({
                         "name": f"输出{len(out_map_filter)+1}",
                         "config": {
-                            "anchors": [anchor for anchor in nodeRef["anchors"] if anchor["type"] == "left"],
-                            "text": {**nodeRef.get("text", {}), "value": f"输出{len(out_map_filter)+1}"},
+                            "anchors": [{
+                                "x": xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/HEIGHT)-NODEWIDTH/2,
+                                "y": len(out_map_filter)*(PADDING + HEIGHT),
+                                "id": nodeRef["id"]+f"_lef{len(out_map_filter)+1}t",
+                                "type": "left"
+                            }],
+                            "text": {
+                                "x": xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/HEIGHT),
+                                "y": len(out_map_filter)*(PADDING + HEIGHT),
+                                "value": f"输出{len(out_map_filter)+1}"},
                             "type": "output-node",
-                            "id": nodeRef["id"] + "-asoutput",
-                            "x": nodeRef.get("x", -1),
-                            "y": nodeRef.get("y", -1),
-                            "properties": nodeRef.get("properties"),
+                            "id": nodeRef["id"] + f"-asoutput{len(out_map_filter)+1}",
+                            "x": xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/HEIGHT),
+                            "y": len(out_map_filter)*(PADDING + HEIGHT),
+                            "properties": {
+                                "showType": "edit",
+                                "collision": False,
+                                "detectable": True,
+                                "fuzzible": False,
+                                "fuzzy_state": 0,
+                                "state": 0,
+                                "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                                "typeColor": "#edc3ae",
+                                "flevel": 0,
+                                "width": 100,
+                                "ui": "node-red",
+                                "index": len(out_map_filter)+1,
+                            },
                         },
-                        "trgNinds": [trgNind],
+                        "trgNinds": [[trgportId, trgNind]],
                         "nodeInds": innerNindGrp,
                         "nodecnt": cnt,
                     })
@@ -295,27 +362,41 @@ def reconstruct_graph(nodes, edges, system):
                     if itm["nodeInds"] == innerNindGrp:
                         in_map_filter[itmId]["srcNinds"].append(srcNind)
                 else:
-                    nodeRef = None
-                    for ind in sorted(innerNindGrp):
-                        if nodes[ind]:
-                            nodeRef = nodes[ind]
-                            break
-                    else:
-                        raise Exception(
-                            "[SubsysError] No vaild Node in subsystem")
+                    nodeRef = nodes[node2sys.get(srcNind, srcNind)]
                     in_map_filter.append({
                         "name": f"输入{len(in_map_filter)+1}",
                         "config": {
-                            "anchors": [anchor for anchor in nodeRef["anchors"] if anchor["type"] == "right"],
-                            "text": {**nodeRef.get("text", {}), "value": f"输入{len(out_map_filter)+1}"},
+                            "anchors": [{
+                                "x": -round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/HEIGHT)+NODEWIDTH/2,
+                                "y": len(in_map_filter)*(PADDING + HEIGHT),
+                                "id": nodeRef["id"]+f"_right{len(out_map_filter)+1}",
+                                "type": "right"
+                            }],
+                            "text": {
+                                "x": -round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/HEIGHT),
+                                "y": len(in_map_filter)*(PADDING + HEIGHT),
+                                "value": f"输入{len(in_map_filter)+1}"},
                             "type": "input-node",
-                            "id": nodeRef["id"] + "-asinput",
-                            "x": nodeRef.get("x", -1),
-                            "y": nodeRef.get("y", -1),
-                            "properties": nodeRef.get("properties"),
+                            "id": nodeRef["id"] + f"-asinput{len(in_map_filter)+1}",
+                            "x": -round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/HEIGHT),
+                            "y": len(in_map_filter)*(PADDING + HEIGHT),
+                            "properties": {
+                                "showType": "edit",
+                                "collision": False,
+                                "detectable": True,
+                                "fuzzible": False,
+                                "fuzzy_state": 0,
+                                "state": 0,
+                                "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                                "typeColor": "#edc3ae",
+                                "flevel": 0,
+                                "width": 100,
+                                "ui": "node-red",
+                                "index": len(in_map_filter)+1,
+                            },
                         },
                         "srcNinds": [srcNind],
-                        "nodeInds": innerNindGrp,
+                        "nodeInds": [[int(it) for it in trgItem.split("#")] for trgItem in innerNindGrp],
                         "nodecnt": cnt,
                     })
                     cnt += 1
@@ -324,15 +405,17 @@ def reconstruct_graph(nodes, edges, system):
             sysedges.extend([[] for _ in range(len(sysnodes)-len(sysedges))])
             for itm in out_map_filter:
                 for srcind in itm["nodeInds"]:
-                    sysedges[srcind].append(itm["nodecnt"])
+                    sysedges[srcind].append([0, itm["nodecnt"]])
             for itm in in_map_filter:
-                sysedges[itm["nodecnt"]] = sorted(itm["nodeInds"])
+                sysedges[itm["nodecnt"]] = [
+                    sorted(itm["nodeInds"], key=lambda itm: itm[1]+itm[0]/100)]
             sysnodes_, sysedges_ = _render_edge(sysnodes, sysedges)
             struct.append({
                 "data": {
                     "nodes": sysnodes_,
                     "edges": sysedges_,
                 },
+                "name": sysinfo["name"],
                 "system_id": sysalllen-sysind,
                 "parent_id": None,
             })
@@ -340,8 +423,8 @@ def reconstruct_graph(nodes, edges, system):
             sysnode = {
                 "id": sysNodeRef["id"]+"-assys",
                 "type": SYS,
-                "x": sysNodeRef.get("x", -1),
-                "y": sysNodeRef.get("y", -1),
+                "x": round((xmax+xmin)/2),
+                "y": round((ymax+ymin)/2),
                 "properties": {
                     "tableName": "",
                     "SubsystemId": sysalllen-sysind,
@@ -351,22 +434,22 @@ def reconstruct_graph(nodes, edges, system):
                     },
                 },
                 "text": {
-                    "x": sysNodeRef.get("x", -1),
-                    "y": sysNodeRef.get("x", -1),
+                    "x": round((xmax+xmin)/2),
+                    "y": round((ymax+ymin)/2) + HEIGHT*(0.5-max(len(in_map_filter), len(out_map_filter))/2),
                     "value": sysinfo["name"],
                 },
                 "anchors": [
                     {
-                        "x": sysNodeRef.get("x", -1) - WIDTH/2,
-                        "y": sysNodeRef.get("y", -1) + WIDTH*(1.5+itmId),
+                        "x": round((xmax+xmin)/2) - WIDTH/2,
+                        "y": round((ymax+ymin)/2) + HEIGHT*(1.5-max(len(in_map_filter), len(out_map_filter))/2+itmId),
                         "id": sysNodeRef["id"]+f"-assys-left-{itmId+1}",
                         "edgeAddable": False,
                         "type": "left",
                     } for itmId, itm in enumerate(in_map_filter)] +
                 [
                     {
-                        "x": sysNodeRef.get("x", -1) + WIDTH/2,
-                        "y": sysNodeRef.get("y", -1) + WIDTH*(1.5+itmId),
+                        "x": round((xmax+xmin)/2) + WIDTH/2,
+                        "y": round((ymax+ymin)/2) + HEIGHT*(1.5-max(len(in_map_filter), len(out_map_filter))/2+itmId),
                         "id": sysNodeRef["id"]+f"-assys-right-{itmId+1}",
                         "edgeAddable": False,
                         "type": "right",
@@ -377,14 +460,31 @@ def reconstruct_graph(nodes, edges, system):
                 nodes[nid] = {}
                 edges[nid] = []
             nodes.append(sysnode)
-            edges.append([])
+            edges.append([[]])
             for itmId, itm in enumerate(out_map_filter):
-                edges[-1].append(itm["trgNinds"])
+                edges[-1][0].extend(itm["trgNinds"])
             for itmId, itm in enumerate(in_map_filter):
                 for srcId in itm["srcNinds"]:
-                    edges[srcId] = [itm for itm in edges[srcId] if itm in sysnodeInd or (
-                        isinstance(itm, Iterable) and itm[1] in sysnodeInd)]
-                    edges[srcId].append([itmId, len(nodes)-1])
+                    edgesSys = [itmId for itmId, itm in enumerate(edges[srcId]) if any(
+                        map(lambda it_: it_[1] in sysnodeInd if isinstance(
+                            it_, Iterable) else it_ in sysnodeInd, itm)
+                    )]
+                    edgraw, edges[srcId] = edges[srcId], []
+                    for itm_ in edgraw:
+                        edges[srcId].append([])
+                        for itm in itm_:
+                            if not isinstance(itm, Iterable):
+                                itm = [0, itm]
+                            itmport, itmv = itm
+                            if itmv not in sysnodeInd:
+                                edges[srcId].extend(
+                                    [[] for _ in range(itmport+1-len(edges[srcId]))])
+                                edges[srcId][itmport].append(itmv)
+                    for srcport in edgesSys:
+                        edges[srcId].extend(
+                            [[] for _ in range(srcport+1-len(edges[srcId]))])
+                        edges[srcId][srcport].append([itmId, len(nodes)-1])
+            node2sys.update({ind: len(nodes)-1 for ind in sysinfo["nodesId"]})
     return struct
 
 
@@ -422,6 +522,9 @@ def to_D_mat(
                                         for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
     testInd, testName, testLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
                                      for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
+    ConnInd, ConnName, ConnLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
+                                     for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
+    ConnIds = [faultInd.index(ind) for ind in ConnInd]
 
     faultMap = [[faultInd.index(srcId), faultInd.index(trgId), edgeP] for srcId, edge in enumerate(
         edges) for trgId, edgeP in edge.items() if trgId in faultInd]
@@ -437,12 +540,12 @@ def to_D_mat(
         test_mat = coo_matrix((p, (xid, yid)), shape=(
             len(faultName), len(testName)), dtype="float32")
 
+    inner_forward_map = {}
     if len(faultMap) == 0:
         fault_mat = coo_matrix(([0], ([0], [0])), shape=(
             len(faultName), len(faultName)), dtype="float32")
         fault_mat.eliminate_zeros()
     else:
-        inner_forward_map = {}
         for xid_, yid_, p_ in faultMap:
             if yid_ in inner_forward_map.keys():
                 inner_forward_map[yid_][xid_] = p_
@@ -466,12 +569,17 @@ def to_D_mat(
         if collision_node and raise_collision:
             raise Exception(
                 f"[LoopError] It exists {len(collision_node)} Cause-Effect Loop on Fault Node list(collision_node)")
-        xid, yid, p = zip(*[[xid_, yid_, p_] for yid_,
-                          itm in inner_forward_map.items() for xid_, p_ in itm.items()])
-        fault_mat = coo_matrix((p, (xid, yid)), shape=(
-            len(faultName), len(faultName)), dtype="float32")
-    D_mat = fault_mat.dot(test_mat).tocsr() + test_mat
-
+    ckpt_map = {}
+    for xid_, yid_, p_ in testMap:
+        if yid_ not in ckpt_map.keys():
+            ckpt_map[yid_] = {}
+        ckpt_map[yid_][xid_] = max(ckpt_map[yid_].get(xid_, 0), p_)
+        for trgid_, p_2 in inner_forward_map.get(xid_, {}).items():
+            ckpt_map[yid_][trgid_] = max(ckpt_map[yid_].get(trgid_, 0), p_*p_2)
+    xid, yid, p = zip(*[[xid_, yid_, p_] for yid_,
+                      itm in ckpt_map.items() for xid_, p_ in itm.items()])
+    D_mat = coo_matrix((p, (xid, yid)), shape=(
+        len(faultName), len(testName)), dtype="float32").tocsr()
     D_mat.eliminate_zeros()
 
     sysmap = {
@@ -481,14 +589,13 @@ def to_D_mat(
             "nodesId": [faultInd.index(nid) for nid in sysv["nodesId"] if nid in faultInd]
         } for sysk, sysv in system.items()
     }
-    collision_node = []
-    return D_mat, testName, faultName, testLoc, faultLoc, sysmap, collision_node
+    return D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node
 
 # D矩阵推理依赖方法
 
 
 def _cal_failure(D_mat, p_test, eps=1e-20):
-    return 1 - np.exp(D_mat.dot(np.log(1 - p_test + eps)[:, None]))
+    return np.exp(D_mat.dot(np.log(p_test + eps)[:, None]))
 
 
 def _divide_sparse(vector_, denom_mat):
@@ -506,7 +613,6 @@ def _cal_fuzzy(D_mat, p_fault, eps=1e-20):
     c_p_fault = 1 - p_fault + eps
     logc_p_fault = np.log(c_p_fault)
     D_mat_bool = (D_mat > eps).astype("float32")
-    # itm = D_mat.multiply(logc_p_fault)
     DmatT = D_mat.T.tocsr()
     itm = DmatT._with_data(logc_p_fault[DmatT.indices, 0]/DmatT.data).T.tocsr()
     log_p_eff_diff = D_mat.multiply(
@@ -534,6 +640,7 @@ def detect_by_D_mat(
     p_test: np.ndarray,
     D_mat: np.ndarray,
     sysmap: Dict = {},
+    ConnIds=[],
     eps: float = 1e-10,
     n_round: int = 5
 ) -> Tuple[np.ndarray, np.ndarray, Dict]:
@@ -559,7 +666,11 @@ def detect_by_D_mat(
 
     '''
     p_fault = _cal_failure(D_mat, p_test, eps=eps**2)
-    p_fuzzy = _cal_fuzzy(D_mat, p_fault, eps=eps**2)
+    DmatT = D_mat.T.tocsr()
+    Dpure = DmatT._with_data(np.array([0 if i in ConnIds else v for i, v in zip(
+        DmatT.indices, DmatT.data)], dtype="float32")).T.tocsr()
+    Dpure.eliminate_zeros()
+    p_fuzzy = _cal_fuzzy(Dpure, p_fault, eps=eps**2)
     sysres = {sysk: _or_failure_fuzzy(
         *zip(*[[p_fault[nId], p_fuzzy[nId]] for nId in sysv["nodesId"]])) for sysk, sysv in sysmap.items()}
     return np.round(p_fault.flatten(), n_round), np.round(p_fuzzy.flatten(), n_round), sysres
@@ -574,6 +685,7 @@ def detect_with_render(
     testLoc: List,
     faultLoc: List,
     sysmap: Dict,
+    ConnIds=[],
     eps: float = 1e-9,
     n_round: int = 5
 ) -> List[Dict]:
@@ -599,7 +711,7 @@ def detect_with_render(
 
     '''
     p_fault, p_fuzzy, sysres = detect_by_D_mat(
-        p_test, D_mat, sysmap, eps=eps/10)
+        p_test, D_mat, sysmap, ConnIds=ConnIds, eps=eps/10)
     # 渲染步骤
     struct = copy.deepcopy(struct)
     for t_ind, p_fault_ in enumerate(p_test):
@@ -637,7 +749,8 @@ def to_json(
     sysmap: Dict,
     testName: List,
     faultName: List,
-    collision_node: List = []
+    collision_node: List = [],
+    ConnIds: List = []
 ) -> str:
     return json.dumps({
         "struct": struct,
@@ -646,7 +759,8 @@ def to_json(
         "sysmap": sysmap,
         "testName": testName,
         "faultName": faultName,
-        "collision_node": list(collision_node),
+        "collision_node": [int(ind) for ind in collision_node],
+        "ConnIds": [int(ind) for ind in ConnIds],
         "D_mat": [
             D_mat.indptr.tolist(),
             D_mat.indices.tolist(),
@@ -659,7 +773,7 @@ def to_json(
 
 def from_json(
     configJson: str
-) -> Tuple[np.array, List[Dict], List, List, Dict, List, List, List]:
+) -> Tuple[np.array, List[Dict], List, List, Dict, List, List, List, List]:
     config = json.loads(configJson)
     struct = config["struct"]
     testLoc = config["testLoc"]
@@ -671,7 +785,8 @@ def from_json(
     D_mat = csr_matrix((D_values, D_indices, D_indptr), shape=(
         len(faultName), len(testName)), dtype="float32")
     collision_node = config["collision_node"]
-    return D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node
+    ConnIds = config["ConnIds"]
+    return D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds
 
 
 def _get_detect_isolat_ratio(checkLen, fuzzyLen, faultLen, testLen):
@@ -682,17 +797,22 @@ def _get_detect_isolat_ratio(checkLen, fuzzyLen, faultLen, testLen):
     ]
 
 # 流图性能评测
+
+
 def check_graph(convertStruct, eps=1e-9):
-    D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node = from_json(
+    D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds = from_json(
         convertStruct)
     fnodes = [struct[act_id]["data"]["nodes"][node_id]
               for act_id, node_id in faultLoc]
     validNodes = [nodeId for nodeId, node in enumerate(
         fnodes) if node["type"] not in [INPUT_NODE, OUTPUT_NODE]]
-    unCheckIdList_ = np.where(np.asarray(D_mat.sum(axis=1)) < eps)[0]
-    fuzzyList = np.where(_cal_fuzzy(D_mat, np.ones(
-        (len(faultName), 1), dtype="float32")).flatten() > 1 - eps)[0]
-    print(fuzzyList)
+    unCheckIdList_ = np.where(np.asarray(D_mat.sum(axis=1)).flatten() < eps)[0]
+    DmatT = D_mat.T.tocsr()
+    Dpure = DmatT._with_data(np.array([0 if i in ConnIds else v for i, v in zip(
+        DmatT.indices, DmatT.data)], dtype="float32")).T.tocsr()
+    Dpure.eliminate_zeros()
+    fuzzyList = np.where(_cal_fuzzy(Dpure, np.ones(
+        (len(faultName), 1), dtype="float32"), eps=eps**2).flatten() > 0.5 - eps)[0]
     for f_ind in collision_node:
         act_id, node_id = faultLoc[f_ind]
         struct[act_id]["data"]["nodes"][node_id]["properties"]["collision"] = True
@@ -712,18 +832,10 @@ def check_graph(convertStruct, eps=1e-9):
                 map(lambda itm: itm in collision_node, subsysInfo["nodesId"]))
             struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzible"] = any(
                 map(lambda itm: itm in fuzzyList, subsysInfo["nodesId"]))
-    fLen = len(unCheckIdList_)
+    fLen = len(faultName)
     checkLen = fLen - \
         len([nodeInd for nodeInd in unCheckIdList_ if nodeInd in validNodes])
     fuzzyLen = len([nodeInd for nodeInd in fuzzyList if nodeInd in validNodes])
-    print("checkLen", checkLen)
-    print("fuzzyLen", fuzzyLen)
-    print("fLen", fLen)
-    fLen = 10
-    checkLen = 4
-    fuzzyLen = 3
-    print("D_mat2", D_mat.todense())
-
     return {
         "data": struct,
         "D_mat": D_mat.todense().tolist(),
@@ -751,6 +863,73 @@ def convert_fmeca(
                             height=HEIGHT, padding=PADDING)
     return reconstruct_graph(nodes, edges, system)
 
+def optimize_struct(struct, p_min=0.25):
+    nodes, edges, _ = flatten_graph(struct)
+    faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
+                                        for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
+    testInd, testName, testLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
+                                     for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
+    ConnInd, ConnName, ConnLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
+                                     for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
+    ConnIds = [faultInd.index(ind) for ind in ConnInd]
+
+    faultMap = [[faultInd.index(srcId), faultInd.index(trgId)] for srcId, edge in enumerate(
+        edges) for trgId, edgeP in edge.items() if trgId in faultInd if edgeP > p_min]
+    testMap = [[faultInd.index(srcId), testInd.index(trgId)] for srcId, edge in enumerate(
+        edges) for trgId, edgeP in edge.items() if trgId in testInd if edgeP > p_min]
+
+    inner_forward_map = {}
+    for xid_, yid_ in faultMap:
+        if yid_ in inner_forward_map.keys():
+            inner_forward_map[yid_].add(xid_)
+        else:
+            inner_forward_map[yid_] = {xid_}
+    for _ in edges:
+        lin_cnt = 0
+        for yid_, itm in inner_forward_map.items():
+            for xid_ in set(itm):
+                for x_id_new in inner_forward_map.get(xid_, set()):
+                    if yid_ == x_id_new:
+                        continue
+                    if x_id_new in inner_forward_map[yid_]:
+                        lin_cnt += 1
+                    else:
+                        inner_forward_map[yid_].add(x_id_new)
+        if lin_cnt < 0.5:
+            break
+    ckpt_map = {}
+    for xid_, yid_ in testMap:
+        if yid_ in ckpt_map.keys():
+            ckpt_map[yid_] |= {xid_}
+            ckpt_map[yid_] |= inner_forward_map[xid_]
+        else:
+            ckpt_map[yid_] = {xid_}
+            ckpt_map[yid_] |= inner_forward_map[xid_]
+    ckptinds = sorted(ckpt_map.keys(), key=lambda itm: len(ckpt_map[itm]))
+    for ckptsortid, ckptind in enumerate(ckptinds):
+        cons = -1
+        inner_forward_map_ = set(ckpt_map[ckptind])
+        for ckptinnerid in ckptinds[:ckptsortid]:
+            if len(ckpt_map[ckptind]) < len(ckpt_map[ckptinnerid]):
+                break
+            elif len(ckpt_map[ckptinnerid] - ckpt_map[ckptind]) > 0:
+                continue
+            elif ckpt_map[ckptind] == ckpt_map[ckptinnerid]:
+                cons == ckptinnerid
+                break
+            ckpt_map -= len(ckpt_map[ckptinnerid])
+        if cons != -1:
+            act_id, node_id = testLoc[cons]
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["redundancy"] = 0.1
+            act_id_, node_id_ = testLoc[ckptind]
+            struct[act_id_]["data"]["nodes"][node_id_]["properties"]["redundancy"] = 0.5
+        elif len(inner_forward_map[ckptind]) == 0:
+            act_id, node_id = testLoc[ckptind]
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["redundancy"] = 1
+        else:
+            act_id, node_id = testLoc[ckptind]
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["redundancy"] = 0
+    return struct
 
 if __name__ == "__main__":
 
@@ -758,15 +937,19 @@ if __name__ == "__main__":
         struct = json.load(f)["SystemData"]
     nodes, edges, system = flatten_graph(struct)
     structInverse = reconstruct_graph(nodes, edges, system)
-    D_mat, testName, faultName, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
+    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
         nodes, edges, system)
     p_test = (np.random.uniform(0, 1, len(testName)) > 0.5).astype("float32")
-    p_fault, p_fuzzy, sysres = detect_by_D_mat(p_test, D_mat, sysmap)
+    p_fault, p_fuzzy, sysres = detect_by_D_mat(p_test, D_mat, sysmap, ConnIds)
     print("P_FAULT:", p_fault.tolist(), "\tP_FUZZY:", p_fuzzy.tolist())
     structNew = detect_with_render(
-        p_test, D_mat, struct, testLoc, faultLoc, sysmap, eps=1e-10, n_round=5)
+        p_test, D_mat, struct, testLoc, faultLoc, sysmap, ConnIds, eps=1e-10, n_round=5)
     structJson = to_json(D_mat, struct, testLoc, faultLoc,
-                         sysmap, testName, faultName, collision_node)
+                         sysmap, testName, faultName, collision_node, ConnIds)
     checkRes = check_graph(structJson)
-    D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node = from_json(
+    print(checkRes["detect_isolat_ratio"])
+    D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds = from_json(
         structJson)
+    import pandas as pd
+    struct2 = convert_fmeca(pd.read_excel("FMECA范例.xlsx"))
+    struct = optimize_struct(struct, p_min=0.25)
