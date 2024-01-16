@@ -3,9 +3,14 @@ import uuid
 import numpy as np
 
 def _get_tree(topId, edges, decouvertIds=set(), root=-1):
-    if topId and any([eid not in decouvertIds for eid in topId]):
-        decouvertIds |= {eId for tId in topId  for eId in edges[tId]}
-        branches = [_get_tree(edges[tId], edges, decouvertIds=decouvertIds, root=root) for tId in topId if tId not in decouvertIds]
+    if topId:# and any([eid not in decouvertIds for eid in topId]):
+        #decouvertIds_ = decouvertIds #| set(topId)
+        branches = [_get_tree(
+            edges[tId],
+            edges,
+            #decouvertIds=decouvertIds_,
+            root=tId
+            ) for t_i, tId in enumerate(topId) if tId not in decouvertIds]
         bnum = sum([bran["num"] for bran in branches])
         return {"nid": root, "num": bnum, "branches": branches}
     else:
@@ -13,7 +18,6 @@ def _get_tree(topId, edges, decouvertIds=set(), root=-1):
 
 def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
     if len(tree["branches"]) == 0:
-        
         nodes[tree["nid"]]["x"] = x
         nodes[tree["nid"]]["y"] = y
         nodes[tree["nid"]]["type"] = nodes[tree["nid"]]["type"]
@@ -38,9 +42,16 @@ def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
         nodes[tree["nid"]]["anchors"] = [
             {
                 "x": x-width/2,
-                "y": y,
-                "id": str(nodes[tree["nid"]]["id"])+"_left"
-            }
+                "y": y,# - height/2,
+                "id": nodes[tree["nid"]]["id"]+"_left",
+                "type": "left"
+                },
+            {
+                "x": x+width/2,
+                "y": y,# - height/2,
+                "id": nodes[tree["nid"]]["id"]+"_right",
+                "type": "right"
+                }
             ]
     else:
         branch_all = [bran["num"] for bran in tree["branches"]]
@@ -64,31 +75,48 @@ def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
             }
         nodes[tree["nid"]]["text"] = {
             "x": x + 10,
-            "y": y + y_dev,
+            "y": y + y_dev,# + height/2,
             "value": nodes[tree["nid"]]["text"]["value"] if isinstance(nodes[tree["nid"]]["text"], Dict) else nodes[tree["nid"]]["text"]
             }
         nodes[tree["nid"]]["anchors"] = [
             {
                 "x": x-width/2,
-                "y": y + y_dev,
-                "id": str(nodes[tree["nid"]]["id"])+"_left"
+                "y": y + y_dev,# - height/2,
+                "id": nodes[tree["nid"]]["id"]+"_left",
+                "type": "left"
                 },
             {
                 "x": x+width/2,
-                "y": y + y_dev,
-                "id": str(nodes[tree["nid"]]["id"])+"_right"
+                "y": y + y_dev,# - height/2,
+                "id": nodes[tree["nid"]]["id"]+"_right",
+                "type": "right"
                 }
             ]
         for brannum, braninfo, branoffset in zip(branch_all, tree["branches"], np.cumsum([0]+branch_all)[:-1]):
-            nodes = _render_tree(braninfo, nodes, x=x+(branoffset+brannum/2)*(height+padding), y=y+(branoffset+brannum/2)*(height+padding), width=width, height=height, padding=padding)
+            nodes = _render_tree(braninfo, nodes, x=x+round(width*1.5)+padding*round(1.25*width/height),#+(branoffset+brannum/2)*(height+padding),
+                                 y=y+(branoffset+brannum/2)*(height+padding), width=width, height=height, padding=padding)
     return nodes
 
 def render_node_pos(nodes, edges, width=100, height=24, padding=10):
+    inner_forward_map = {}
+    collision_node = set()
+    for xid_, yids in enumerate(edges):
+        inner_forward_map[xid_] = set(yids)
+    for _ in edges:
+        lin_cnt = 0
+        for xid_, itm in inner_forward_map.items():
+            for yid_ in itm:
+                for y_id_new in inner_forward_map.get(xid_, set()):
+                    if xid_ == y_id_new:
+                        collision_node.add(xid_)
+                        continue
+                    inner_forward_map[xid_].add(y_id_new)
+    edges_ = [[] if i in collision_node else edg for i, edg in enumerate(edges)]
     for nodid in range(len(nodes)):
-        nodes[nodid]["id"] = nodes[nodid].get("id", uuid.uuid1())
-    redges = [[srcid for srcid, edg in enumerate(edges) if trgid in edg] for trgid in range(len(nodes))]
+        nodes[nodid]["id"] = nodes[nodid].get("id", str(uuid.uuid1()))
+    redges = [[srcid for srcid, edg in enumerate(edges_) if trgid in edg] for trgid in range(len(nodes))]
     topId = [eid for eid, edg in enumerate(redges) if len(edg)==0]
-    struct = _get_tree(topId, edges, decouvertIds=set(topId), root=-1)
+    struct = _get_tree(topId, edges_, decouvertIds=set(), root=-1)
     nodes = _render_tree(struct, nodes, x=0, y=0, width=width, height=height, padding=padding)
     return nodes
     
