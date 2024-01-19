@@ -187,10 +187,10 @@ def _render_edge(sysnodes, sysedges):
                     "endPoint": {"x": trgAnc.get("x", -1), "y": trgAnc.get("y", -1)},
                     "properties": {},
                     "pointsList": [
-                        {"x": srcAnc.get("x", -1), "y": srcAnc.get("y", -1)},
+                        # {"x": srcAnc.get("x", -1), "y": srcAnc.get("y", -1)},
                         # {"x": (srcAnc.get("x", -1)+trgAnc.get("x", -1))/2, "y": srcAnc.get("y", -1)},
                         # {"x": (srcAnc.get("x", -1)+trgAnc.get("x", -1))/2, "y": trgAnc.get("y", -1)},
-                        {"x": trgAnc.get("x", -1), "y": trgAnc.get("y", -1)}
+                        # {"x": trgAnc.get("x", -1), "y": trgAnc.get("y", -1)}
                     ],
                     "sourceAnchorId": srcAnc["id"],
                     "targetAnchorId": trgAnc["id"],
