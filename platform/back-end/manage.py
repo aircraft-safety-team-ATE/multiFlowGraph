@@ -6,9 +6,9 @@ from flask import Flask, request, render_template, jsonify, send_file
 from flask_cors import CORS
 from lib.msfgEngine import multiInfoGraph
 from lib.simulinkReader import simulink_reader
-from lib.utils import check_graph, flatten_graph, reconstruct_graph, to_D_mat, detect_by_D_mat, detect_with_render, to_json
+from lib.utils import check_graph, flatten_graph, reconstruct_graph, to_D_mat, detect_by_D_mat, detect_with_render, to_json, convert_fmeca
 # , template_folder=os.path.join(r".", "templates"), )
-app = Flask(__name__, static_folder=os.path.join(
+app = Flask(__name__, v=os.path.join(
     r".", "static"), static_url_path='/static')
 
 CORS(app)
@@ -40,12 +40,10 @@ def upload_multi_info_edit():
 def upload_fmeca():
     graphStruct = pd.read_excel(
         request.files.get("modelFile"), sheet_name="body")
-    MIG = multiInfoGraph()
-    MIG.from_fmeca(graphStruct)
-    return json.dumps({
-        "data": MIG.state["data"],
-    }).replace("NaN", "null")
 
+    struct = convert_fmeca(graphStruct)
+
+    return jsonify({"data": struct})
 #
 
 
@@ -90,16 +88,20 @@ def optimize_graph():
 def check_graph_api():
     struct = json.loads(request.form.get("graphStruct"))
     nodes, edges, system = flatten_graph(struct)
+    print("nodes", nodes)
+    print("edges", edges)
+    print("system", system)
     # structInverse = reconstruct_graph(nodes, edges, system)
-    D_mat, testName, faultName, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
+    D_mat, testName, faultName,ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
         nodes, edges, system)
+    print("D_mat", D_mat.todense())
     # p_test = (np.random.uniform(0, 1, len(testName)) > 0.5).astype("float32")
     # p_fault, p_fuzzy, sysres = detect_by_D_mat(p_test, D_mat, sysmap)
     # print("P_FAULT:", p_fault.tolist(), "\tP_FUZZY:", p_fuzzy.tolist())
     # structNew = detect_with_render(
     #     p_test, D_mat, struct, testLoc, faultLoc, sysmap, eps=1e-10, n_round=5)
     structJson = to_json(D_mat, struct, testLoc, faultLoc,
-                         sysmap, testName, faultName, collision_node)
+                         sysmap, testName, faultName, collision_node, ConnIds)
     checkRes = check_graph(structJson)
 
     return checkRes
@@ -117,12 +119,24 @@ def upload_multi_info_analyse():
 
 @app.route("/multi-info-analyse/analyse-data/", methods=['GET', 'POST'])
 def result_analyse_main():
-    graphStruct = json.loads(request.form.get("graphStruct"))
-    values = dict(map(lambda itm: (itm["text"], itm["state"]), pd.read_csv(
-        request.files.get("dataFile"), header=0, encoding="gbk").T.to_dict().values()))
-    MIG = multiInfoGraph(graphStruct)
-    MIG.refresh(values)
-    return json.dumps(MIG.state).replace("NaN", "null")
+    struct = json.loads(request.form.get("graphStruct"))
+    # print(pd.read_csv(
+    #     request.files.get("dataFile"), header=0, encoding="gbk").T.to_dict().values())
+    # values = dict(map(lambda itm: (itm["text"], itm["state"]), pd.read_csv(
+    #     request.files.get("dataFile"), header=0, encoding="gbk").T.to_dict().values()))
+    pd_data = pd.read_csv(request.files.get("dataFile"), header=0, encoding="gbk")
+    values = pd_data["state"].to_numpy()
+    nodes, edges, system = flatten_graph(struct)
+    D_mat, testName, faultName,ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
+        nodes, edges, system)
+
+
+    new_struct = detect_with_render(
+        values, D_mat, struct, testLoc, faultLoc, sysmap)
+    if struct == new_struct:
+        print("render fail")
+        
+    return jsonify({"data": new_struct})
 
 
 if __name__ == "__main__":

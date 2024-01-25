@@ -112,6 +112,7 @@
 <script>
 import { importStruct, exportStruct } from '../logicflowConfig/common/methods'
 import { controlConfig } from '../logicflowConfig/tools/menu'
+import { renderStructColor } from '../logicflowConfig/common/methods'
 
 export default {
   name: 'Control',
@@ -441,13 +442,14 @@ export default {
             D_mat.push(map)
           })
           this.result.D_mat = D_mat
-          // this.$emit("updata-import-data", {
-          //   type: 'global',
-          //   value: {
-          //     SystemData: res.data,
-          //     currentSystemId: this.$props.G_DATA.currentSystemId
-          //   }
-          // })
+
+          this.$emit("updata-import-data", {
+            type: 'global',
+            value: {
+              SystemData: renderStructColor(res.data,'check'),
+              currentSystemId: this.$props.G_DATA.currentSystemId
+            }
+          })
 
           this.Visible = true;
           //this.$forceUpdate();
@@ -469,7 +471,7 @@ export default {
         this.$emit("updata-import-data", {
           type: 'global',
           value: {
-            SystemData: res.data,
+            SystemData: renderStructColor(res.data,'analyse'),
             currentSystemId: this.$props.G_DATA.currentSystemId
           }
         })

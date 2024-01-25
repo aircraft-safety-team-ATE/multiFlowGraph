@@ -17,7 +17,7 @@ OUTPUT_NODE = "output-node"
 RES = "fault-node"  # 故障节点
 SW = "switch-node"  # 开关节点
 CKPT = "test-node"  # 测点
-EDGE = "custom-edge"
+EDGE = "flow-bazier-edge"
 TESTTYPE = [CKPT]
 FAULTTYPE = [INPUT_NODE, OUTPUT_NODE, RES, SW]
 
@@ -718,7 +718,7 @@ def detect_with_render(
         act_id, node_id = testLoc[t_ind]
         struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(
             p_fault_)
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = 0
+        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = 1
     f_ind = 0
     for p_failure_, p_fuzzy_ in zip(p_fault, p_fuzzy):
         act_id, node_id = faultLoc[f_ind]
@@ -726,6 +726,7 @@ def detect_with_render(
             p_failure_)
         struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(
             p_fuzzy_)
+        
         f_ind += 1
     for key, sysr_ in sysres.items():
         parent_sys_id = sysmap[key]["ParentSubsystemId"]
@@ -734,6 +735,7 @@ def detect_with_render(
             p_failure_)
         struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(
             p_fuzzy_)
+        
         struct[key]["data"]["properties"] = {
             **struct[key]["data"].get("properties", {}), **sysr_}
     return struct
