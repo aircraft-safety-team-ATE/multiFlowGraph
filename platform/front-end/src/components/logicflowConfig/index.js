@@ -27,7 +27,6 @@ edgeModulesFiles.keys().forEach((modulePath) => {
   registerEdgeList.push(edgeModulesFiles(modulePath))
 })
 
-import { utils } from './tools/util.js'
 import { listeners } from './tools/listeners.js'
 import { menu } from './tools/menu.js'
 
@@ -86,7 +85,6 @@ const methods = {
   },
   ...menu,
   ...listeners,
-  ...utils
 }
 
 export { methods }

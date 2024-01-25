@@ -114,16 +114,6 @@ const listeners = {
         }
       }
     })
-    // ※子系统折叠 & 展开
-    this.lf.on('group:fold', (data) => {
-      if (data.isFolded === true) {
-        data.foldGroup(false)
-        this.foldAllChild(data.children)
-        data.foldGroup(true)
-      } else {
-        this.unfoldAllChild(data.children)
-      }
-    })
   }
 }
 
