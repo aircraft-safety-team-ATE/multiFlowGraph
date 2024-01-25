@@ -13,36 +13,31 @@
         :disabled="redoDisable">重做(ctrl+y)</el-button>
       <el-button v-if="controlConfig.clear" type="plain" size="small" @click="$_clear">清空</el-button>
       <el-button v-if="controlConfig.reDraw" type="plain" size="small" @click="$_reDraw">重绘</el-button>
-      <el-button v-if="controlConfig.exportData" type="plain" size="small"
-        @click="exportData_dialogVisible = true">导出流图</el-button>
-      <el-button v-if="controlConfig.importData" type="plain" size="small"
-        @click="importData_dialogVisible = true">载入流图</el-button>
+    </el-button-group>
+
+    <el-dropdown v-if="controlConfig.exportData" @command="$_exportData" style="display:inline-block; margin-left: -5px;">
+      <el-button type="plain" size="small">导出流图</el-button>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="global">导出全局数据</el-dropdown-item>
+        <el-dropdown-item command="part">导出局部数据</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+
+    <el-dropdown v-if="controlConfig.importData" @command="$_importData" style="display:inline-block; margin-left: -5px; margin-right: -5px">
+      <el-button type="plain" size="small">载入流图</el-button>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="global">载入全局数据</el-dropdown-item>
+        <el-dropdown-item command="part_incremental">载入局部数据（增量式）</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+
+    <el-button-group>
       <el-button v-if="controlConfig.importFMECA" type="plain" size="small" @click="$_importFMECA">载入FMECA</el-button>
       <el-button v-if="controlConfig.importSimulink" type="plain" size="small" @click="$_importSimulink">载入Simulink</el-button>
       <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check">流图评价</el-button>
       <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt">测点优化</el-button>
       <el-button v-if="controlConfig.analyse" type="plain" size="small" @click="$_analyse">故障分析</el-button>
     </el-button-group>
-
-    <el-dialog width="60%" :title="'流图载入方式'" :visible.sync="importData_dialogVisible" :modal="false">
-
-      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
-
-        <el-button type="plain" @click="$_importData_global">载入全局数据</el-button>
-
-        <el-button type="plain" @click="$_importData_part_incremental">载入局部数据（增量式）</el-button>
-
-        <el-button type="primary" @click="importData_dialogVisible = false">关 闭</el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog width="60%" :title="'流图导出方式'" :visible.sync="exportData_dialogVisible" :modal="false">
-      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
-        <el-button type="plain" @click="$_exportData('global')">导出全局数据</el-button>
-        <el-button type="plain" @click="$_exportData('part')">导出局部数据</el-button>
-        <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
-      </div>
-    </el-dialog>
 
     <el-dialog width="60%" :title="'信号流图模型评价'" :visible.sync="Visible" :modal="false">
       <el-descriptions title="性能指标" :column="3" border v-if="dialogType === 'check'">
@@ -83,8 +78,6 @@ export default {
       controlConfig,
       undoDisable: true,
       redoDisable: true,
-      importData_dialogVisible: false,
-      exportData_dialogVisible: false,
       Visible: false,
       dialogType: 'check',
       result: {
@@ -279,18 +272,9 @@ export default {
             }
           };
           reader.readAsText(file);
-          this.importData_dialogVisible = false;
         }
       };
       input.click();
-    },
-
-    $_importData_global() {
-      this.$_importData('global');
-    },
-
-    $_importData_part_incremental() {
-      this.$_importData('part_incremental');
     },
 
     $_importFMECA() {
