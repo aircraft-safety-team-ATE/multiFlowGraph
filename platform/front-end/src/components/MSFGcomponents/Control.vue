@@ -38,8 +38,8 @@
 
     <el-dialog width="60%" :title="'流图导出方式'" :visible.sync="exportData_dialogVisible" :modal="false">
       <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
-        <el-button type="primary" @click="$_exportData('global')">导出全局数据</el-button>
-        <el-button type="primary" @click="$_exportData('part')">导出局部数据</el-button>
+        <el-button type="plain" @click="$_exportData('global')">导出全局数据</el-button>
+        <el-button type="plain" @click="$_exportData('part')">导出局部数据</el-button>
         <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
       </div>
     </el-dialog>
@@ -83,9 +83,6 @@ export default {
       controlConfig,
       undoDisable: true,
       redoDisable: true,
-      a: document.createElement('a'),
-      fileName: 'data',
-      jsonText: '',
       importData_dialogVisible: false,
       exportData_dialogVisible: false,
       Visible: false,
@@ -138,33 +135,42 @@ export default {
       })
       this.$props.lf.render(data)
     },
-    $_exportData(type) {
 
+    /**
+     * 导出数据
+     * @param {'global' | 'part'} type 导出类型
+     */
+    $_exportData(type) {
       if (type === 'global') {
         // 全局导出
-        let data = this.$props.G_DATA
+        const data = this.$props.G_DATA;
+        let fileName = 'data';
         this.$Modal.confirm({
           render: (h) => {
             return h('Input', {
               props: {
-                value: this.fileName,
+                value: fileName,
                 placeholder: '请输入文件名',
                 autofocus: true
               },
               on: {
                 input: (val) => {
-                  this.fileName = val
+                  fileName = val
                 }
               }
             })
           },
           onOk: () => {
-            this.jsonText = JSON.stringify(data, null, 4)
-            this.a.download = this.fileName + '.json'
-            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], { type: 'text/json' }))
-            this.a.dispatchEvent(new MouseEvent('click'))
+            const jsonText = JSON.stringify(data, null, 4);
+            const blob = new Blob([jsonText], { type: 'text/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.download = fileName + '.json';
+            a.href = url;
+            a.click();
+            window.URL.revokeObjectURL(url);
           }
-        })
+        });
       } else if (type === 'part') {
         // 局部导出
         function deepClone(obj) {
@@ -173,7 +179,8 @@ export default {
           return objClone
         }
 
-        let data = {
+        let fileName = 'data';
+        const data = {
           currentSystemId: deepClone(this.$props.G_DATA.currentSystemId),
           SystemData: []
         }
@@ -219,24 +226,28 @@ export default {
           render: (h) => {
             return h('Input', {
               props: {
-                value: this.fileName,
+                value: fileName,
                 placeholder: '请输入文件名',
                 autofocus: true
               },
               on: {
                 input: (val) => {
-                  this.fileName = val
+                  fileName = val
                 }
               }
             })
           },
           onOk: () => {
-            this.jsonText = JSON.stringify(data, null, 4)
-            this.a.download = this.fileName + '.json'
-            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], { type: 'text/json' }))
-            this.a.dispatchEvent(new MouseEvent('click'))
+            const jsonText = JSON.stringify(data, null, 4);
+            const blob = new Blob([jsonText], { type: 'text/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.download = fileName + '.json';
+            a.href = url;
+            a.click();
+            window.URL.revokeObjectURL(url);
           }
-        })
+        });
       }
     },
 
