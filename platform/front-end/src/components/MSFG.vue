@@ -1,8 +1,6 @@
 <template>
   <div class="logic-flow-view">
-    <!-- 显示一些文本 -->
     <div style="float: left" class="current-system-breadcrumb">
-
       <div>
         <span> 所在系统：</span>
         <span v-for="(item, itemid) in current_system_breadcrumb">
@@ -26,7 +24,7 @@
 
     <Control class="demo-control" v-if="lf" :lf="lf" :G_DATA="G_DATA" @updata-import-data="handle_update_import_data" />
 
-    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA" @updata-g-data="hangdle_update_gdata"
+    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA"
       @updata-g-data-subsystem="hangdle_update_gdata_subsystem" />
 
     <div ref="container" class="LF-view"></div>

@@ -13,18 +13,6 @@
 </template>
 
 <script>
-
-var properties = {
-  tableName: "",
-  SubsystemId: 0,
-  fields: {
-    input: 0,
-    output: 0
-  }
-
-}
-
-
 export default {
   name: 'NodePanel',
   props: {
@@ -33,26 +21,21 @@ export default {
     G_DATA: Object
   },
   methods: {
-
-
     $_dragNode(item) {
-
       if (item.type == 'subsystem-node') {
-        // 1.创建新的的system 
-        let new_system = {
-          system_id: this.$props.G_DATA.SystemData.at(-1).system_id + 1,
-          name: "子系统"+(this.$props.G_DATA.SystemData.at(-1).system_id + 1),
-          parent_id: this.$props.G_DATA.currentSystemId,
-          data: {}
+        const system_id = this.$props.G_DATA.SystemData.at(-1).system_id + 1;
+
+        const properties = {
+          tableName: "",
+          SubsystemId: system_id,
+          fields: {
+            input: 0,
+            output: 0
+          }
         }
 
-        // 3. 更新G_DATA
-        this.$emit("updata-g-data", new_system)
-
-        properties.SubsystemId = new_system.system_id
-
         this.$props.lf.dnd.startDrag({
-          text: "子系统" + new_system.system_id,
+          text: "子系统" + system_id,
           type: item.type,
           properties: properties
         })

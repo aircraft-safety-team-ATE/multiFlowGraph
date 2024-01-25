@@ -114,6 +114,17 @@ const listeners = {
         }
       }
     })
+    this.lf.on('node:dnd-add', (data) => {
+      const { data: nodeData } = data;
+      if (nodeData.type === 'subsystem-node') {
+        this.hangdle_update_gdata({
+          system_id: this.G_DATA.SystemData.at(-1).system_id + 1,
+          name: "子系统"+(this.G_DATA.SystemData.at(-1).system_id + 1),
+          parent_id: this.G_DATA.currentSystemId,
+          data: {}
+        });
+      }
+    })
   }
 }
 
