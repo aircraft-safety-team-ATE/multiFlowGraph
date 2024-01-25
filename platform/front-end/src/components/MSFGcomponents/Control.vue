@@ -46,15 +46,9 @@
 
       <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
 
-        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
-          :multiple="false" :show-file-list="false" :on-change="$_importData_global">
-          <el-button type="plain">载入全局数据</el-button>
-        </el-upload>
+        <el-button type="plain" @click="$_importData_global">载入全局数据</el-button>
 
-        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
-          :multiple="false" :show-file-list="false" :on-change="$_importData_part_incremental">
-          <el-button type="plain">载入局部数据（增量式）</el-button>
-        </el-upload>
+        <el-button type="plain" @click="$_importData_part_incremental">载入局部数据（增量式）</el-button>
 
         <el-button type="primary" @click="importData_dialogVisible = false">关 闭</el-button>
       </div>
@@ -270,70 +264,49 @@ export default {
         })
       }
     },
-    $_importData_global(file) {
-      return new Promise((resolve, reject) => {
-        // 检验是否支持 FileRender
-        if (typeof FileReader === 'undefined') {
-          reject('当前浏览器不支持FileReader')
-        }
-        // 执行读取json数据操作
-        this.reader = new FileReader()
-        this.reader.readAsText(file.raw)
-        this.reader.onerror = (error) => {
-          reject('读取流图文件解析失败', error)
-        }
-        this.reader.onload = () => {
-          if (this.reader.result) {
-            try {
-              resolve(JSON.parse(this.reader.result))
-            } catch (error) {
-              reject('读取流图文件解析失败', error)
-            }
-          } else {
-            reject('读取流图文件解析失败', error)
+
+    /**
+     * 导入数据
+     * @param {'global' | 'part_incremental'} mode 导入模式
+     */
+    $_importData(mode) {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      input.onchange = () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onerror = (error) => {
+            this.$message.error('读取流图文件解析失败');
           }
-        }
-      }).then((res) => {
-        this.$emit("updata-import-data", {
-          type: 'global',
-          value: res
-        })
-        this.importData_dialogVisible = false
-      })
-    },
-    $_importData_part_incremental(file) {
-      return new Promise((resolve, reject) => {
-        // 检验是否支持 FileRender
-        if (typeof FileReader === 'undefined') {
-          reject('当前浏览器不支持FileReader')
-        }
-        // 执行读取json数据操作
-        this.reader = new FileReader()
-        this.reader.readAsText(file.raw)
-        this.reader.onerror = (error) => {
-          reject('读取流图文件解析失败', error)
-        }
-        this.reader.onload = () => {
-          if (this.reader.result) {
+          reader.onload = () => {
+            const json = reader.result;
             try {
-              resolve(JSON.parse(this.reader.result))
-            } catch (error) {
-              reject('读取流图文件解析失败', error)
+              const data = JSON.parse(json);
+              this.$emit("updata-import-data", {
+                type: mode,
+                value: data
+              });
+            } catch (e) {
+              this.$message.error('读取流图文件解析失败');
             }
-          } else {
-            reject('读取流图文件解析失败', error)
-          }
+          };
+          reader.readAsText(file);
+          this.importData_dialogVisible = false;
         }
-      }).then((res) => {
-        // let data = importStruct(res)
-        // this.$props.lf.render(data)
-        this.$emit("updata-import-data", {
-          type: 'part_incremental',
-          value: res
-        })
-        this.importData_dialogVisible = false
-      })
+      };
+      input.click();
     },
+
+    $_importData_global() {
+      this.$_importData('global');
+    },
+
+    $_importData_part_incremental() {
+      this.$_importData('part_incremental');
+    },
+    
     $_importFMECA(file) {
       let fd = new FormData()
       fd.append('modelFile', file.raw)
