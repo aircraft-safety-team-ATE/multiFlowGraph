@@ -19,18 +19,6 @@
         @click="importData_dialogVisible = true">载入流图</el-button>
     </el-button-group>
 
-    <!-- <el-upload
-      v-if="controlConfig.importData"
-      style="display:inline-block; margin-left: -5px;"
-      action=""
-      :auto-upload="false"
-      accept=".json"
-      :multiple="false"
-      :show-file-list="false"
-      :on-change="$_importData">
-      <el-button type="plain" size="small">载入流图</el-button>
-    </el-upload> -->
-
     <el-upload v-if="controlConfig.importFMECA" style="display:inline-block; margin-left: -5px;" action=""
       :auto-upload="false"
       accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -49,8 +37,6 @@
     <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt"
       style="display:inline-block; margin-left: -5px;">测点优化</el-button>
 
-
-
     <el-upload v-if="controlConfig.analyse" style="display:inline-block; margin-left: -5px;" action=""
       :auto-upload="false" accept=".csv" :multiple="false" :show-file-list="false" :on-change="$_analyse">
       <el-button type="plain" size="small">故障分析</el-button>
@@ -65,15 +51,12 @@
           <el-button type="plain">载入全局数据</el-button>
         </el-upload>
 
-
         <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
           :multiple="false" :show-file-list="false" :on-change="$_importData_part_incremental">
           <el-button type="plain">载入局部数据（增量式）</el-button>
         </el-upload>
 
-
-
-        <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
+        <el-button type="primary" @click="importData_dialogVisible = false">关 闭</el-button>
       </div>
     </el-dialog>
 
@@ -226,7 +209,7 @@ export default {
           SystemData: []
         }
 
-        // 1.获取当前系统的数据 
+        // 1.获取当前系统的数据
         let currentSystemData_copy = deepClone(this.$props.G_DATA.SystemData.find(item => item.system_id == data.currentSystemId))
         // 当前系统变为root系统
         currentSystemData_copy.parent_id = null
@@ -243,7 +226,7 @@ export default {
         }
         data.SystemData.push(currentSystemData_copy)
 
-        // 3. 递归获取当前系统的所有子系统的数据 
+        // 3. 递归获取当前系统的所有子系统的数据
         /**
          * 递归获取当前系统的所有子系统的数据
          * @param {number} system_id  当前系统的id
@@ -286,7 +269,6 @@ export default {
           }
         })
       }
-
     },
     $_importData_global(file) {
       return new Promise((resolve, reject) => {
@@ -312,7 +294,6 @@ export default {
           }
         }
       }).then((res) => {
-        // this.$props.lf.render(importStruct(res))
         this.$emit("updata-import-data", {
           type: 'global',
           value: res
