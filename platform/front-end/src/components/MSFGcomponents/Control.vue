@@ -17,30 +17,12 @@
         @click="exportData_dialogVisible = true">导出流图</el-button>
       <el-button v-if="controlConfig.importData" type="plain" size="small"
         @click="importData_dialogVisible = true">载入流图</el-button>
+      <el-button v-if="controlConfig.importFMECA" type="plain" size="small" @click="$_importFMECA">载入FMECA</el-button>
+      <el-button v-if="controlConfig.importSimulink" type="plain" size="small" @click="$_importSimulink">载入Simulink</el-button>
+      <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check">流图评价</el-button>
+      <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt">测点优化</el-button>
+      <el-button v-if="controlConfig.analyse" type="plain" size="small" @click="$_analyse">故障分析</el-button>
     </el-button-group>
-
-    <el-upload v-if="controlConfig.importFMECA" style="display:inline-block; margin-left: -5px;" action=""
-      :auto-upload="false"
-      accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      :multiple="false" :show-file-list="false" :on-change="$_importFMECA">
-      <el-button type="plain" size="small">载入FMECA</el-button>
-    </el-upload>
-
-    <el-upload v-if="controlConfig.importSimulink" style="display:inline-block; margin-left: -5px;" action=""
-      :auto-upload="false" accept=".mdl" :multiple="false" :show-file-list="false" :on-change="$_importSimulink">
-      <el-button type="plain" size="small">载入Simulink</el-button>
-    </el-upload>
-
-    <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check"
-      style="display:inline-block; margin-left: -5px;">流图评价</el-button>
-
-    <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt"
-      style="display:inline-block; margin-left: -5px;">测点优化</el-button>
-
-    <el-upload v-if="controlConfig.analyse" style="display:inline-block; margin-left: -5px;" action=""
-      :auto-upload="false" accept=".csv" :multiple="false" :show-file-list="false" :on-change="$_analyse">
-      <el-button type="plain" size="small">故障分析</el-button>
-    </el-upload>
 
     <el-dialog width="60%" :title="'流图载入方式'" :visible.sync="importData_dialogVisible" :modal="false">
 
@@ -62,7 +44,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog width="60%" :title="dialogTitle" :visible.sync="Visible" :modal="false">
+    <el-dialog width="60%" :title="'信号流图模型评价'" :visible.sync="Visible" :modal="false">
       <el-descriptions title="性能指标" :column="3" border v-if="dialogType === 'check'">
         <el-descriptions-item label="检出率">
           <span>{{ result.detect_isolat_ratio[0] }}</span>
@@ -104,7 +86,6 @@ export default {
       a: document.createElement('a'),
       fileName: 'data',
       jsonText: '',
-      reader: null,
       importData_dialogVisible: false,
       exportData_dialogVisible: false,
       Visible: false,
@@ -116,13 +97,7 @@ export default {
     }
   },
   computed: {
-    dialogTitle() {
-      if (this.dialogType === 'check') {
-        return '信号流图模型评价'
-      } else {
-        return '信号流图模型评价'
-      }
-    }
+
   },
   mounted() {
     this.$props.lf.on('history:change', ({ data: { undoAble, redoAble } }) => {
@@ -306,44 +281,56 @@ export default {
     $_importData_part_incremental() {
       this.$_importData('part_incremental');
     },
-    
-    $_importFMECA(file) {
-      let fd = new FormData()
-      fd.append('modelFile', file.raw)
-      this.$axios({
-        url: '/multi-info-edit/upload-fmeca/',
-        method: 'post',
-        data: fd
-      }).then((res) => {
-        (res)
-        this.$emit("updata-import-data", {
+
+    $_importFMECA() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+      input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const fd = new FormData();
+          fd.append('modelFile', file);
+          const { data } = await this.$axios({
+            url: '/multi-info-edit/upload-fmeca/',
+            method: 'post',
+            data: fd,
+          });
+          this.$emit("updata-import-data", {
             type: 'global',
             value: {
-              SystemData: res.data,
+              SystemData: data,
               currentSystemId: 0
             }
-          })
-        // this.$props.lf.render(importStruct(res.data))
-        //this.Visible = true
-      })
+          });
+        }
+      };
+      input.click();
     },
-    $_importSimulink(file) {
-      let fd = new FormData()
-      fd.append('modelFile', file.raw)
-      this.$axios({
-        url: '/multi-info-edit/upload-simulink/',
-        method: 'post',
-        data: fd
-      }).then((res) => {
-        (res)
-        this.$emit("updata-import-data", {
-          type: 'global',
-          value: res.data
-        })
-        // this.$props.lf.render(importStruct(res.data))
-        //this.Visible = true
-      })
+
+    $_importSimulink() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.mdl';
+      input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const fd = new FormData();
+          fd.append('modelFile', file);
+          const { data } = await this.$axios({
+            url: '/multi-info-edit/upload-simulink/',
+            method: 'post',
+            data: fd
+          });
+          this.$emit("updata-import-data", {
+            type: 'global',
+            value: data,
+          });
+        }
+      };
+      input.click();
     },
+
     $_optimizeCkpt() {
       let data = this.$props.lf.getGraphData()
 
@@ -408,28 +395,35 @@ export default {
         })
       }
     },
-    $_analyse(file) {
-      let data = this.$props.G_DATA.SystemData
-      let fd = new FormData()
-      fd.append('graphStruct', JSON.stringify(data))
-      fd.append('dataFile', file.raw)
-      this.$axios({
-        url: '/multi-info-analyse/analyse-data/',
-        method: 'post',
-        data: fd
-      }).then((res) => {
-        this.dialogType = 'analyse'
-        // this.Visible = true
-        this.$emit("updata-import-data", {
-          type: 'global',
-          value: {
-            SystemData: res.data,
-            currentSystemId: this.$props.G_DATA.currentSystemId
-          }
-        })
 
-      })
+    $_analyse() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.csv';
+      input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const data = this.$props.G_DATA.SystemData;
+          const fd = new FormData();
+          fd.append('graphStruct', JSON.stringify(data));
+          fd.append('dataFile', file);
+          const { data: res } = await this.$axios({
+            url: '/multi-info-analyse/analyse-data/',
+            method: 'post',
+            data: fd,
+          });
+          this.$emit("updata-import-data", {
+            type: 'global',
+            value: {
+              SystemData: res,
+              currentSystemId: this.$props.G_DATA.currentSystemId
+            }
+          });
+        }
+      };
+      input.click();
     },
+
     $_test() {
 
     },
