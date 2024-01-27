@@ -412,7 +412,7 @@ export default {
           this.$emit("updata-import-data", {
             type: 'global',
             value: {
-              SystemData: renderStructColor(res,'analyse'),,
+              SystemData: renderStructColor(res,'analyse'),
               currentSystemId: this.$props.G_DATA.currentSystemId
             }
           });
