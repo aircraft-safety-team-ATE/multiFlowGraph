@@ -347,4 +347,4 @@ python manage.py
 
 **2024.1.8测试结果**
 
-![image-20240108052044935](https://buaa007.oss-cn-beijing.aliyuncs.com/imagesimage-20240108052044935.png)
+![image-20240108052044935](https://buaa007.oss-cn-beijing.aliyuncs.com/imagesimage-20240108052044935.png)	

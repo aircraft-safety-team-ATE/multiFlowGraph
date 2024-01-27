@@ -17,7 +17,6 @@ RES = "fault-node" ## 故障节点
 UNRES = "inter-fault-node" ## 中间节点
 SW = "switch-node" ## 开关节点
 SUBSYS = "sub-system" ## 子系统
-
 TESTTYPE = [ALGO]
 FAULTTYPE = [RES, UNRES, SW]
 
