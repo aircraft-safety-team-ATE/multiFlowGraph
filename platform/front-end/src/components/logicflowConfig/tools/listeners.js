@@ -114,14 +114,15 @@ const listeners = {
         }
       }
     })
-    // ※子系统折叠 & 展开
-    this.lf.on('group:fold', (data) => {
-      if (data.isFolded === true) {
-        data.foldGroup(false)
-        this.foldAllChild(data.children)
-        data.foldGroup(true)
-      } else {
-        this.unfoldAllChild(data.children)
+    this.lf.on('node:dnd-add', (data) => {
+      const { data: nodeData } = data;
+      if (nodeData.type === 'subsystem-node') {
+        this.hangdle_update_gdata({
+          system_id: this.G_DATA.SystemData.at(-1).system_id + 1,
+          name: "子系统"+(this.G_DATA.SystemData.at(-1).system_id + 1),
+          parent_id: this.G_DATA.currentSystemId,
+          data: {}
+        });
       }
     })
   }

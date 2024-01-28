@@ -1,27 +1,34 @@
 <template>
   <div class="logic-flow-view">
-    <!-- 显示一些文本 -->
     <div style="float: left" class="current-system-breadcrumb">
+      <div>
+        <span> 所在系统：</span>
+        <span v-for="(item, itemid) in current_system_breadcrumb">
+          <el-tag v-if="item.name" @click="handleTagClick(item.id)" size="mini" type="primary">
+            {{ item.name }}
+          </el-tag>
+          <span v-if="itemid !== current_system_breadcrumb.length - 1">{{ '>' }}</span>
+        </span>
+      </div>
 
-      <span> 所在系统：</span>
-      <span v-for="(item, itemid) in current_system_breadcrumb">
-        <el-tag v-if="item.name" @click="handleTagClick(item.id)" size="mini" type="primary">
-          {{ item.name }}
-        </el-tag>
-        <span v-if="itemid !== current_system_breadcrumb.length - 1">{{ '>' }}</span>
-      </span>
+      <div>
+        访问我们的 GitHub 项目（欢迎发现bug 并提交issue）：
+        <a href="https://github.com/aircraft-safety-team-ATE/multiFlowGraph/tree/feature-subsystemSetting-fengzhaoyu" target="_blank">multiFlowGraph 项目</a>
+      </div>
     </div>
-    <p>访问我们的 GitHub 项目(欢迎发现bug 并提交issue):</p>
-    <a href="https://github.com/aircraft-safety-team-ATE/multiFlowGraph/tree/feature-subsystemSetting-fengzhaoyu"
-      target="_blank">multiFlowGraph 项目</a>
+
     <div class="model—tree">
       <el-tree :data="module_tree" :expand-on-click-node="false" :indent="16" :default-expand-all="true"
         :props="defaultProps" @node-click="handleNodeClick" class="module-tree"></el-tree>
     </div>
+
     <Control class="demo-control" v-if="lf" :lf="lf" :G_DATA="G_DATA" @updata-import-data="handle_update_import_data" />
-    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA" @updata-g-data="hangdle_update_gdata"
+
+    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList" :G_DATA="G_DATA"
       @updata-g-data-subsystem="hangdle_update_gdata_subsystem" />
+
     <div ref="container" class="LF-view"></div>
+
     <EditDialog :dialog-visible.sync="dialogVisible" :form-data="formData" @data-update="$_dataUpdate" />
   </div>
 </template>
@@ -93,7 +100,7 @@ export default {
         let root_id = this.G_DATA.SystemData.find(item => item.parent_id == null).system_id
         this.handleNodeClick({ id: root_id })
 
-        // 
+        //
       } else if (data.type == 'part_incremental') {
         //1.将当前系统与导入的根系统进行合并
         let current_system = this.G_DATA.SystemData.find(item => item.system_id == this.G_DATA.currentSystemId)
@@ -353,37 +360,47 @@ export default {
 </script>
 
 <style scoped>
-.current-system-breadcrumb {
-  position: absolute;
-  top: 0px;
-  left: 200px;
+.logic-flow-view {
+  height: 100vh;
+  position: relative;
+  overflow-y: hidden;
 }
 
-.logic-flow-view {
-  height: 95%;
-  position: relative;
+.current-system-breadcrumb {
+  width: calc(100% - 150px);
+  height: 40px;
+  position: absolute;
+  top: 0px;
+  left: 150px;
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .model—tree {
+  height: calc(100% - 300px);
+  width: 150px;
   position: absolute;
-  top: 400px;
+  top: 300px;
   left: 0px;
   outline: none;
 }
 
 .demo-control {
   position: absolute;
-  top: 50px;
-  right: 50px;
+  top: 40px;
+  right: 20px;
   z-index: 2;
 }
 
 .LF-view {
   position: absolute;
-  top: 50px;
+  top: 40px;
   left: 150px;
-  width: calc(100% - 200px);
-  height: 100%;
+  width: calc(100% - 150px);
+  height: calc(100% - 40px);
   outline: none;
 }
 

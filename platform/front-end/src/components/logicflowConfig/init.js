@@ -70,13 +70,13 @@ const nodeList = [
       ...common,
       icon: require("@/assets/images/delay.svg"),
       typeColor: '#85C1E9',
-      
+
         tableName: "子系统",
         fields: {
           input: 0,
           output: 0
         }
-      
+
     }
   },
   {
@@ -105,15 +105,4 @@ const nodeList = [
   }
 ]
 
-/**
- * 子系统初始化
- */
-const subsystemInit = {
-  type: "sub-system",
-  text: '子系统',
-  properties: {
-    ...common
-  }
-}
-
-export { nodeList, subsystemInit }
+export { nodeList }

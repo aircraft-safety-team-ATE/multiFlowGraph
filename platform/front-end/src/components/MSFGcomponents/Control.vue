@@ -13,79 +13,33 @@
         :disabled="redoDisable">重做(ctrl+y)</el-button>
       <el-button v-if="controlConfig.clear" type="plain" size="small" @click="$_clear">清空</el-button>
       <el-button v-if="controlConfig.reDraw" type="plain" size="small" @click="$_reDraw">重绘</el-button>
-      <el-button v-if="controlConfig.exportData" type="plain" size="small"
-        @click="exportData_dialogVisible = true">导出流图</el-button>
-      <el-button v-if="controlConfig.importData" type="plain" size="small"
-        @click="importData_dialogVisible = true">载入流图</el-button>
     </el-button-group>
 
-    <!-- <el-upload
-      v-if="controlConfig.importData"
-      style="display:inline-block; margin-left: -5px;"
-      action=""
-      :auto-upload="false"
-      accept=".json"
-      :multiple="false"
-      :show-file-list="false"
-      :on-change="$_importData">
+    <el-dropdown v-if="controlConfig.exportData" @command="$_exportData" style="display:inline-block; margin-left: -5px;">
+      <el-button type="plain" size="small">导出流图</el-button>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="global">导出全局数据</el-dropdown-item>
+        <el-dropdown-item command="part">导出局部数据</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+
+    <el-dropdown v-if="controlConfig.importData" @command="$_importData" style="display:inline-block; margin-left: -5px; margin-right: -5px">
       <el-button type="plain" size="small">载入流图</el-button>
-    </el-upload> -->
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="global">载入全局数据</el-dropdown-item>
+        <el-dropdown-item command="part_incremental">载入局部数据（增量式）</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
 
-    <el-upload v-if="controlConfig.importFMECA" style="display:inline-block; margin-left: -5px;" action=""
-      :auto-upload="false"
-      accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      :multiple="false" :show-file-list="false" :on-change="$_importFMECA">
-      <el-button type="plain" size="small">载入FMECA</el-button>
-    </el-upload>
+    <el-button-group>
+      <el-button v-if="controlConfig.importFMECA" type="plain" size="small" @click="$_importFMECA">载入FMECA</el-button>
+      <el-button v-if="controlConfig.importSimulink" type="plain" size="small" @click="$_importSimulink">载入Simulink</el-button>
+      <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check">流图评价</el-button>
+      <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt">测点优化</el-button>
+      <el-button v-if="controlConfig.analyse" type="plain" size="small" @click="$_analyse">故障分析</el-button>
+    </el-button-group>
 
-    <el-upload v-if="controlConfig.importSimulink" style="display:inline-block; margin-left: -5px;" action=""
-      :auto-upload="false" accept=".mdl" :multiple="false" :show-file-list="false" :on-change="$_importSimulink">
-      <el-button type="plain" size="small">载入Simulink</el-button>
-    </el-upload>
-
-    <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check"
-      style="display:inline-block; margin-left: -5px;">流图评价</el-button>
-
-    <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt"
-      style="display:inline-block; margin-left: -5px;">测点优化</el-button>
-
-
-
-    <el-upload v-if="controlConfig.analyse" style="display:inline-block; margin-left: -5px;" action=""
-      :auto-upload="false" accept=".csv" :multiple="false" :show-file-list="false" :on-change="$_analyse">
-      <el-button type="plain" size="small">故障分析</el-button>
-    </el-upload>
-
-    <el-dialog width="60%" :title="'流图载入方式'" :visible.sync="importData_dialogVisible" :modal="false">
-
-      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
-
-        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
-          :multiple="false" :show-file-list="false" :on-change="$_importData_global">
-          <el-button type="plain">载入全局数据</el-button>
-        </el-upload>
-
-
-        <el-upload style="display:inline-block; margin-left: -5px;" action="" :auto-upload="false" accept=".json"
-          :multiple="false" :show-file-list="false" :on-change="$_importData_part_incremental">
-          <el-button type="plain">载入局部数据（增量式）</el-button>
-        </el-upload>
-
-
-
-        <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog width="60%" :title="'流图导出方式'" :visible.sync="exportData_dialogVisible" :modal="false">
-      <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:10px">
-        <el-button type="primary" @click="$_exportData('global')">导出全局数据</el-button>
-        <el-button type="primary" @click="$_exportData('part')">导出局部数据</el-button>
-        <el-button type="primary" @click="exportData_dialogVisible = false">关 闭</el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog width="60%" :title="dialogTitle" :visible.sync="Visible" :modal="false">
+    <el-dialog width="60%" :title="'信号流图模型评价'" :visible.sync="Visible" :modal="false">
       <el-descriptions title="性能指标" :column="3" border v-if="dialogType === 'check'">
         <el-descriptions-item label="检出率">
           <span>{{ result.detect_isolat_ratio[0] }}</span>
@@ -125,12 +79,6 @@ export default {
       controlConfig,
       undoDisable: true,
       redoDisable: true,
-      a: document.createElement('a'),
-      fileName: 'data',
-      jsonText: '',
-      reader: null,
-      importData_dialogVisible: false,
-      exportData_dialogVisible: false,
       Visible: false,
       dialogType: 'check',
       result: {
@@ -140,13 +88,7 @@ export default {
     }
   },
   computed: {
-    dialogTitle() {
-      if (this.dialogType === 'check') {
-        return '信号流图模型评价'
-      } else {
-        return '信号流图模型评价'
-      }
-    }
+
   },
   mounted() {
     this.$props.lf.on('history:change', ({ data: { undoAble, redoAble } }) => {
@@ -187,33 +129,42 @@ export default {
       })
       this.$props.lf.render(data)
     },
-    $_exportData(type) {
 
+    /**
+     * 导出数据
+     * @param {'global' | 'part'} type 导出类型
+     */
+    $_exportData(type) {
       if (type === 'global') {
         // 全局导出
-        let data = this.$props.G_DATA
+        const data = this.$props.G_DATA;
+        let fileName = 'data';
         this.$Modal.confirm({
           render: (h) => {
             return h('Input', {
               props: {
-                value: this.fileName,
+                value: fileName,
                 placeholder: '请输入文件名',
                 autofocus: true
               },
               on: {
                 input: (val) => {
-                  this.fileName = val
+                  fileName = val
                 }
               }
             })
           },
           onOk: () => {
-            this.jsonText = JSON.stringify(data, null, 4)
-            this.a.download = this.fileName + '.json'
-            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], { type: 'text/json' }))
-            this.a.dispatchEvent(new MouseEvent('click'))
+            const jsonText = JSON.stringify(data, null, 4);
+            const blob = new Blob([jsonText], { type: 'text/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.download = fileName + '.json';
+            a.href = url;
+            a.click();
+            window.URL.revokeObjectURL(url);
           }
-        })
+        });
       } else if (type === 'part') {
         // 局部导出
         function deepClone(obj) {
@@ -222,12 +173,13 @@ export default {
           return objClone
         }
 
-        let data = {
+        let fileName = 'data';
+        const data = {
           currentSystemId: deepClone(this.$props.G_DATA.currentSystemId),
           SystemData: []
         }
 
-        // 1.获取当前系统的数据 
+        // 1.获取当前系统的数据
         let currentSystemData_copy = deepClone(this.$props.G_DATA.SystemData.find(item => item.system_id == data.currentSystemId))
         // 当前系统变为root系统
         currentSystemData_copy.parent_id = null
@@ -244,7 +196,7 @@ export default {
         }
         data.SystemData.push(currentSystemData_copy)
 
-        // 3. 递归获取当前系统的所有子系统的数据 
+        // 3. 递归获取当前系统的所有子系统的数据
         /**
          * 递归获取当前系统的所有子系统的数据
          * @param {number} system_id  当前系统的id
@@ -268,129 +220,113 @@ export default {
           render: (h) => {
             return h('Input', {
               props: {
-                value: this.fileName,
+                value: fileName,
                 placeholder: '请输入文件名',
                 autofocus: true
               },
               on: {
                 input: (val) => {
-                  this.fileName = val
+                  fileName = val
                 }
               }
             })
           },
           onOk: () => {
-            this.jsonText = JSON.stringify(data, null, 4)
-            this.a.download = this.fileName + '.json'
-            this.a.href = window.URL.createObjectURL(new Blob([this.jsonText], { type: 'text/json' }))
-            this.a.dispatchEvent(new MouseEvent('click'))
+            const jsonText = JSON.stringify(data, null, 4);
+            const blob = new Blob([jsonText], { type: 'text/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.download = fileName + '.json';
+            a.href = url;
+            a.click();
+            window.URL.revokeObjectURL(url);
           }
-        })
+        });
       }
+    },
 
-    },
-    $_importData_global(file) {
-      return new Promise((resolve, reject) => {
-        // 检验是否支持 FileRender
-        if (typeof FileReader === 'undefined') {
-          reject('当前浏览器不支持FileReader')
-        }
-        // 执行读取json数据操作
-        this.reader = new FileReader()
-        this.reader.readAsText(file.raw)
-        this.reader.onerror = (error) => {
-          reject('读取流图文件解析失败', error)
-        }
-        this.reader.onload = () => {
-          if (this.reader.result) {
-            try {
-              resolve(JSON.parse(this.reader.result))
-            } catch (error) {
-              reject('读取流图文件解析失败', error)
-            }
-          } else {
-            reject('读取流图文件解析失败', error)
+    /**
+     * 导入数据
+     * @param {'global' | 'part_incremental'} mode 导入模式
+     */
+    $_importData(mode) {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      input.onchange = () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onerror = (error) => {
+            this.$message.error('读取流图文件解析失败');
           }
-        }
-      }).then((res) => {
-        // this.$props.lf.render(importStruct(res))
-        this.$emit("updata-import-data", {
-          type: 'global',
-          value: res
-        })
-        this.importData_dialogVisible = false
-      })
-    },
-    $_importData_part_incremental(file) {
-      return new Promise((resolve, reject) => {
-        // 检验是否支持 FileRender
-        if (typeof FileReader === 'undefined') {
-          reject('当前浏览器不支持FileReader')
-        }
-        // 执行读取json数据操作
-        this.reader = new FileReader()
-        this.reader.readAsText(file.raw)
-        this.reader.onerror = (error) => {
-          reject('读取流图文件解析失败', error)
-        }
-        this.reader.onload = () => {
-          if (this.reader.result) {
+          reader.onload = () => {
+            const json = reader.result;
             try {
-              resolve(JSON.parse(this.reader.result))
-            } catch (error) {
-              reject('读取流图文件解析失败', error)
+              const data = JSON.parse(json);
+              this.$emit("updata-import-data", {
+                type: mode,
+                value: data
+              });
+            } catch (e) {
+              this.$message.error('读取流图文件解析失败');
             }
-          } else {
-            reject('读取流图文件解析失败', error)
-          }
+          };
+          reader.readAsText(file);
         }
-      }).then((res) => {
-        // let data = importStruct(res)
-        // this.$props.lf.render(data)
-        this.$emit("updata-import-data", {
-          type: 'part_incremental',
-          value: res
-        })
-        this.importData_dialogVisible = false
-      })
+      };
+      input.click();
     },
-    $_importFMECA(file) {
-      let fd = new FormData()
-      fd.append('modelFile', file.raw)
-      this.$axios({
-        url: '/multi-info-edit/upload-fmeca/',
-        method: 'post',
-        data: fd
-      }).then((res) => {
-        (res)
-        this.$emit("updata-import-data", {
+
+    $_importFMECA() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+      input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const fd = new FormData();
+          fd.append('modelFile', file);
+          const { data } = await this.$axios({
+            url: '/multi-info-edit/upload-fmeca/',
+            method: 'post',
+            data: fd,
+          });
+          this.$emit("updata-import-data", {
             type: 'global',
             value: {
-              SystemData: res.data,
+              SystemData: data,
               currentSystemId: 0
             }
-          })
-        // this.$props.lf.render(importStruct(res.data))
-        //this.Visible = true
-      })
+          });
+        }
+      };
+      input.click();
     },
-    $_importSimulink(file) {
-      let fd = new FormData()
-      fd.append('modelFile', file.raw)
-      this.$axios({
-        url: '/multi-info-edit/upload-simulink/',
-        method: 'post',
-        data: fd
-      }).then((res) => {
-        (res)
-        this.$emit("updata-import-data", {
-          type: 'global',
-          value: res.data
-        })
-        // this.$props.lf.render(importStruct(res.data))
-        //this.Visible = true
-      })
+
+    $_importSimulink() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.mdl';
+      input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const fd = new FormData();
+          fd.append('modelFile', file);
+          const { data } = await this.$axios({
+            url: '/multi-info-edit/upload-simulink/',
+            method: 'post',
+            data: fd
+          });
+          this.$emit("updata-import-data", {
+            type: 'global',
+            value: data,
+          });
+        }
+      };
+      input.click();
     },
+
     $_optimizeCkpt() {
       let data = this.$props.lf.getGraphData()
 
@@ -456,28 +392,35 @@ export default {
         })
       }
     },
-    $_analyse(file) {
-      let data = this.$props.G_DATA.SystemData
-      let fd = new FormData()
-      fd.append('graphStruct', JSON.stringify(data))
-      fd.append('dataFile', file.raw)
-      this.$axios({
-        url: '/multi-info-analyse/analyse-data/',
-        method: 'post',
-        data: fd
-      }).then((res) => {
-        this.dialogType = 'analyse'
-        // this.Visible = true
-        this.$emit("updata-import-data", {
-          type: 'global',
-          value: {
-            SystemData: renderStructColor(res.data,'analyse'),
-            currentSystemId: this.$props.G_DATA.currentSystemId
-          }
-        })
 
-      })
+    $_analyse() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.csv';
+      input.onchange = async () => {
+        const file = input.files && input.files[0];
+        if (file) {
+          const data = this.$props.G_DATA.SystemData;
+          const fd = new FormData();
+          fd.append('graphStruct', JSON.stringify(data));
+          fd.append('dataFile', file);
+          const { data: res } = await this.$axios({
+            url: '/multi-info-analyse/analyse-data/',
+            method: 'post',
+            data: fd,
+          });
+          this.$emit("updata-import-data", {
+            type: 'global',
+            value: {
+              SystemData: renderStructColor(res,'analyse'),
+              currentSystemId: this.$props.G_DATA.currentSystemId
+            }
+          });
+        }
+      };
+      input.click();
     },
+
     $_test() {
 
     },
