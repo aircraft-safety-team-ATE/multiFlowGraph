@@ -7,13 +7,19 @@ platform/back-end/lib/__pycache__/
 
 # Other files and folders
 .settings/
-
+.vscode/
 # Executables
 *.swf
 *.air
 *.ipa
 *.apk
 
+# 忽略一切 __pycache__ 文件夹
+**/__pycache__/
+
+/platform/test_data/多信号流图/dataRTU_extreme_extreme.json
+/platform/test_data/多信号流图/dataRTU_extreme.json
+# platform/front-end/dist
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.

@@ -8,10 +8,10 @@ from lib.msfgEngine import multiInfoGraph
 from lib.simulinkReader import simulink_reader
 from lib.utils import check_graph, flatten_graph, reconstruct_graph, to_D_mat, detect_by_D_mat, detect_with_render, to_json, convert_fmeca
 # , template_folder=os.path.join(r".", "templates"), )
-app = Flask(__name__, v=os.path.join(
+app = Flask(__name__, static_folder=os.path.join(
     r".", "static"), static_url_path='/static')
 
-CORS(app)
+CORS(app) 
 
 # def after_request(res):
 #     res.headers["Access-Control-Allow-Origin"] = "*"
