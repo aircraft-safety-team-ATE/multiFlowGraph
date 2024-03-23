@@ -38,10 +38,10 @@ PADDING = 50
 DEBUG_MODE = False
 
 if DEBUG_MODE:
-    from gui_utils import render_node_pos
+    from gui_utils import render_node_pos, wash_node_pos
     from fmecaReader import read_fmeca
 else:
-    from .gui_utils import render_node_pos
+    from .gui_utils import render_node_pos, wash_node_pos
     from .fmecaReader import read_fmeca
 # 拉直多子系统嵌套结构依赖方法
 
@@ -299,6 +299,9 @@ def reconstruct_graph(nodes, edges, system):
                             in_map[srcNind].add(f"{trgportId}#{trgInnerInd}")
         cnt = len(sysnodeInd)
         if nodeLen == len(sysinfo["nodesId"]):
+            sysnodes = wash_node_pos(
+                sysnodes, width=NODEWIDTH, height=HEIGHT, padding=PADDING, sys=SYS)
+
             sysnodes_, sysedges_ = _render_edge(sysnodes, sysedges)
             struct.append({
                 "data": {
@@ -406,9 +409,10 @@ def reconstruct_graph(nodes, edges, system):
             for itm in out_map_filter:
                 for srcind in itm["nodeInds"]:
                     sysedges[srcind].append([0, itm["nodecnt"]])
-            for itm in in_map_filter:
+            for itm in in_map_filter:   
                 sysedges[itm["nodecnt"]] = [
                     sorted(itm["nodeInds"], key=lambda itm: itm[1]+itm[0]/100)]
+            sysnodes = wash_node_pos(sysnodes, width=NODEWIDTH, height=HEIGHT, padding=PADDING, sys=SYS)
             sysnodes_, sysedges_ = _render_edge(sysnodes, sysedges)
             struct.append({
                 "data": {
@@ -485,7 +489,7 @@ def reconstruct_graph(nodes, edges, system):
                             [[] for _ in range(srcport+1-len(edges[srcId]))])
                         edges[srcId][srcport].append([itmId, len(nodes)-1])
             node2sys.update({ind: len(nodes)-1 for ind in sysinfo["nodesId"]})
-    return struct
+    return struct[::-1]
 
 
 # D矩阵转化
@@ -522,8 +526,10 @@ def to_D_mat(
                                         for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
     testInd, testName, testLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
                                      for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
-    ConnInd, ConnName, ConnLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
-                                     for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
+    try:
+        ConnInd, ConnName, ConnLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
+    except:
+        ConnInd, ConnName, ConnLoc = [], [], []
     ConnIds = [faultInd.index(ind) for ind in ConnInd]
 
     faultMap = [[faultInd.index(srcId), faultInd.index(trgId), edgeP] for srcId, edge in enumerate(
@@ -570,17 +576,22 @@ def to_D_mat(
             raise Exception(
                 f"[LoopError] It exists {len(collision_node)} Cause-Effect Loop on Fault Node list(collision_node)")
     ckpt_map = {}
-    for xid_, yid_, p_ in testMap:
-        if yid_ not in ckpt_map.keys():
-            ckpt_map[yid_] = {}
-        ckpt_map[yid_][xid_] = max(ckpt_map[yid_].get(xid_, 0), p_)
-        for trgid_, p_2 in inner_forward_map.get(xid_, {}).items():
-            ckpt_map[yid_][trgid_] = max(ckpt_map[yid_].get(trgid_, 0), p_*p_2)
-    xid, yid, p = zip(*[[xid_, yid_, p_] for yid_,
-                      itm in ckpt_map.items() for xid_, p_ in itm.items()])
-    D_mat = coo_matrix((p, (xid, yid)), shape=(
-        len(faultName), len(testName)), dtype="float32").tocsr()
-    D_mat.eliminate_zeros()
+
+    if testMap:
+        for xid_, yid_, p_ in testMap:
+            if yid_ not in ckpt_map.keys():
+                ckpt_map[yid_] = {}
+            ckpt_map[yid_][xid_] = max(ckpt_map[yid_].get(xid_, 0), p_)
+            for trgid_, p_2 in inner_forward_map.get(xid_, {}).items():
+                ckpt_map[yid_][trgid_] = max(ckpt_map[yid_].get(trgid_, 0), p_*p_2)
+        xid, yid, p = zip(*[[xid_, yid_, p_] for yid_,
+                        itm in ckpt_map.items() for xid_, p_ in itm.items()])
+        D_mat = coo_matrix((p, (xid, yid)), shape=(
+            len(faultName), len(testName)), dtype="float32").tocsr()
+        D_mat.eliminate_zeros()
+    else:
+        D_mat = coo_matrix(([0], ([0], [0])), shape=(len(faultName), len(testName)), dtype="float32").tocsr()
+
 
     sysmap = {
         sysk: {
@@ -598,8 +609,8 @@ def _cal_failure(D_mat, p_test, eps=1e-20):
     return np.exp(D_mat.dot(np.log(p_test + eps)[:, None]))
 
 
-def _divide_sparse(vector_, denom_mat):
-    return denom_mat._with_data(vector_[denom_mat.indices]/denom_mat.data).tocsr()
+def _divide_sparse_neg_log_1p(vector_, denom_mat, eps=1e-20):
+    return denom_mat._with_data(np.log(1-vector_[denom_mat.indices]/denom_mat.data+eps)).tocsr()
 
 
 def _cal_fuzzy(D_mat, p_fault, eps=1e-20):
@@ -616,15 +627,14 @@ def _cal_fuzzy(D_mat, p_fault, eps=1e-20):
     DmatT = D_mat.T.tocsr()
     itm = DmatT._with_data(logc_p_fault[DmatT.indices, 0]/DmatT.data).T.tocsr()
     log_p_eff_diff = D_mat.multiply(
-        (
-            -_divide_sparse(
-                np.exp(D_mat.T.dot(logc_p_fault)).flatten(),
-                itm._with_data(np.exp(itm.data)).tocsr()
+        _divide_sparse_neg_log_1p(
+            np.exp(D_mat.T.dot(logc_p_fault)).flatten(),
+            itm._with_data(np.exp(itm.data)).tocsr(), eps=eps
             )
-        ).log1p()
-    )
+        )
     log_p_eff = log_p_eff_diff.sum(axis=-1).A
-    return p_fault*np.exp(log_p_eff)
+    return p_fault*np.minimum(1, np.exp(log_p_eff))
+
 
 
 def _or_failure_fuzzy(p_failure, p_fuzzy):
@@ -667,10 +677,13 @@ def detect_by_D_mat(
     '''
     p_fault = _cal_failure(D_mat, p_test, eps=eps**2)
     DmatT = D_mat.T.tocsr()
-    Dpure = DmatT._with_data(np.array([0 if i in ConnIds else v for i, v in zip(
-        DmatT.indices, DmatT.data)], dtype="float32")).T.tocsr()
-    Dpure.eliminate_zeros()
-    p_fuzzy = _cal_fuzzy(Dpure, p_fault, eps=eps**2)
+    if len(ConnIds) == 0:
+        p_fuzzy = _cal_fuzzy(D_mat, p_fault, eps=eps**2)
+    else:
+        Dpure = DmatT._with_data(np.array([0 if i in ConnIds else v for i, v in zip(
+            DmatT.indices, DmatT.data)], dtype="float32")).T.tocsr()
+        Dpure.eliminate_zeros()
+        p_fuzzy = _cal_fuzzy(Dpure, p_fault, eps=eps**2)
     sysres = {sysk: _or_failure_fuzzy(
         *zip(*[[p_fault[nId], p_fuzzy[nId]] for nId in sysv["nodesId"]])) for sysk, sysv in sysmap.items()}
     return np.round(p_fault.flatten(), n_round), np.round(p_fuzzy.flatten(), n_round), sysres
@@ -710,38 +723,50 @@ def detect_with_render(
             一个列表 [{'system_id': 1, 'name': 'root', 'parent_id': None, 'data': {...}, 'sysmap': {...}}, {'system_id': 2, 'name': 'RTU渚涚數绾胯矾', 'parent_id': 1, 'data': {...}}, {'system_id': 3, 'name': 'RTU1', 'parent_id': 1, 'data': {...}}, {'system_id': 4, 'name': 'RTU2', 'parent_id': 1, 'data': {...}}]
 
     '''
-    p_fault, p_fuzzy, sysres = detect_by_D_mat(
-        p_test, D_mat, sysmap, ConnIds=ConnIds, eps=eps/10)
-    # 渲染步骤
+    p_fault, p_fuzzy, sysres = detect_by_D_mat(p_test, D_mat, sysmap, ConnIds=ConnIds, eps=eps/10)
+    ## 渲染步骤
     struct = copy.deepcopy(struct)
     for t_ind, p_fault_ in enumerate(p_test):
         act_id, node_id = testLoc[t_ind]
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(
-            p_fault_)
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = 1
+        struct[act_id]["data"]["nodes"][node_id]["properties"]["showType"] = "analyse"
+        struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(p_fault_)
+        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = 0
     f_ind = 0
     for p_failure_, p_fuzzy_ in zip(p_fault, p_fuzzy):
         act_id, node_id = faultLoc[f_ind]
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(
-            p_failure_)
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(
-            p_fuzzy_)
-        
-        f_ind += 1
+        struct[act_id]["data"]["nodes"][node_id]["properties"]["showType"] = "analyse"
+        if struct[act_id]["data"]["nodes"][node_id]["properties"].get("detectable") is False:
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(p_failure_)
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(p_fuzzy_)
+            f_ind += 1
+        else: ## 补充不可测试测点的逻辑
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = 0
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = 1
     for key, sysr_ in sysres.items():
         parent_sys_id = sysmap[key]["ParentSubsystemId"]
         node_id = sysmap[key]["NodeId"]
-        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(
-            p_failure_)
-        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(
-            p_fuzzy_)
-        
-        struct[key]["data"]["properties"] = {
-            **struct[key]["data"].get("properties", {}), **sysr_}
+        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["showType"] = "analyse"
+        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(p_failure_)
+        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(p_fuzzy_)
+        struct[key]["data"]["properties"] = {**struct[key]["data"].get("properties", {}), **sysr_}
     return struct
 
-# 解算依赖导出为Json
+def qualitat_detect_by_D_mat(p_test, D_mat):
+    norm_test = np.where(p_test<0.5)[0]
+    D_mat_ = D_mat[:, norm_test]
+    D_mat_.eliminate_zeros()
+    norm_fault = set(np.where(np.diff(D_mat_.indptr)>0.5)[0])
+    f_f_fault = set(range(D_mat.shape[0])) - norm_fault
+    if f_f_fault:
+        D_mat_ = D_mat[:, list(set(range(len(p_test)))-set(norm_test))].tocsc()[list(f_f_fault), :].tocsr()
+        D_mat_.eliminate_zeros()
+        fuzzy_fault = set(np.where(D_mat_.indptr>1.5)[0])
+    else:
+        fuzzy_fault = f_f_fault
+    return zip(*[[float(i not in norm_fault), float(i in fuzzy_fault)] for i in range(D_mat.shape[0])])
 
+
+# 解算依赖导出为Json
 
 def to_json(
     D_mat: np.array,
@@ -802,41 +827,40 @@ def _get_detect_isolat_ratio(checkLen, fuzzyLen, faultLen, testLen):
 
 
 def check_graph(convertStruct, eps=1e-9):
-    D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds = from_json(
-        convertStruct)
-    fnodes = [struct[act_id]["data"]["nodes"][node_id]
-              for act_id, node_id in faultLoc]
-    validNodes = [nodeId for nodeId, node in enumerate(
-        fnodes) if node["type"] not in [INPUT_NODE, OUTPUT_NODE]]
-    unCheckIdList_ = np.where(np.asarray(D_mat.sum(axis=1)).flatten() < eps)[0]
+    D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds = from_json(convertStruct)
+    fnodes = [struct[act_id]["data"]["nodes"][node_id] for act_id, node_id in faultLoc]
+    validNodes = [nodeId for nodeId, node in enumerate(fnodes) if node["type"] not in [INPUT_NODE, OUTPUT_NODE]]
+    unCheckIdList_ = np.where(np.asarray(D_mat.sum(axis=1)).flatten() < 0.5)[0]
     DmatT = D_mat.T.tocsr()
-    Dpure = DmatT._with_data(np.array([0 if i in ConnIds else v for i, v in zip(
-        DmatT.indices, DmatT.data)], dtype="float32")).T.tocsr()
+    Dpure = DmatT._with_data(np.array([0 if i in ConnIds else v for i, v in zip(DmatT.indices, DmatT.data)], dtype="float32")).T.tocsr()
     Dpure.eliminate_zeros()
-    fuzzyList = np.where(_cal_fuzzy(Dpure, np.ones(
-        (len(faultName), 1), dtype="float32"), eps=eps**2).flatten() > 0.5 - eps)[0]
-    for f_ind in collision_node:
-        act_id, node_id = faultLoc[f_ind]
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["collision"] = True
-    for f_ind in unCheckIdList_:
-        act_id, node_id = faultLoc[f_ind]
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["detectable"] = False
-    for f_ind in fuzzyList:
-        act_id, node_id = faultLoc[f_ind]
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzible"] = False
+    fuzzyList = np.where(_cal_fuzzy(Dpure, np.ones((len(faultName),1), dtype="float32"), eps=eps**2).flatten() >= 0.5 - eps)[0]
+
+    collision_node = {f"{faultLoc[f_ind][0]}#{faultLoc[f_ind][1]}" for f_ind in collision_node}
+    unCheckIdList_in = {f"{faultLoc[f_ind][0]}#{faultLoc[f_ind][1]}" for f_ind in unCheckIdList_}
+    fuzzyList_in = {f"{faultLoc[f_ind][0]}#{faultLoc[f_ind][1]}" for f_ind in fuzzyList}
+    
+    for act_id, _ in enumerate(struct):
+        for node_id, _ in enumerate(struct[act_id]["data"]["nodes"]):
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["collision"] = False
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["detectable"] = True
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzible"] = True
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["showType"] = "check"
+            if f"{act_id}#{node_id}" in collision_node:
+                struct[act_id]["data"]["nodes"][node_id]["properties"]["collision"] = True
+            if f"{act_id}#{node_id}" in unCheckIdList_in:
+                struct[act_id]["data"]["nodes"][node_id]["properties"]["detectable"] = False
+            if f"{act_id}#{node_id}" in fuzzyList_in:
+                struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzible"] = False
     for subsysId, subsysInfo in sysmap.items():
         act_id = subsysInfo["ParentSubsystemId"]
         node_id = subsysInfo["NodeId"]
         if isinstance(act_id, int):
-            struct[act_id]["data"]["nodes"][node_id]["properties"]["detectable"] = all(
-                map(lambda itm: itm in unCheckIdList_, subsysInfo["nodesId"]))
-            struct[act_id]["data"]["nodes"][node_id]["properties"]["collision"] = any(
-                map(lambda itm: itm in collision_node, subsysInfo["nodesId"]))
-            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzible"] = any(
-                map(lambda itm: itm in fuzzyList, subsysInfo["nodesId"]))
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["detectable"] = all(map(lambda itm: itm in unCheckIdList_in, subsysInfo["nodesId"]))
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["collision"] = any(map(lambda itm: itm in collision_node, subsysInfo["nodesId"]))
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzible"] = any(map(lambda itm: itm in fuzzyList_in, subsysInfo["nodesId"]))
     fLen = len(faultName)
-    checkLen = fLen - \
-        len([nodeInd for nodeInd in unCheckIdList_ if nodeInd in validNodes])
+    checkLen = fLen - len([nodeInd for nodeInd in unCheckIdList_ if nodeInd in validNodes])
     fuzzyLen = len([nodeInd for nodeInd in fuzzyList if nodeInd in validNodes])
     return {
         "data": struct,
@@ -844,8 +868,7 @@ def check_graph(convertStruct, eps=1e-9):
         "col_names": testName,
         "row_names": faultName,
         "detect_isolat_ratio": _get_detect_isolat_ratio(checkLen, fuzzyLen, fLen, len(testName)),
-    }
-
+        }
 
 def convert_fmeca(
     df: pd.DataFrame
@@ -865,20 +888,19 @@ def convert_fmeca(
                             height=HEIGHT, padding=PADDING)
     return reconstruct_graph(nodes, edges, system)
 
+
 def optimize_struct(struct, p_min=0.25):
     nodes, edges, _ = flatten_graph(struct)
-    faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
-                                        for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
-    testInd, testName, testLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
-                                     for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
-    ConnInd, ConnName, ConnLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
-                                     for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
+    faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
+    testInd, testName, testLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
+    try:
+        ConnInd, ConnName, ConnLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
+    except:
+        ConnInd, ConnName, ConnLoc = [], [], []
     ConnIds = [faultInd.index(ind) for ind in ConnInd]
 
-    faultMap = [[faultInd.index(srcId), faultInd.index(trgId)] for srcId, edge in enumerate(
-        edges) for trgId, edgeP in edge.items() if trgId in faultInd if edgeP > p_min]
-    testMap = [[faultInd.index(srcId), testInd.index(trgId)] for srcId, edge in enumerate(
-        edges) for trgId, edgeP in edge.items() if trgId in testInd if edgeP > p_min]
+    faultMap = [[faultInd.index(srcId), faultInd.index(trgId)] for srcId, edge in enumerate(edges) for trgId, edgeP in edge.items() if trgId in faultInd if edgeP > p_min]
+    testMap = [[faultInd.index(srcId), testInd.index(trgId)] for srcId, edge in enumerate(edges) for trgId, edgeP in edge.items() if trgId in testInd if edgeP > p_min]
 
     inner_forward_map = {}
     for xid_, yid_ in faultMap:
@@ -899,33 +921,29 @@ def optimize_struct(struct, p_min=0.25):
                         inner_forward_map[yid_].add(x_id_new)
         if lin_cnt < 0.5:
             break
-    ckpt_map = {}
+    ckpt_map = {ind: set() for ind in range(len(testInd))}
     for xid_, yid_ in testMap:
-        if yid_ in ckpt_map.keys():
-            ckpt_map[yid_] |= {xid_}
-            ckpt_map[yid_] |= inner_forward_map[xid_]
-        else:
-            ckpt_map[yid_] = {xid_}
-            ckpt_map[yid_] |= inner_forward_map[xid_]
+        ckpt_map[yid_] |= {xid_}
+        ckpt_map[yid_] |= inner_forward_map.get(xid_, set())
     ckptinds = sorted(ckpt_map.keys(), key=lambda itm: len(ckpt_map[itm]))
     for ckptsortid, ckptind in enumerate(ckptinds):
-        cons = -1
-        inner_forward_map_ = set(ckpt_map[ckptind])
+        cons = -1; inner_forward_map_ = set(ckpt_map[ckptind])
         for ckptinnerid in ckptinds[:ckptsortid]:
             if len(ckpt_map[ckptind]) < len(ckpt_map[ckptinnerid]):
                 break
             elif len(ckpt_map[ckptinnerid] - ckpt_map[ckptind]) > 0:
                 continue
-            elif ckpt_map[ckptind] == ckpt_map[ckptinnerid]:
-                cons == ckptinnerid
+            elif len(ckpt_map[ckptinnerid] - ckpt_map[ckptind]) == 0 and \
+                 len(ckpt_map[ckptind] - ckpt_map[ckptinnerid]) == 0:
+                cons = ckptinnerid
                 break
-            ckpt_map -= len(ckpt_map[ckptinnerid])
+            inner_forward_map_ -= ckpt_map[ckptinnerid]
         if cons != -1:
             act_id, node_id = testLoc[cons]
             struct[act_id]["data"]["nodes"][node_id]["properties"]["redundancy"] = 0.1
             act_id_, node_id_ = testLoc[ckptind]
             struct[act_id_]["data"]["nodes"][node_id_]["properties"]["redundancy"] = 0.5
-        elif len(inner_forward_map[ckptind]) == 0:
+        elif len(inner_forward_map_) == 0:
             act_id, node_id = testLoc[ckptind]
             struct[act_id]["data"]["nodes"][node_id]["properties"]["redundancy"] = 1
         else:
