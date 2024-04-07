@@ -20,22 +20,28 @@ FINAL_EFFECT_COL = "{最终影响}"
 
 WIDTH = 180
 NODEWIDTH = 100
-HEIGHT = 24
+HEIGHT = 25
+NODEHEIGHT = 30
 PADDING = 50
 
 DEBUG_MODE = False
 
 from scipy.sparse import coo_matrix, csr_matrix
 import numpy as np
-import json, copy, uuid
+import json, copy, time, uuid
 from typing import Iterable
 
-if DEBUG_MODE:
+if __name__ == "__main__":
     from gui_utils import render_node_pos, wash_node_pos
-    from fmecaReader import read_fmeca
+    #from fmecaReader import read_fmeca
+    from visioParse import parse_visio_arrange
 else:
     from .gui_utils import render_node_pos, wash_node_pos
     from .fmecaReader import read_fmeca
+    from .visioParse import parse_visio_arrange
+
+def get_uuid(kw=""):
+    return str(uuid.uuid5(uuid.NAMESPACE_DNS, f"{kw}#%.7f"%time.time()))
 
 ### 拉直多子系统嵌套结构依赖方法
 def _flatten_graph(struct, act_uid=1, nodes_cnt=0):
@@ -80,6 +86,8 @@ def _flatten_graph(struct, act_uid=1, nodes_cnt=0):
     for itm in struct[act_id]["data"]["edges"]:
         if "sourceAnchorId" in itm.keys():
             srcId = id_map[itm["sourceAnchorId"]]
+        elif "sourceAnchorId" in itm.get("properties", {}).keys():
+            srcId = id_map[itm["properties"]["sourceAnchorId"]]
         else:
             for nid, ninfo in enumerate(nodes):
                 if ninfo["id"]==itm["sourceNodeId"]:
@@ -89,6 +97,8 @@ def _flatten_graph(struct, act_uid=1, nodes_cnt=0):
                 continue
         if "targetAnchorId" in itm.keys():
             trgId = id_map[itm["targetAnchorId"]]
+        elif "targetAnchorId" in itm.get("properties", {}).keys():
+            trgId = id_map[itm["properties"]["targetAnchorId"]]
         else:
             for nid, ninfo in enumerate(nodes):
                 if ninfo["id"]==itm["targetNodeId"]:
@@ -113,12 +123,16 @@ def _render_edge(sysnodes, sysedges):
         if len(trgInds)>0 and not all(map(lambda trgInd: isinstance(trgInd, Iterable), trgInds)):
             trgInds = [trgInds]
         for srcgrpind, trgInditm in enumerate(trgInds):
+            if trgInditm and not isinstance(trgInditm[0], list):
+                trgInditm = [trgInditm]
             for trgInd in trgInditm:
                 if isinstance(trgInd, Iterable):
                     trggrpind, trgInd = trgInd
                 else:
                     trggrpind = 0
-                srcgrpind = min(srcgrpind, len([anchor for anchor in sysnodes[srcInd]["anchors"] if anchor["type"] == "right"])-1)
+                    
+                #srcgrpind = min(srcgrpind, len([anchor for anchor in sysnodes[srcInd]["anchors"] if anchor["type"] == "right"])-1)
+                #print((sysnodes[srcInd]["text"]["value"], srcgrpind), (sysnodes[trgInd]["text"]["value"], trggrpind))
 
                 srcAnc = [anchor for anchor in sysnodes[srcInd]["anchors"] if anchor["type"] == "right"][srcgrpind]
                 trgAnc = [anchor for anchor in sysnodes[trgInd]["anchors"] if anchor["type"] == "left"][trggrpind]
@@ -127,13 +141,17 @@ def _render_edge(sysnodes, sysedges):
                     "type": EDGE,
                     "sourceNodeId": sysnodes[srcInd]["id"],
                     "targetNodeId": sysnodes[trgInd]["id"],
-                    # "startPoint": {"x": srcAnc.get("x", -1), "y": srcAnc.get("y", -1)},
-                    # "endPoint": {"x": trgAnc.get("x", -1), "y": trgAnc.get("y", -1)},
-                    "properties": {},
+                    "startPoint": {"x": srcAnc.get("x", -1), "y": srcAnc.get("y", -1)},
+                    "endPoint": {"x": trgAnc.get("x", -1), "y": trgAnc.get("y", -1)},
+                    "properties": {
+                        "sourceAnchorId": srcAnc["id"],
+                        "targetAnchorId": trgAnc["id"],
+                        },
                     "pointsList": [],
                     "sourceAnchorId": srcAnc["id"],
                     "targetAnchorId": trgAnc["id"],
                     })
+    # print()
     return [noditm for noditm in sysnodes if noditm], sysedges_
 
 def _flatten_edge(edge):
@@ -165,10 +183,8 @@ def _wash_nes(nodes, edges, system):
     for ind, rind in enumerate(pure_ind):
         for eid in edges[rind]:
             edges_[ind].extend(_getalledge(eid, pure_ind, edges))
-    return nodes, [[[0, eit] for eit in eitm] for eitm in edges_], system
+    return nodes, [[[[0, eit] for eit in eitm]] for eitm in edges_], system
 
-# 顶层调用
-        
 def reconstruct_graph(nodes, edges, system):
     struct = []; node2sys = {}
     nodes = [_check_node(node) for node in nodes]
@@ -181,6 +197,7 @@ def reconstruct_graph(nodes, edges, system):
         xmin, xmax = float("inf"), -float("inf")
         ymin, ymax = float("inf"), -float("inf")
         sysnodeInd = sorted(set([node2sys.get(ind, ind) for ind in sysinfo["nodesId"]]))
+        # print(sysinfo["name"], [nodes[ind]["text"]["value"] for ind in sysnodeInd])
         for sysinfoid in sysnodeInd:
             xmin = min(xmin, nodes[sysinfoid]["x"])
             xmax = max(xmax, nodes[sysinfoid]["x"])
@@ -190,6 +207,9 @@ def reconstruct_graph(nodes, edges, system):
                 node_name = nodes[sysinfoid]["text"]["value"]
                 sysinnerind = system_names.index(node_name)
                 struct[sysinnerind]["parent_id"] = sysalllen - sysind
+        if len(sysnodeInd) == 0:
+            xmin, xmax = -5000, 5000
+            ymin, ymax = -5000, 5000
         in_map = {}
         out_map = {}
         sysnodes = [{
@@ -206,18 +226,21 @@ def reconstruct_graph(nodes, edges, system):
             "properties": nodes[ind]["properties"]}  for ind in sysnodeInd]
         sysedges = [[] for _ in sysnodeInd]
         for srcNind, trgNinds in enumerate(edges):
+            #print(trgNinds)
             if srcNind in sysnodeInd:
                 srcInnerInd = sysnodeInd.index(srcNind)
-                for trgNind in _flatten_edge(trgNinds):
-                    if int(trgNind.split("#")[1]) in sysnodeInd:
-                        trgportId, trgNind = map(int, trgNind.split("#"))
-                        trgInnerInd = sysnodeInd.index(trgNind)
-                        if trgInnerInd not in _flatten_edge(edges[srcInnerInd]):
-                            sysedges[srcInnerInd].append([trgportId, trgInnerInd])
-                    elif trgNind not in out_map.keys():
-                        out_map[trgNind] = {srcInnerInd}
-                    else:
-                        out_map[trgNind].add(srcInnerInd)
+                sysedges[srcInnerInd] = [[] for _ in trgNinds]
+                for srcPortId, trgNinds_ in enumerate(trgNinds):
+                    for trgNind in _flatten_edge([trgNinds_]):
+                        if int(trgNind.split("#")[1]) in sysnodeInd:
+                            trgportId, trgNind = map(int, trgNind.split("#"))
+                            trgInnerInd = sysnodeInd.index(trgNind)
+                            if f"{trgportId}#{trgNind}" not in _flatten_edge(sysedges[srcInnerInd][srcPortId]):
+                                sysedges[srcInnerInd][srcPortId].append([trgportId, trgInnerInd])
+                        elif trgNind not in out_map.keys():
+                            out_map[trgNind] = {f"{srcPortId}#{srcInnerInd}"}
+                        else:
+                            out_map[trgNind].add(f"{srcPortId}#{srcInnerInd}")
             else:
                 for trgNind in _flatten_edge(trgNinds):
                     if int(trgNind.split("#")[1]) in sysnodeInd:
@@ -228,9 +251,8 @@ def reconstruct_graph(nodes, edges, system):
                         else:
                             in_map[srcNind].add(f"{trgportId}#{trgInnerInd}")
         cnt = len(sysnodeInd)
-        
         if nodeLen == len(sysinfo["nodesId"]):
-            sysnodes = wash_node_pos(sysnodes, width=NODEWIDTH, height=HEIGHT, padding=PADDING, sys=SYS)
+            sysnodes = wash_node_pos(sysnodes, width=NODEWIDTH, height=NODEHEIGHT, padding=PADDING, sys=SYS)
             sysnodes_, sysedges_ = _render_edge(sysnodes, sysedges)
             struct.append({
                     "data":{
@@ -254,19 +276,19 @@ def reconstruct_graph(nodes, edges, system):
                         "name": f"输出{len(out_map_filter)+1}",
                         "config":{
                             "anchors": [{
-                                "x": xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/HEIGHT)-NODEWIDTH/2,
-                                "y": len(out_map_filter)*(PADDING + HEIGHT),
-                                "id": nodeRef["id"]+f"_lef{len(out_map_filter)+1}t",
+                                "x": xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/NODEHEIGHT)-NODEWIDTH/2,
+                                "y": len(out_map_filter)*(PADDING + NODEHEIGHT),
+                                "id": nodeRef["id"]+f"_left{len(out_map_filter)+1}",
                                 "type": "left"
                                 }],
                             "text": {
-                                "x":xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/HEIGHT),
-                                "y": len(out_map_filter)*(PADDING + HEIGHT),
+                                "x":xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/NODEHEIGHT) + 10,
+                                "y": len(out_map_filter)*(PADDING + NODEHEIGHT),
                                 "value": f"输出{len(out_map_filter)+1}"},
                             "type": "output-node",
                             "id": nodeRef["id"] + f"-asoutput{len(out_map_filter)+1}",
-                            "x":xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/HEIGHT),
-                            "y":len(out_map_filter)*(PADDING + HEIGHT),
+                            "x":xmax-xmin+round(NODEWIDTH*1.5)+PADDING*round(1.25*NODEWIDTH/NODEHEIGHT),
+                            "y":len(out_map_filter)*(PADDING + NODEHEIGHT),
                             "properties": {
                                 "showType": "edit",
                                 "collision": False,
@@ -298,19 +320,19 @@ def reconstruct_graph(nodes, edges, system):
                         "name": f"输入{len(in_map_filter)+1}",
                         "config":{
                             "anchors": [{
-                                "x": -round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/HEIGHT)+NODEWIDTH/2,
-                                "y": len(in_map_filter)*(PADDING + HEIGHT),
+                                "x": -round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/NODEHEIGHT)+NODEWIDTH/2,
+                                "y": len(in_map_filter)*(PADDING + NODEHEIGHT),
                                 "id": nodeRef["id"]+f"_right{len(out_map_filter)+1}",
                                 "type": "right"
                                 }],
                             "text": {
-                                "x":-round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/HEIGHT),
-                                "y":len(in_map_filter)*(PADDING + HEIGHT),
+                                "x":-round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/NODEHEIGHT) + 10,
+                                "y":len(in_map_filter)*(PADDING + NODEHEIGHT),
                                 "value": f"输入{len(in_map_filter)+1}"},
                             "type": "input-node",
                             "id": nodeRef["id"] + f"-asinput{len(in_map_filter)+1}",
-                            "x":-round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/HEIGHT),
-                            "y":len(in_map_filter)*(PADDING + HEIGHT),
+                            "x":-round(NODEWIDTH*1.5)-PADDING*round(1.25*NODEWIDTH/NODEHEIGHT),
+                            "y":len(in_map_filter)*(PADDING + NODEHEIGHT),
                             "properties": {
                                 "showType": "edit",
                                 "collision": False,
@@ -333,13 +355,15 @@ def reconstruct_graph(nodes, edges, system):
                     cnt += 1
             sysnodes.extend([itm["config"] for itm in out_map_filter])
             sysnodes.extend([itm["config"] for itm in in_map_filter])
-            sysedges.extend([[] for _ in range(len(sysnodes)-len(sysedges))])
+            sysedges.extend([[[]] for _ in range(len(sysnodes)-len(sysedges))])
             for itm in out_map_filter:
                 for srcind in itm["nodeInds"]:
-                    sysedges[srcind].append([0,itm["nodecnt"]])
+                    srcPortInd, srcNind = map(int, srcind.split("#"))
+                    sysedges[srcNind] += [[] for _ in range(srcPortInd+1-len(sysedges[srcNind]))]
+                    sysedges[srcNind][srcPortInd].append([0,itm["nodecnt"]])
             for itm in in_map_filter:
                 sysedges[itm["nodecnt"]] = [sorted(itm["nodeInds"],key=lambda itm:itm[1]+itm[0]/100)]
-            sysnodes = wash_node_pos(sysnodes, width=NODEWIDTH, height=HEIGHT, padding=PADDING, sys=SYS)
+            sysnodes = wash_node_pos(sysnodes, width=NODEWIDTH, height=NODEHEIGHT, padding=PADDING, sys=SYS)
             sysnodes_, sysedges_ = _render_edge(sysnodes, sysedges)
             struct.append({
                     "data":{
@@ -350,7 +374,10 @@ def reconstruct_graph(nodes, edges, system):
                     "system_id": sysalllen-sysind,
                     "parent_id": None,
                 })
-            sysNodeRef = sysnodes_[0]
+            if len(sysnodes_) == 0:
+                sysNodeRef = sysnodes_[0]
+            else:
+                sysNodeRef = {"id": get_uuid("node-conn")}
             sysnode = {
                     "id": sysNodeRef["id"]+"-assys",
                     "type": SYS,
@@ -365,14 +392,14 @@ def reconstruct_graph(nodes, edges, system):
                             },
                         },
                     "text": {
-                        "x": round((xmax+xmin)/2),
-                        "y": round((ymax+ymin)/2) + HEIGHT*(0.5-max(len(in_map_filter), len(out_map_filter))/2),
+                        "x": round((xmax+xmin)/2) + 10,
+                        "y": round((ymax+ymin)/2) + HEIGHT*(0.1-max(len(in_map_filter), len(out_map_filter))/2.25),
                         "value": sysinfo["name"],
                         },
                     "anchors": [
                         {
                             "x": round((xmax+xmin)/2) - WIDTH/2,
-                            "y": round((ymax+ymin)/2) + HEIGHT*(1.5-max(len(in_map_filter), len(out_map_filter))/2+itmId),
+                            "y": round((ymax+ymin)/2) + HEIGHT*(1.1-max(len(in_map_filter), len(out_map_filter))/2.25+itmId),
                             "id": sysNodeRef["id"]+f"-assys-left-{itmId+1}",
                             "edgeAddable": False,
                             "type": "left",
@@ -380,7 +407,7 @@ def reconstruct_graph(nodes, edges, system):
                     [
                         {
                             "x": round((xmax+xmin)/2) + WIDTH/2,
-                            "y": round((ymax+ymin)/2) + HEIGHT*(1.5-max(len(in_map_filter), len(out_map_filter))/2+itmId),
+                            "y": round((ymax+ymin)/2) + HEIGHT*(1.1-max(len(in_map_filter), len(out_map_filter))/2.25+itmId),
                             "id": sysNodeRef["id"]+f"-assys-right-{itmId+1}",
                             "edgeAddable": False,
                             "type": "right",
@@ -389,17 +416,17 @@ def reconstruct_graph(nodes, edges, system):
                 }
             for nid in sysnodeInd:
                 nodes[nid] = {}
-                edges[nid] = []
+                edges[nid] = [[]]
             nodes.append(sysnode)
-            edges.append([[]])
+            edges.append([[] for _ in out_map_filter])
             for itmId, itm in enumerate(out_map_filter):
-                edges[-1][0].extend(itm["trgNinds"])
+                edges[-1][itmId] = itm["trgNinds"]
             for itmId, itm in enumerate(in_map_filter):
                 for srcId in itm["srcNinds"]:
                     edgesSys = [itmId for itmId, itm in enumerate(edges[srcId]) if any(
                         map(lambda it_: it_[1] in sysnodeInd if isinstance(it_, Iterable) else it_ in sysnodeInd, itm)
                         )]
-                    edgraw, edges[srcId] = edges[srcId], []
+                    edgraw, edges[srcId] = edges[srcId], [[]]
                     for itm_ in edgraw:
                         edges[srcId].append([])
                         for itm in itm_:
@@ -420,7 +447,10 @@ def reconstruct_graph(nodes, edges, system):
 def to_D_mat(nodes, edges, system, eps=1e-9, raise_collision=True):
     faultInd, faultName, faultLoc, faultUUid = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"]), node["id"]] for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
     testInd, testName, testLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] in TESTTYPE])
-    swInd, _, _ = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] == SW])
+    try:
+        swInd, _, _ = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] == SW])
+    except:
+        swInd = []
     try:
         ConnInd, _, _ = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
     except:
@@ -428,6 +458,7 @@ def to_D_mat(nodes, edges, system, eps=1e-9, raise_collision=True):
     ConnIds = [faultInd.index(ind) for ind in ConnInd]
     edges = [{srcId: 1, **edge} if srcId in swInd else edge for srcId, edge in enumerate(edges) ]
     faultMap = [[faultInd.index(srcId), faultInd.index(trgId), edgeP] for srcId, edge in enumerate(edges) for trgId, edgeP in edge.items() if trgId in faultInd]
+    #print(testInd, edges)
     testMap = [[faultInd.index(srcId), testInd.index(trgId), edgeP] for srcId, edge in enumerate(edges) for trgId, edgeP in edge.items() if trgId in testInd]
 
     if len(testMap) == 0:
@@ -439,6 +470,7 @@ def to_D_mat(nodes, edges, system, eps=1e-9, raise_collision=True):
 
     inner_forward_map = {}
     collision_node = set()
+    #print(faultMap)
     if len(faultMap) == 0:
         fault_mat = coo_matrix(([0], ([0],[0])),shape=(len(faultName), len(faultName)), dtype="float32")
         fault_mat.eliminate_zeros()
@@ -452,7 +484,11 @@ def to_D_mat(nodes, edges, system, eps=1e-9, raise_collision=True):
             lin_cnt = 0
             for yid_, itm in inner_forward_map.items():
                 for xid_, p_1 in list(itm.items()):
+                    if yid_ == xid_:
+                        continue
                     for x_id_new, p_2 in inner_forward_map.get(xid_, {}).items():
+                        if xid_ == x_id_new:
+                            continue
                         if yid_ == x_id_new:
                             collision_node.add(yid_)
                             continue
@@ -547,25 +583,25 @@ def detect_with_render(p_test, D_mat, struct, testLoc, faultLoc, sysmap, ConnIds
     for t_ind, p_fault_ in enumerate(p_test):
         act_id, node_id = testLoc[t_ind]
         struct[act_id]["data"]["nodes"][node_id]["properties"]["showType"] = "analyse"
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(p_fault_)
-        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = 0
+        struct[act_id]["data"]["nodes"][node_id]["properties"]["state"] = float(p_fault_)
+        struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_state"] = 0
     f_ind = 0
     for p_failure_, p_fuzzy_ in zip(p_fault, p_fuzzy):
         act_id, node_id = faultLoc[f_ind]
         struct[act_id]["data"]["nodes"][node_id]["properties"]["showType"] = "analyse"
         if struct[act_id]["data"]["nodes"][node_id]["properties"].get("detectable") is False:
-            struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(p_failure_)
-            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(p_fuzzy_)
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["state"] = float(p_failure_)
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_state"] = float(p_fuzzy_)
             f_ind += 1
         else: ## 补充不可测试测点的逻辑
-            struct[act_id]["data"]["nodes"][node_id]["properties"]["proba"] = 0
-            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = 1
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["state"] = 0
+            struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_state"] = 1
     for key, sysr_ in sysres.items():
         parent_sys_id = sysmap[key]["ParentSubsystemId"]
         node_id = sysmap[key]["NodeId"]
         struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["showType"] = "analyse"
-        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["proba"] = float(p_failure_)
-        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["fuzzy_proba"] = float(p_fuzzy_)
+        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["state"] = float(p_failure_)
+        struct[parent_sys_id]["data"]["nodes"][node_id]["properties"]["fuzzy_state"] = float(p_fuzzy_)
         struct[int(key)]["data"]["properties"] = {**struct[int(key)]["data"].get("properties", {}), **sysr_}
     return struct
 
@@ -683,6 +719,12 @@ def convert_fmeca(df):
     nodes = render_node_pos(nodes, edges, width=NODEWIDTH, height=HEIGHT, padding=PADDING)
     return reconstruct_graph(nodes, edges, system)
 
+def convert_visio(df):
+    nodes, edges, system = parse_visio_arrange(
+        df, ckptnode=CKPT, resnode=RES)
+    nodes = render_node_pos(nodes, edges, width=NODEWIDTH, height=HEIGHT, padding=PADDING)
+    return reconstruct_graph(nodes, edges, system)
+
 def optimize_struct(struct, p_min=0.25):
     nodes, edges, _ = flatten_graph(struct)
     faultInd, faultName, faultLoc = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])] for nodeId, node in enumerate(nodes) if node["type"] in FAULTTYPE])
@@ -746,13 +788,17 @@ def optimize_struct(struct, p_min=0.25):
     return struct
 
 if __name__ == "__main__":
-    with open(r"dataRTU.json", "r+") as f:
-        struct = json.load(f)["SystemData"]
+    struct = convert_visio(r"pic.vsdx")
+    with open("data.json", "w+", encoding="utf-8") as f:
+        json.dump({
+        "currentSystemId": 1,
+        "SystemData": struct},
+                  f, indent=4, ensure_ascii=False)
     nodes, edges, system = flatten_graph(struct)
-    structInverse = reconstruct_graph(nodes, edges, system)
-    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(nodes, edges, system)
+    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node, faultConfig = to_D_mat(nodes, edges, system)
     p_test = (np.random.uniform(0,1, len(testName))>0.5).astype("float32")
     p_fault, p_fuzzy, sysres = detect_by_D_mat(p_test, D_mat, sysmap, ConnIds)
+    print("D_mat:", D_mat)
     print("P_FAULT:", p_fault.tolist(), "\tP_FUZZY:", p_fuzzy.tolist())
     structNew = detect_with_render(p_test, D_mat, struct, testLoc, faultLoc, sysmap, ConnIds, eps=1e-10, n_round=5)
     structJson = to_json(D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds)
@@ -760,5 +806,4 @@ if __name__ == "__main__":
     print(checkRes["detect_isolat_ratio"])
     D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds = from_json(structJson)
     import pandas as pd
-    struct2 = convert_fmeca(pd.read_excel("FMECA范例.xlsx"))
-    struct = optimize_struct(struct, p_min=0.25)
+    print(pd.DataFrame(D_mat.A, index=faultName, columns=testName))

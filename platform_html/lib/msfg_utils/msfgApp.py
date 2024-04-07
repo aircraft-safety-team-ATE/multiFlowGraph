@@ -32,14 +32,17 @@ def service_to_D_mat():
     struct = json.loads(request.form.get("graphStruct"))
     if isinstance(struct, Dict):
         struct = struct["SystemData"]
-    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(*flatten_graph(struct), eps=EPS, raise_collision=False)
+    nodes, edges, system = flatten_graph(struct)
+    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node, _ = to_D_mat(nodes, edges, system, eps=EPS, raise_collision=False)
     return to_json(D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds)
 
 def app_check_graph():
     struct = json.loads(request.form.get("graphStruct"))
     if isinstance(struct, Dict):
         struct = struct["SystemData"]
-    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(*flatten_graph(struct), eps=EPS, raise_collision=False)
+    nodes, edges, system = flatten_graph(struct)
+    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node, _ = to_D_mat(nodes, edges, system, eps=EPS, raise_collision=False)
+    #print(D_mat)
     structJson = to_json(D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, collision_node, ConnIds)
     #structJson = request.form.get("convertedStruct")
     info = check_graph(structJson, eps=EPS)
@@ -68,8 +71,8 @@ def result_analyse_main():
     struct = json.loads(request.form.get("graphStruct"))
     if isinstance(struct, Dict):
         struct = struct["SystemData"]
-    # print(struct)
-    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(*flatten_graph(struct), eps=EPS, raise_collision=False)
+    nodes, edges, system = flatten_graph(struct)
+    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node, _ = to_D_mat(nodes, edges, system, eps=EPS, raise_collision=False)
     #D_mat, struct, testLoc, faultLoc, sysmap, testName, faultName, ConnIds = from_json(request.form.get("convertedStruct"))
     p_test = _washItm(
         testName,

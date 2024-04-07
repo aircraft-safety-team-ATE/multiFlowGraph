@@ -136,21 +136,19 @@ def wash_node_pos(nodes, width=100, height=24, padding=10, sys="subsystem-node",
             node.get("properties", {}).get("fields", {}).get("inputs", 1),
             node.get("properties", {}).get("fields", {}).get("outputs", 1)
             ) + (1 if node["type"]==sys else 0))]
+    if len(nodes_) == 0:
+        return []
     x,y = [np.sort(itm) for itm in zip(*nodes_)]
     xmarks = [x[0]-width/100]
     for xitm in np.sort(x[1:]):
         if xitm - xmarks[-1] > padding*round(1.25*width/height)/2:
             xmarks.append(xitm-width/100)
     xmarks = np.array(xmarks, dtype="float32")
-    print(x)
-    print(xmarks)
     ymarks = [y[0]-height/100]
     for yitm in np.sort(y[1:]):
         if yitm - ymarks[-1] > padding/2:
             ymarks.append(yitm-height/100)
     ymarks = np.array(ymarks, dtype="float32")
-    print(y)
-    print(ymarks)
     for nId, node in enumerate(nodes):
         dx_ = round(float(np.where(nodes[nId]["x"]>xmarks)[0][-1]) * (width + padding*round(1.25*width/height)) - nodes[nId]["x"])
         dy_ = round(float(np.where(nodes[nId]["y"]>ymarks)[0][-1]) * (height + padding) - nodes[nId]["y"])
