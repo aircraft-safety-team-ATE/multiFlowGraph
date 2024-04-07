@@ -1,5 +1,5 @@
 const utils = {
-  createSub () {
+  createSub() {
     const { nodes } = this.lf.getSelectElements()
     if (nodes.length === 0) {
       this.$alert('未选中任何节点，无法创建子系统！')
@@ -18,7 +18,7 @@ const utils = {
       ])
       const width = x2 - x1
       const height = y2 - y1
-      let node = {x: 0, y: 0, properties: {}, children: []}
+      let node = { x: 0, y: 0, properties: {}, children: [] }
       node.x = x1 + width / 2
       node.y = y1 + height / 2
       node.properties.nodeSize = {
@@ -30,7 +30,7 @@ const utils = {
       this.lf.render(this.$data.lf.getGraphRawData())
     }
   },
-  foldAllChild (child) {
+  foldAllChild(child) {
     child.forEach((nodeID) => {
       let node = this.lf.graphModel.getNodeModelById(nodeID)
       if (node.type === 'sub-system') {
@@ -46,7 +46,7 @@ const utils = {
       }
     })
   },
-  unfoldAllChild (child) {
+  unfoldAllChild(child) {
     child.forEach((nodeID) => {
       let node = this.lf.graphModel.getNodeModelById(nodeID)
       if (node.type === 'sub-system') {

@@ -6,7 +6,7 @@ class RedNodeModel extends RectNodeModel {
   /**
    * 初始化
    */
-  initNodeData (data) {
+  initNodeData(data) {
     super.initNodeData(data)
     this.width = 100
     this.height = 30
@@ -17,7 +17,7 @@ class RedNodeModel extends RectNodeModel {
   /**
    * 动态设置数据，区别于初始化的数据设定，该部分会响应数据变化(每次properties发生变化会触发)
    */
-  setAttributes () {
+  setAttributes() {
     if (this.text.value) {
       let width = 30 + getBytesLength(this.text.value) * 9
       width = Math.ceil(width / 20) * 20
@@ -35,14 +35,14 @@ class RedNodeModel extends RectNodeModel {
       this.defaultFill = getColorRGB_analyse(this.properties.state, this.properties.fuzzy_state)
     }
   }
-  updateText (val) {
+  updateText(val) {
     super.updateText(val)
     this.setAttributes()
   }
   /**
    * 重写节点样式
    */
-  getNodeStyle () {
+  getNodeStyle() {
     const style = super.getNodeStyle()
     const dataStyle = this.properties.style || {}
     if (this.isSelected) {
@@ -58,7 +58,7 @@ class RedNodeModel extends RectNodeModel {
   /**
    * 重写定义锚点
    */
-  getDefaultAnchor () {
+  getDefaultAnchor() {
     const { x, y, id, width, height } = this
     const anchors = [
       {
@@ -79,7 +79,7 @@ class RedNodeModel extends RectNodeModel {
   /**
    *
    */
-  getOutlineStyle () {
+  getOutlineStyle() {
     const style = super.getOutlineStyle()
     style.stroke = 'transparent'
     style.hover.stroke = 'transparent'
@@ -88,7 +88,7 @@ class RedNodeModel extends RectNodeModel {
   /**
    * 导出时处理导出的数据
    */
-  getData () {
+  getData() {
     const data = super.getData()
     data.properties.ui = 'node-red'
     data.anchors = this.anchors
@@ -102,7 +102,7 @@ class RedNodeView extends RectNode {
    * 1.1.7版本后支持在view中重写锚点形状。
    * 重写锚点新增
    */
-  getAnchorShape (anchorData) {
+  getAnchorShape(anchorData) {
     const { x, y, type } = anchorData
     return h("rect", {
       x: x - 5,
@@ -112,7 +112,7 @@ class RedNodeView extends RectNode {
       className: 'custom-anchor'
     })
   }
-  getShape () {
+  getShape() {
     const {
       text,
       x,
@@ -152,7 +152,7 @@ class RedNodeView extends RectNode {
           }),
           this.getIcon(),
           h('path', {
-            d: `M ${30 - width / 2} ${1 -height / 2 } l 0 28`,
+            d: `M ${30 - width / 2} ${1 - height / 2} l 0 28`,
             stroke: '#000',
             strokeOpacity: 0.1,
             strokeWidth: 1
@@ -161,7 +161,7 @@ class RedNodeView extends RectNode {
       ]
     )
   }
-  getIcon () {
+  getIcon() {
     const { width, height } = this.props.model
     return h('image', {
       width: 30,

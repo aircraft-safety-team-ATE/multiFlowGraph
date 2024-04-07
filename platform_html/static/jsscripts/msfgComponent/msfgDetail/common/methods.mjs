@@ -4,21 +4,21 @@ const WIDTH = 100
 const HEIGHT = 30
 const PADDING = 50
 
-function getuuid (index) {
+function getuuid(index) {
   if (!index) {
     index = 0
   }
   return index.toString(16) + "-" + Date.now().toString(16)
 }
 
-function getScale (nodes_pure, idMap_pure, nodes, idMap, k, w) {
+function getScale(nodes_pure, idMap_pure, nodes, idMap, k, w) {
   if (nodes[k].type != "sub-system") {
     let j = idMap_pure.indexOf(nodes[k].id)
     return [
-      Math.round((nodes_pure[j].x0+nodes_pure[j].x1)/2 - WIDTH / 2),
-      Math.round((nodes_pure[j].x0+nodes_pure[j].x1)/2 + WIDTH / 2),
-      Math.round((nodes_pure[j].y0+nodes_pure[j].y1)/2 - HEIGHT / 2),
-      Math.round((nodes_pure[j].y0+nodes_pure[j].y1)/2 + HEIGHT / 2)
+      Math.round((nodes_pure[j].x0 + nodes_pure[j].x1) / 2 - WIDTH / 2),
+      Math.round((nodes_pure[j].x0 + nodes_pure[j].x1) / 2 + WIDTH / 2),
+      Math.round((nodes_pure[j].y0 + nodes_pure[j].y1) / 2 - HEIGHT / 2),
+      Math.round((nodes_pure[j].y0 + nodes_pure[j].y1) / 2 + HEIGHT / 2)
     ]
   } else {
     let allScale = nodes[k].children.map(itm => { return getScale(nodes_pure, idMap_pure, nodes, idMap, idMap.indexOf(itm), w) })
@@ -30,7 +30,7 @@ function getScale (nodes_pure, idMap_pure, nodes, idMap, k, w) {
     ]
   }
 }
-function getWidth (text){
+function getWidth(text) {
   if (text) {
     let width = 30 + getBytesLength(text) * 9
     width = Math.ceil(width / 20) * 20
@@ -42,21 +42,21 @@ function getWidth (text){
   return WIDTH
 }
 
-function autoArrange (graphStruct, h, w) {
-  let nodes_pure = graphStruct.nodes.filter(itm => {return itm.type !== "sub-system"})
-  let nodes_ = nodes_pure.map(itm => {return {id: itm.id, text: itm.text, value: 1}})
+function autoArrange(graphStruct, h, w) {
+  let nodes_pure = graphStruct.nodes.filter(itm => { return itm.type !== "sub-system" })
+  let nodes_ = nodes_pure.map(itm => { return { id: itm.id, text: itm.text, value: 1 } })
   let idMap_pure = nodes_pure.map(itm => itm.id)
   let edgeStock = nodes_pure.map((itm, k) => [k]);
   let edges_ = [];
   graphStruct.edges.forEach(itm => {
     let sId = idMap_pure.indexOf(itm.sourceNodeId);
     let tId = idMap_pure.indexOf(itm.targetNodeId);
-    if (!(edgeStock[tId].includes(sId))){
+    if (!(edgeStock[tId].includes(sId))) {
       edgeStock[sId].push(tId);
-      edgeStock[tId].forEach(inId=>{
+      edgeStock[tId].forEach(inId => {
         edgeStock[sId].push(inId);
       })
-      edges_.push({source: sId, target: tId, value: 1})
+      edges_.push({ source: sId, target: tId, value: 1 })
     }
   })
   let widthM = Math.max(...nodes_.map(itm => getWidth(itm.text.value)))
@@ -64,15 +64,15 @@ function autoArrange (graphStruct, h, w) {
   let idMap = graphStruct.nodes.map(itm => itm.id)
   graphStruct.nodes.forEach((itm, k) => {
     if (itm.type !== "sub-system") {
-      graphStruct.nodes[k].x = (nodes[k].x0 + nodes[k].x1)/2 //Math.round(Math.max((nodes[k].depth / maxDepth) * w * 0.8), nodes[k].depth*(PADDING+WIDTH))
-      graphStruct.nodes[k].y = (nodes[k].y0 + nodes[k].y1)/2 //Math.round(Math.max((nodes[k].height / maxHeight) * w * 0.4), nodes[k].height*(PADDING+HEIGHT))
+      graphStruct.nodes[k].x = (nodes[k].x0 + nodes[k].x1) / 2 //Math.round(Math.max((nodes[k].depth / maxDepth) * w * 0.8), nodes[k].depth*(PADDING+WIDTH))
+      graphStruct.nodes[k].y = (nodes[k].y0 + nodes[k].y1) / 2 //Math.round(Math.max((nodes[k].height / maxHeight) * w * 0.4), nodes[k].height*(PADDING+HEIGHT))
       graphStruct.nodes[k].text.x = Math.round(itm.x + WIDTH / 2)
       graphStruct.nodes[k].text.y = Math.round(itm.y)
     } else {
       let recScale = getScale(nodes, idMap_pure, graphStruct.nodes, idMap, k, w)
       graphStruct.nodes[k].x = Math.round((recScale[0] + recScale[1]) / 2)
       graphStruct.nodes[k].y = Math.round((recScale[2] + recScale[3]) / 2)
-      graphStruct.nodes[k].properties.nodeSize = {width: recScale[1] - recScale[0], height: recScale[3] - recScale[2]}
+      graphStruct.nodes[k].properties.nodeSize = { width: recScale[1] - recScale[0], height: recScale[3] - recScale[2] }
       graphStruct.nodes[k].properties.isFold = true;
     }
   })
@@ -84,7 +84,7 @@ function autoArrange (graphStruct, h, w) {
         x: graphStruct.nodes[Sindex].x + getWidth(graphStruct.nodes[Sindex].text.value) / 2,
         y: graphStruct.nodes[Sindex].y
       }
-      graphStruct.edges[k].endPoint = {x: graphStruct.nodes[Eindex].x, y: null}
+      graphStruct.edges[k].endPoint = { x: graphStruct.nodes[Eindex].x, y: null }
       if (graphStruct.nodes[Sindex].y > graphStruct.edges[k].endPoint.y) {
         graphStruct.edges[k].endPoint.y = graphStruct.nodes[Eindex].y + HEIGHT / 2
       } else {
@@ -95,11 +95,11 @@ function autoArrange (graphStruct, h, w) {
       graphStruct.edges[k].startPoint = {}
       graphStruct.edges[k].endPoint = {}
       graphStruct.edges[k].startPoint = {
-        x: graphStruct.nodes[Sindex].x +  getWidth(graphStruct.nodes[Sindex].text.value)  / 2,
+        x: graphStruct.nodes[Sindex].x + getWidth(graphStruct.nodes[Sindex].text.value) / 2,
         y: graphStruct.nodes[Sindex].y
       }
       graphStruct.edges[k].endPoint = {
-        x: graphStruct.nodes[Eindex].x -  getWidth(graphStruct.nodes[Eindex].text.value)  / 2,
+        x: graphStruct.nodes[Eindex].x - getWidth(graphStruct.nodes[Eindex].text.value) / 2,
         y: graphStruct.nodes[Eindex].y
       }
       graphStruct.edges[k].pointsList = []
@@ -109,7 +109,7 @@ function autoArrange (graphStruct, h, w) {
   return graphStruct
 }
 
-function exportStruct (graphStruct) {
+function exportStruct(graphStruct) {
   let nodeList = []
   let linkList = []
   let idMap = {}
@@ -123,15 +123,15 @@ function exportStruct (graphStruct) {
       text: itm.text.value,
       type: itm.type,
       showConfig: {
-        position: {x: itm.x, y: itm.y},
+        position: { x: itm.x, y: itm.y },
         properties: itm.properties,
       }
     }
 
-    if (itm.type=="switch-node") {
+    if (itm.type == "switch-node") {
       node.control = idMap[itm.properties.control]
       node.switchType = itm.properties.normalState ? "常闭" : "常开"
-    } else if (itm.type=="sub-system") {
+    } else if (itm.type == "sub-system") {
       node.children = itm.children.map(itm_ => { return idMap[itm_] })
     } else {
 
@@ -159,7 +159,7 @@ function exportStruct (graphStruct) {
   }
 }
 
-function importStruct (graphStruct, showType='edit', h=900, w=1200) {
+function importStruct(graphStruct, showType = 'edit', h = 900, w = 1200) {
   let nodeList = []
   let linkList = []
   let idMap = []
@@ -173,19 +173,19 @@ function importStruct (graphStruct, showType='edit', h=900, w=1200) {
 
   graphStruct.nodes.forEach(itm => {
     if (
-      itm.showConfig === null || typeof itm.showConfig === "undefined" || 
-      itm.showConfig.position === null || typeof itm.showConfig.position === "undefined" || 
-      itm.showConfig.position.x === null || typeof itm.showConfig.position.x === "undefined" || 
+      itm.showConfig === null || typeof itm.showConfig === "undefined" ||
+      itm.showConfig.position === null || typeof itm.showConfig.position === "undefined" ||
+      itm.showConfig.position.x === null || typeof itm.showConfig.position.x === "undefined" ||
       itm.showConfig.position.y === null || typeof itm.showConfig.position.y === "undefined"
-      ) {
+    ) {
       autopos = true
       itm.showConfig = {
         position: {
-          x: null, 
+          x: null,
           y: null
         }
-      }, 
-      itm.showConfig.properties = itm.properties || {};
+      },
+        itm.showConfig.properties = itm.properties || {};
       itm.showConfig.properties.showType = null;
       itm.showConfig.properties.collision = false;
       itm.showConfig.properties.detectable = true;
@@ -224,7 +224,7 @@ function importStruct (graphStruct, showType='edit', h=900, w=1200) {
       node.properties.control = idMap[itm.control]
       node.properties.normalState = itm.switchType.includes("闭")
     } else if (itm.type == "sub-system") {
-      node.properties.isFold = node.properties.isFold !== false ;
+      node.properties.isFold = node.properties.isFold !== false;
       node.children = itm.children.map(itm_ => { return idMap[itm_] })
     }
     nodeList.push(node)
@@ -232,7 +232,7 @@ function importStruct (graphStruct, showType='edit', h=900, w=1200) {
   graphStruct.edges.forEach(itm => {
     count += 1
     if (itm.showConfig === null || typeof itm.showConfig === "undefined") {
-      itm.showConfig = {startAnchor: null, endAnchor: null, interAnchors: [], properties: {}}
+      itm.showConfig = { startAnchor: null, endAnchor: null, interAnchors: [], properties: {} }
     }
     linkList.push({
       id: idMap[itm.from] + "-" + idMap[itm.to] + "-" + getuuid(count * 2 + 1),
@@ -258,7 +258,7 @@ function importStruct (graphStruct, showType='edit', h=900, w=1200) {
   return _graphStruct
 }
 
-function getColorRGB_check (collision, fuzzible, detectable, redundancy, typeColor) {
+function getColorRGB_check(collision, fuzzible, detectable, redundancy, typeColor) {
   if (collision) {
     return "rgb(255,0,0)"
   } else if (redundancy > 0.75) {
@@ -276,7 +276,7 @@ function getColorRGB_check (collision, fuzzible, detectable, redundancy, typeCol
   }
 }
 
-function getColorRGB_analyse (state, fuzzy_state, fuzzy_ratio) {
+function getColorRGB_analyse(state, fuzzy_state, fuzzy_ratio) {
   if (fuzzy_state == null) {
     fuzzy_state = 0
   }
@@ -288,16 +288,16 @@ function getColorRGB_analyse (state, fuzzy_state, fuzzy_ratio) {
     return "rgb(150,150,150)"
   } else if (state < 0.5) {
     return 'rgb(' + parseInt((1 - fuzzy_state) * state * 255 + fuzzy_state * 128) + ","
-                  + parseInt((1 - fuzzy_state) * 255 + fuzzy_state * 128) + ","
-                  + parseInt(fuzzy_state * 128)  + ")"
+      + parseInt((1 - fuzzy_state) * 255 + fuzzy_state * 128) + ","
+      + parseInt(fuzzy_state * 128) + ")"
   } else {
     return 'rgb(' + parseInt((1 - fuzzy_state) * 255 + fuzzy_state * 128) + ","
-                  + parseInt((1 - fuzzy_state) * (1 - state) * 255 + fuzzy_state * 128) + ","
-                  + parseInt(fuzzy_state * 128)  + ")"
+      + parseInt((1 - fuzzy_state) * (1 - state) * 255 + fuzzy_state * 128) + ","
+      + parseInt(fuzzy_state * 128) + ")"
   }
 }
 
-function getColorRGB_check_sub (collision, fuzzible, detectable, typeColor) {
+function getColorRGB_check_sub(collision, fuzzible, detectable, typeColor) {
   if (collision) {
     return "rgba(255,0,0)"
   } else if (fuzzible) {
@@ -309,7 +309,7 @@ function getColorRGB_check_sub (collision, fuzzible, detectable, typeColor) {
   }
 }
 
-function getColorRGB_analyse_sub (state, fuzzy_state, fuzzy_ratio) {
+function getColorRGB_analyse_sub(state, fuzzy_state, fuzzy_ratio) {
   if (fuzzy_state == null) {
     fuzzy_state = 0
   }
@@ -321,12 +321,12 @@ function getColorRGB_analyse_sub (state, fuzzy_state, fuzzy_ratio) {
     return "rgba(150,150,150)"
   } else if (state < 0.5) {
     return 'rgba(' + parseInt((1 - fuzzy_state) * state * 255 + fuzzy_state * 128) + ","
-                  + parseInt((1 - fuzzy_state) * 255 + fuzzy_state * 128) + ","
-                  + parseInt(fuzzy_state * 128)  + ")"
+      + parseInt((1 - fuzzy_state) * 255 + fuzzy_state * 128) + ","
+      + parseInt(fuzzy_state * 128) + ")"
   } else {
     return 'rgba(' + parseInt((1 - fuzzy_state) * 255 + fuzzy_state * 128) + ","
-                  + parseInt((1 - fuzzy_state) * (1 - state) * 255 + fuzzy_state * 128) + ","
-                  + parseInt(fuzzy_state * 128)  + ")"
+      + parseInt((1 - fuzzy_state) * (1 - state) * 255 + fuzzy_state * 128) + ","
+      + parseInt(fuzzy_state * 128) + ")"
   }
 }
 
@@ -338,20 +338,20 @@ function renderStructColor(struct, showType) {
   for (let system of struct) {
     for (let node of system.data.nodes) {
       //if (node.type === 'fault-node'||node.type === 'test-node') {
-        node.properties.showType = showType;
-        if (showType === 'check') {
-          node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, 0, node.properties.typeColor)
-        } else if (showType === 'analyse') {
-          node.properties.typeColor = getColorRGB_analyse(node.properties.state, node.properties.fuzzy_state)
-        } else if (showType === 'optim') {
-          node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, node.properties.redundancy, node.properties.typeColor)
-        }
+      node.properties.showType = showType;
+      if (showType === 'check') {
+        node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, 0, node.properties.typeColor)
+      } else if (showType === 'analyse') {
+        node.properties.typeColor = getColorRGB_analyse(node.properties.state, node.properties.fuzzy_state)
+      } else if (showType === 'optim') {
+        node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, node.properties.redundancy, node.properties.typeColor)
       }
+    }
   }
   return struct
 }
 
-function getBytesLength (word) {
+function getBytesLength(word) {
   if (!word) {
     return 0
   }
@@ -369,8 +369,8 @@ function getBytesLength (word) {
   return totalLength
 }
 
-function sleep(time){
-  return new Promise((resolve)=>setTimeout(resolve,time));
+function sleep(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
 }
 
 export {

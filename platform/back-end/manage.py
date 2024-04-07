@@ -11,7 +11,7 @@ from lib.utils import check_graph, flatten_graph, reconstruct_graph, to_D_mat, d
 app = Flask(__name__, static_folder=os.path.join(
     r".", "static"), static_url_path='/static')
 
-CORS(app) 
+CORS(app)
 
 # def after_request(res):
 #     res.headers["Access-Control-Allow-Origin"] = "*"
@@ -92,7 +92,7 @@ def check_graph_api():
     print("edges", edges)
     print("system", system)
     # structInverse = reconstruct_graph(nodes, edges, system)
-    D_mat, testName, faultName,ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
+    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
         nodes, edges, system)
     print("D_mat", D_mat.todense())
     # p_test = (np.random.uniform(0, 1, len(testName)) > 0.5).astype("float32")
@@ -124,18 +124,18 @@ def result_analyse_main():
     #     request.files.get("dataFile"), header=0, encoding="gbk").T.to_dict().values())
     # values = dict(map(lambda itm: (itm["text"], itm["state"]), pd.read_csv(
     #     request.files.get("dataFile"), header=0, encoding="gbk").T.to_dict().values()))
-    pd_data = pd.read_csv(request.files.get("dataFile"), header=0, encoding="gbk")
+    pd_data = pd.read_csv(request.files.get(
+        "dataFile"), header=0, encoding="gbk")
     values = pd_data["state"].to_numpy()
     nodes, edges, system = flatten_graph(struct)
-    D_mat, testName, faultName,ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
+    D_mat, testName, faultName, ConnIds, testLoc, faultLoc, sysmap, collision_node = to_D_mat(
         nodes, edges, system)
-
 
     new_struct = detect_with_render(
         values, D_mat, struct, testLoc, faultLoc, sysmap)
     if struct == new_struct:
         print("render fail")
-        
+
     return jsonify({"data": new_struct})
 
 

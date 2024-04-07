@@ -270,10 +270,10 @@ def _get_system(
 
 
 def get_system(
-    name: str, 
-    xml: ET.Element, 
+    name: str,
+    xml: ET.Element,
     parent_map: Dict
-)->Dict:
+) -> Dict:
     '''
     从xml中提取system信息
 
@@ -284,7 +284,7 @@ def get_system(
             <Element 'System' at 0x000001F39C775D10>
         parent_map: 父节点信息 {child:parent,child:parent...}
             {'system_2939': 'system_2927', 'system_3750': 'system_2927', 'system_3753': 'system_2927', 'system_3757': 'system_2927', 'system_3761': 'system_2927', 'system_3773': 'system_2927', 'system_3396': 'system_3388', 'system_3412': 'system_3388', 'system_3430': 'system_3388', 'system_3451': 'system_3388', 'system_3469': 'system_3388', 'system_3484': 'system_3388', 'system_3490': 'system_3388', 'system_3496': 'system_3388', ...}
-    
+
     Return:system_data
         {
         "system_id": system_id,
@@ -329,9 +329,10 @@ def get_parent_map(
 
     return parent_map
 
+
 def simulink_reader(
     content: List[str]
-)->Dict:
+) -> Dict:
     '''
     从simulink文件中提取数据
 
@@ -396,5 +397,3 @@ if __name__ == "__main__":
     with open(os.path.join(DIR_PATH, "data.json"), "w+", encoding='utf-8') as f:
         import json
         json.dump(G_data, f, ensure_ascii=False, indent=4)
-
-    

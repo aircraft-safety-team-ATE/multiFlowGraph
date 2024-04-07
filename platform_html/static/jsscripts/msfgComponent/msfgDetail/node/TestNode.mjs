@@ -2,10 +2,10 @@ import BaseNode from './BaseNode.mjs'
 
 
 class TestNodeModel extends BaseNode.model {
-  initNodeData (data) {
+  initNodeData(data) {
     super.initNodeData(data)
   }
-  setAttributes () {
+  setAttributes() {
     super.setAttributes()
     this.targetRules.push({
       message: "只允许连接左边的锚点",
@@ -14,7 +14,7 @@ class TestNodeModel extends BaseNode.model {
       }
     })
   }
-  getDefaultAnchor () {
+  getDefaultAnchor() {
     const { x, y, id, width, height } = this
     const anchors = [
       {
@@ -29,7 +29,7 @@ class TestNodeModel extends BaseNode.model {
 }
 
 
-class TestNodeView extends BaseNode.view {}
+class TestNodeView extends BaseNode.view { }
 
 
 export default {

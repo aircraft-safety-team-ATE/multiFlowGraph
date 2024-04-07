@@ -2,7 +2,7 @@
  * 自定义菜单栏 参考 http://logic-flow.org/guide/extension/component-menu.html
  */
 const menu = {
-  $_render () {
+  $_render() {
     // 自定义常规右键菜单
     this.lf.extension.menu.setMenuConfig({
       // 节点右键菜单
@@ -34,11 +34,12 @@ const menu = {
               // 2. 更新module tree
               console.log("delsset", this.gData.SystemData)
               this.module_tree = this.getModuleTree(this.gData.SystemData)
-            } else if(node.type === "input-node"){
+            } else if (node.type === "input-node") {
               // 1. 将剩余input节点的index重新排序和命名
               let graph_data = this.lf.getGraphData()
               let input_nodes = graph_data.nodes.filter((item) => {
-                return item.type === "input-node"})
+                return item.type === "input-node"
+              })
 
               input_nodes.forEach((item, index) => {
                 item.properties.index = index + 1
@@ -46,7 +47,7 @@ const menu = {
               })
               // 2. 将父系统中的子系统组件的input属性更新
 
-                    // 根据子系统的id找到父系统
+              // 根据子系统的id找到父系统
               let parent_id = this.gData.SystemData.find(item => item.system_id == this.gData.currentSystemId).parent_id
               let parent_system = this.gData.SystemData.find(item => item.system_id == parent_id)
 
@@ -70,11 +71,12 @@ const menu = {
 
               // 3. 重新渲染页面
               this.lf.render(graph_data)
-            } else if(node.type === "output-node"){
+            } else if (node.type === "output-node") {
               // 1. 将剩余input节点的index重新排序和命名
               let graph_data = this.lf.getGraphData()
               let output_nodes = graph_data.nodes.filter((item) => {
-                return item.type === "output-node"})
+                return item.type === "output-node"
+              })
 
               output_nodes.forEach((item, index) => {
                 item.properties.index = index + 1
@@ -133,7 +135,7 @@ const menu = {
       type: 'lf:defaultSelectionMenu',
       menu: [
         {
-          text:'删除',
+          text: '删除',
           callback: (select) => {
             select.nodes.map((item) => {
               this.lf.deleteNode(item.id)
@@ -160,11 +162,12 @@ const menu = {
                 // 2. 更新module tree
                 console.log("delsset", this.gData.SystemData)
                 this.module_tree = this.getModuleTree(this.gData.SystemData)
-              }else if(item.type === "input-node"){
+              } else if (item.type === "input-node") {
                 // 1. 将剩余input节点的index重新排序和命名
                 let graph_data = this.lf.getGraphData()
                 let input_nodes = graph_data.nodes.filter((item) => {
-                  return item.type === "input-node"})
+                  return item.type === "input-node"
+                })
 
                 input_nodes.forEach((item, index) => {
                   item.properties.index = index + 1
@@ -172,7 +175,7 @@ const menu = {
                 })
                 // 2. 将父系统中的子系统组件的input属性更新
 
-                      // 根据子系统的id找到父系统
+                // 根据子系统的id找到父系统
                 let parent_id = this.gData.SystemData.find(item => item.system_id == this.gData.currentSystemId).parent_id
                 let parent_system = this.gData.SystemData.find(item => item.system_id == parent_id)
 
@@ -182,11 +185,12 @@ const menu = {
 
                 // 3. 重新渲染页面
                 this.lf.render(graph_data)
-              } else if(item.type === "output-node"){
+              } else if (item.type === "output-node") {
                 // 1. 将剩余input节点的index重新排序和命名
                 let graph_data = this.lf.getGraphData()
                 let output_nodes = graph_data.nodes.filter((item) => {
-                  return item.type === "output-node"})
+                  return item.type === "output-node"
+                })
 
                 output_nodes.forEach((item, index) => {
                   item.properties.index = index + 1
@@ -194,7 +198,7 @@ const menu = {
                 })
                 // 2. 将父系统中的子系统组件的input属性更新
 
-                      // 根据子系统的id找到父系统
+                // 根据子系统的id找到父系统
                 let parent_id = this.gData.SystemData.find(item => item.system_id == this.gData.currentSystemId).parent_id
                 let parent_system = this.gData.SystemData.find(item => item.system_id == parent_id)
 
@@ -211,7 +215,7 @@ const menu = {
           }
         },
         {
-          text:'分组',
+          text: '分组',
           callback: this.createSub
         }
       ]
@@ -221,13 +225,13 @@ const menu = {
       type: 'sub-system',
       menu: [
         {
-          text:'删除子系统',
+          text: '删除子系统',
           callback: (node) => {
             this.lf.deleteNode(node.id)
           }
         },
         {
-          text:'解除子系统',
+          text: '解除子系统',
           callback: (node) => {
             let sub = this.lf.getNodeModelById(node.id)
             let { nodes } = this.lf.getGraphRawData()

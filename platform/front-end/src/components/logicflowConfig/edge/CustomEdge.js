@@ -9,12 +9,12 @@ class CustomEdgeModel extends PolylineEdgeModel {
     data.targetAnchorId = this.targetAnchorId;
     return data;
   }
-  getTextStyle () {
+  getTextStyle() {
     const style = super.getTextStyle()
     style.className = "custom-text"
     return style
   }
-  getTextPosition () {
+  getTextPosition() {
     const position = super.getTextPosition()
     const currentPositionList = this.points.split(" ")
     const pointsList = []
@@ -48,10 +48,10 @@ class CustomEdgeModel extends PolylineEdgeModel {
     }
     return position
   }
-  setAttributes () {
+  setAttributes() {
     this.isAnimation = true
   }
-  getEdgeAnimationStyle () {
+  getEdgeAnimationStyle() {
     const style = super.getEdgeAnimationStyle()
     style.strokeDasharray = "5 5"
     style.animationDuration = "100s"
@@ -60,7 +60,7 @@ class CustomEdgeModel extends PolylineEdgeModel {
 }
 
 
-class CustomEdge extends PolylineEdge {}
+class CustomEdge extends PolylineEdge { }
 
 
 export default {

@@ -95,7 +95,7 @@ const extraConfig = {
 }
 
 export {
-  editConfig,   
+  editConfig,
   keyboardConfig,
   gridConfig,
   extraConfig

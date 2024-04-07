@@ -32,7 +32,7 @@ import { menu } from './tools/menu.js'
 
 const methods = {
   // 初始化 LogicFlow
-  $_initLf () {
+  $_initLf() {
     // 画布配置
     const lf = new LogicFlow({
       container: this.$refs.container,
@@ -53,20 +53,21 @@ const methods = {
     })
     this.G_DATA = {
       currentSystemId: 1,
-      SystemData:[
-      {
-        system_id:1,
-      name:"root",
-      parent_id:null,
-      data:{}},
-],
-  },
-    this.lf = lf
+      SystemData: [
+        {
+          system_id: 1,
+          name: "root",
+          parent_id: null,
+          data: {}
+        },
+      ],
+    },
+      this.lf = lf
     this.lf.extension.selectionSelect.setSelectionSense(extraConfig.SelectionSense.isWholeEdge, extraConfig.SelectionSense.isWholeNode)
     this.$_registerNode()
   },
   // 注册节点
-  $_registerNode () {
+  $_registerNode() {
     // node register
     registerNodeList.forEach((node) => {
       this.lf.register(node.default)

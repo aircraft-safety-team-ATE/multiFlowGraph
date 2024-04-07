@@ -331,22 +331,22 @@ function getColorRGB_analyse_sub(state, fuzzy_state, fuzzy_ratio) {
 }
 
 function renderStructColor(struct, showType = 'check') {
-  console.log("ate new struct",struct )
+  console.log("ate new struct", struct)
   //遍历struct
-  
+
 
   for (let system of struct) {
-    console.log("ate new struct",system)
+    console.log("ate new struct", system)
     for (let node of system.data.nodes) {
-      if (node.type === 'fault-node'||node.type === 'test-node') {
+      if (node.type === 'fault-node' || node.type === 'test-node') {
         if (showType === 'check') {
           node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, node.properties.typeColor)
-          console.log("ate new color",node.properties.typeColor )
-        
+          console.log("ate new color", node.properties.typeColor)
+
         } else if (showType === 'analyse') {
           node.properties.typeColor = getColorRGB_analyse(node.properties.state, node.properties.fuzzy_state)
-          console.log("ate new color",node.properties.typeColor )
-        
+          console.log("ate new color", node.properties.typeColor)
+
         }
       }
     }

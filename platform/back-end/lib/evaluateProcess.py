@@ -1,5 +1,8 @@
 from multiprocessing import Process, Queue
-import os, time, json, datetime
+import os
+import time
+import json
+import datetime
 import pandas as pd
 import numpy as np
 
@@ -8,18 +11,21 @@ try:
     from .msfgEngine import multiInfoGraph
     from .rule.RuleDetector import ruleEvaluator, ruleConvertor
 except Exception as e:
-    import detectAlgo, predictAlgo
+    import detectAlgo
+    import predictAlgo
     from msfgEngine import multiInfoGraph
     from rule.RuleDetector import ruleEvaluator, ruleConvertor
+
 
 def RuleDetectTest(modelConfig, data, relatParas, time_, interComponent):
     V = np.ones(len(relatParas))*np.nan
     for pId, pname in relatParas:
         if pname in data.keys():
             V[pId] = data[pname]
-    #time_ = data.index.values
-    model = ruleEvaluator(*modelConfig) 
+    # time_ = data.index.values
+    model = ruleEvaluator(*modelConfig)
     interComponent.registre(model.validate(data, time_))
+
 
 def MLDetectTest(modelConfig, data, relatParas, time_, interComponent):
     V = np.ones(len(relatParas))*np.nan
@@ -28,15 +34,18 @@ def MLDetectTest(modelConfig, data, relatParas, time_, interComponent):
             V[pId] = data[pname]
     modelInfo, test_name = modelConfig
     typ = modelInfo.get("type", "few-shot")
-    modelAlgo  = modelInfo.get("model_algo", "")
-    test_uuid  = modelInfo.get("test_uuid", "")
-    model = getattr(detectAlgo, modelAlgo).Model(index=test_uuid, name=test_name)    
+    modelAlgo = modelInfo.get("model_algo", "")
+    test_uuid = modelInfo.get("test_uuid", "")
+    model = getattr(detectAlgo, modelAlgo).Model(
+        index=test_uuid, name=test_name)
     if typ != "few-shot":
         try:
             model.load_model()
         except Exception as e:
-            raise Exception(f"[ERROR] model[{test_name}#{test_uuid}] couldn't be loaded | {e}")   
+            raise Exception(
+                f"[ERROR] model[{test_name}#{test_uuid}] couldn't be loaded | {e}")
     interComponent.registre({model.name: model.validate([data])})
+
 
 class interComponentBase:
     def __init__(self):
@@ -55,6 +64,7 @@ class interComponentBase:
             self._state.update(result_queue.get_nowait())
         return self._state
 
+
 class taskTestWorker:
     def __init__(self, multiGraphConfig, interComponent=None, worker_num=3, time_resample=0.005):
         self.worker_num = worker_num
@@ -68,22 +78,27 @@ class taskTestWorker:
         _toDoList = []
         _ruleConfig = []
         for node in self.multiGraph.algos:
-            test_type = node.get("showConfig", {}).get("properties", {}).get("test_type", "rule")
+            test_type = node.get("showConfig", {}).get(
+                "properties", {}).get("test_type", "rule")
             if test_type == "rule":
                 _ruleConfig.append({
                     "ruleExpress": node.get("showConfig", {}).get("properties", {}).get("model_config", {}).get("expression", ""),
                     "faultName": node["text"]
-                    })
+                })
             else:
-                test_type = node.get("showConfig", {}).get("properties", {}).get("test_type", "rule")
+                test_type = node.get("showConfig", {}).get(
+                    "properties", {}).get("test_type", "rule")
                 modelConfig = [
                     test_type,
-                    node.get("showConfig", {}).get("properties", {}).get("model_config", {}),
+                    node.get("showConfig", {}).get(
+                        "properties", {}).get("model_config", {}),
                     node["text"]
-                    ]
-                relatParas = node.get("showConfig", {}).get("properties", {}).get("relat_paras", {})
+                ]
+                relatParas = node.get("showConfig", {}).get(
+                    "properties", {}).get("relat_paras", {})
                 _toDoList.append(["ML", modelConfig, relatParas])
-        _toDoList.append(["rule", ruleConvertor()._convert_rule(_ruleConfig), None])
+        _toDoList.append(
+            ["rule", ruleConvertor()._convert_rule(_ruleConfig), None])
         return _toDoList
 
     def clear():
@@ -96,7 +111,7 @@ class taskTestWorker:
             return Process(target=RuleDetectTest, args=(modelConfig, data, relatParas, self.time_actual, self.interComponent))
         else:
             return Process(target=MLDetectTest, args=(modelConfig, data, relatParas, self.time_actual, self.interComponent))
-        
+
     def step_process(self, data, time_=None):
         if time_ is None:
             self.time_actual += self.time_resample
@@ -114,18 +129,22 @@ class taskTestWorker:
                 if Workers[w] is None:
                     if toDoList:
                         test_type, modelConfig, relatParas = toDoList.pop(0)
-                        Workers[w] = self.create_process(test_type, modelConfig, data, relatParas)
+                        Workers[w] = self.create_process(
+                            test_type, modelConfig, data, relatParas)
                         if Workers[w]:
-                            print(f">> START[{w}] -{test_type}-{'&'.join(relatParas)}")
+                            print(
+                                f">> START[{w}] -{test_type}-{'&'.join(relatParas)}")
                             Workers[w].start()
                             workers_on += 1
                 elif not Workers[w].is_alive():
                     if self.toDoList:
                         test_type, modelConfig, relatParas = toDoList.pop(0)
                         print(f">> END[{w}]")
-                        Workers[w] = self.create_process(test_type, modelConfig, data, relatParas)
+                        Workers[w] = self.create_process(
+                            test_type, modelConfig, data, relatParas)
                         if Workers[w]:
-                            print(f">> START[{w}] -{test_type}-{'/'.join(modelConfig)}-{'&'.join(relatParas)}")
+                            print(
+                                f">> START[{w}] -{test_type}-{'/'.join(modelConfig)}-{'&'.join(relatParas)}")
                             Workers[w].start()
                         else:
                             workers_on -= 1
@@ -141,4 +160,3 @@ class taskTestWorker:
     @property
     def state(self):
         return self.multiGraph.state
-

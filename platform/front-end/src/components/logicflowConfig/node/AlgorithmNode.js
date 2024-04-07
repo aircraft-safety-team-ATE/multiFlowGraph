@@ -3,10 +3,10 @@ import BaseNode from './BaseNode'
 
 
 class AlgorithmNodeModel extends BaseNode.model {
-  initNodeData (data) {
+  initNodeData(data) {
     super.initNodeData(data)
   }
-  setAttributes () {
+  setAttributes() {
     super.setAttributes()
     const circleOnlyAsTarget = {
       message: "只允许从右边的锚点连出",
@@ -25,7 +25,7 @@ class AlgorithmNodeModel extends BaseNode.model {
 }
 
 
-class AlgorithmNodeView extends BaseNode.view {}
+class AlgorithmNodeView extends BaseNode.view { }
 
 
 export default {

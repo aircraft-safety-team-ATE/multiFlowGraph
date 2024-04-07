@@ -4,10 +4,10 @@ const typeColor_open = '#96c24e'
 const typeColor_close = '#E74C3C'
 
 class SwitchNodeModel extends BaseNode.model {
-  initNodeData (data) {
+  initNodeData(data) {
     super.initNodeData(data)
   }
-  setAttributes () {
+  setAttributes() {
     super.setAttributes()
     if (this.properties.normalState) {
       this.defaultFill = typeColor_open
@@ -28,7 +28,7 @@ class SwitchNodeModel extends BaseNode.model {
       }
     })
   }
-  getDefaultAnchor () {
+  getDefaultAnchor() {
     const { x, y, id, width, height } = this
     const anchors = [
       {
@@ -61,7 +61,7 @@ class SwitchNodeModel extends BaseNode.model {
 }
 
 
-class SwitchNodeView extends BaseNode.view {}
+class SwitchNodeView extends BaseNode.view { }
 
 
 export default {

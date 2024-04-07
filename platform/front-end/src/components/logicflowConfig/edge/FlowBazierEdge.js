@@ -1,4 +1,4 @@
-import { BezierEdge,BezierEdgeModel  } from '@logicflow/core'
+import { BezierEdge, BezierEdgeModel } from '@logicflow/core'
 
 class FlowBazierEdgeModel extends BezierEdgeModel {
   getData() {
@@ -7,10 +7,10 @@ class FlowBazierEdgeModel extends BezierEdgeModel {
     data.targetAnchorId = this.targetAnchorId;
     return data;
   }
-  setAttributes () {
+  setAttributes() {
     this.isAnimation = true
   }
-  getEdgeAnimationStyle () {
+  getEdgeAnimationStyle() {
     const style = super.getEdgeAnimationStyle()
     style.strokeDasharray = "5 5"
     style.animationDuration = "100s"
@@ -22,7 +22,7 @@ class FlowBazierEdgeModel extends BezierEdgeModel {
 
 
 
-class FlowBazierEdge extends BezierEdge {}
+class FlowBazierEdge extends BezierEdge { }
 
 
 export default {
