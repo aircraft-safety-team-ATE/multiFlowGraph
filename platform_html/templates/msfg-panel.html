@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="/static/jsscripts/vue.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/axios.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/d3.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/d3-sankey.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/elementui/lib-master/index.js"></script>
+    
+    <script type="text/javascript" src="/static/jsscripts/@logicflow/core/dist/logic-flow.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/@logicflow/extension/lib/Menu.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/@logicflow/extension/lib/Group.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/@logicflow/extension/lib/DndPanel.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/@logicflow/extension/lib/Snapshot.js"></script>
+    <script type="text/javascript" src="/static/jsscripts/@logicflow/extension/lib/SelectionSelect.js"></script>
+
+    <!-- 样式设置 -->
+    <link rel="stylesheet" href="/static/jsscripts/elementui/lib-master/theme-chalk/index.css">
+    <link rel="stylesheet" href="/static/jsscripts/@logicflow/core/dist/style/index.css">
+    <!--LogicFlow extension包css-->
+    <link rel="stylesheet" href="/static/jsscripts/@logicflow/extension/lib/style/index.css">
+    <link rel="stylesheet" href="/static/jsscripts/msfgComponent/msfgCss/index.css">
+
+</head>
+
+<body>
+    <div id="msfg-panel" style="height: 800px; width: 100%;">
+        <ate-multi-signal-flow-graph />
+    </div>
+</body>
+<script type="module">
+    import { msfgComp } from '/static/jsscripts/msfgComponent/index.mjs'
+    var vm = new Vue({
+        el: "#msfg-panel",
+        data: {
+        },
+        components: {
+            'ate-multi-signal-flow-graph': msfgComp,
+        },
+        mounted(){
+        }
+    }) 
+</script>
+</html>
