@@ -10,6 +10,9 @@
 * 算法脚本请集成“lib\detectAlgo\support\BaseAlgoClass.py”基类进行封装，放入“lib\detectAlgo”文件夹下即可
 
 #### 快速开始
+
+
+1. 前后端分离版本
 运行前端
 
 参考front-end文件夹下的README.md
@@ -28,6 +31,9 @@ pip install -r requirements.txt
 cd back-end
 python manage.py
 ```
+2.html版本
+在platform文件夹下，双击run.bat即可运行
+
 
 #### 开发日志
 2023.03.21  基本完成后端核心代码，部分功能端口（测点优化、读取FMECA、算法接入）未完全开放

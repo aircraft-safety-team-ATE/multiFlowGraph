@@ -15,7 +15,8 @@
       <el-button v-if="controlConfig.reDraw" type="plain" size="small" @click="$_reDraw">重绘</el-button>
     </el-button-group>
 
-    <el-dropdown v-if="controlConfig.exportData" @command="$_exportData" style="display:inline-block; margin-left: -5px;">
+    <el-dropdown v-if="controlConfig.exportData" @command="$_exportData"
+      style="display:inline-block; margin-left: -5px;">
       <el-button type="plain" size="small">导出流图</el-button>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="global">导出全局数据</el-dropdown-item>
@@ -23,7 +24,8 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-    <el-dropdown v-if="controlConfig.importData" @command="$_importData" style="display:inline-block; margin-left: -5px; margin-right: -5px">
+    <el-dropdown v-if="controlConfig.importData" @command="$_importData"
+      style="display:inline-block; margin-left: -5px; margin-right: -5px">
       <el-button type="plain" size="small">载入流图</el-button>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="global">载入全局数据</el-dropdown-item>
@@ -33,7 +35,8 @@
 
     <el-button-group>
       <el-button v-if="controlConfig.importFMECA" type="plain" size="small" @click="$_importFMECA">载入FMECA</el-button>
-      <el-button v-if="controlConfig.importSimulink" type="plain" size="small" @click="$_importSimulink">载入Simulink</el-button>
+      <el-button v-if="controlConfig.importSimulink" type="plain" size="small"
+        @click="$_importSimulink">载入Simulink</el-button>
       <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check">流图评价</el-button>
       <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt">测点优化</el-button>
       <el-button v-if="controlConfig.analyse" type="plain" size="small" @click="$_analyse">故障分析</el-button>
@@ -287,18 +290,18 @@ export default {
         if (file) {
           const fd = new FormData();
           fd.append('modelFile', file);
-          const { data } = await this.$axios({
+          this.$axios({
             url: '/multi-info-edit/upload-fmeca/',
             method: 'post',
             data: fd,
+          }).then((res) => {
+            console.log(res)
+            this.$emit("updata-import-data", {
+              type: 'global',
+              value: res,
+            });
           });
-          this.$emit("updata-import-data", {
-            type: 'global',
-            value: {
-              SystemData: data,
-              currentSystemId: 0
-            }
-          });
+
         }
       };
       input.click();
@@ -317,24 +320,27 @@ export default {
             url: '/multi-info-edit/upload-simulink/',
             method: 'post',
             data: fd
+          }).then((res) => {
+            console.log(res)
+            this.$emit("updata-import-data", {
+              type: 'global',
+              value: res,
+            });
           });
-          this.$emit("updata-import-data", {
-            type: 'global',
-            value: data,
-          });
+
         }
       };
       input.click();
     },
 
     $_optimizeCkpt() {
-      let data = this.$props.lf.getGraphData()
+      let data = this.$props.G_DATA.SystemData
 
-      if (data.nodes.length === 0) {
+      if (this.$props.lf.getGraphData().nodes.length === 0) {
         this.$alert('流图为空')
       } else {
         let fd = new FormData()
-        fd.append('graphStruct', JSON.stringify(exportStruct(data)))
+        fd.append('graphStruct', JSON.stringify(data))
 
         this.$axios({
           url: '/multi-info-edit/optimize-graph/',
@@ -342,8 +348,14 @@ export default {
           data: fd
         }).then((res) => {
           (res)
-          this.$props.lf.render(importStruct(res.data))
-          //this.Visible = true
+          this.$emit("updata-import-data", {
+            type: 'global',
+            value: {
+              SystemData: renderStructColor(res.data, 'check'),
+              currentSystemId: this.$props.G_DATA.currentSystemId
+            }
+          })
+
         })
       }
     },
@@ -365,7 +377,7 @@ export default {
           this.result.detect_isolat_ratio = res.detect_isolat_ratio
           res.col_names.forEach((colName, index) => {
             if (colName != 'row_name') {
-              res.col_names[index] = index+":"+colName
+              res.col_names[index] = index + ":" + colName
             }
           })
           this.result.col_names = ['row_name', ...res.col_names]
@@ -382,7 +394,7 @@ export default {
           this.$emit("updata-import-data", {
             type: 'global',
             value: {
-              SystemData: renderStructColor(res.data,'check'),
+              SystemData: renderStructColor(res.data, 'check'),
               currentSystemId: this.$props.G_DATA.currentSystemId
             }
           })
@@ -412,7 +424,7 @@ export default {
           this.$emit("updata-import-data", {
             type: 'global',
             value: {
-              SystemData: renderStructColor(res,'analyse'),
+              SystemData: renderStructColor(res, 'analyse'),
               currentSystemId: this.$props.G_DATA.currentSystemId
             }
           });
