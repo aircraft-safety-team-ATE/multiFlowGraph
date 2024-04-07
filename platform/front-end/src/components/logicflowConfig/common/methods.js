@@ -348,6 +348,10 @@ function renderStructColor(struct, showType = 'check') {
           console.log("ate new color", node.properties.typeColor)
 
         }
+
+      } else if (node.type === 'subsystem-node') {
+
+        console.log(" 关于子系统的色彩处理")
       }
     }
   }

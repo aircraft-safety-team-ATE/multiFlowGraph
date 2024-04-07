@@ -28,6 +28,7 @@ export default {
         const properties = {
           tableName: "",
           SubsystemId: system_id,
+          typeColor: "#9673a6",
           fields: {
             input: 0,
             output: 0

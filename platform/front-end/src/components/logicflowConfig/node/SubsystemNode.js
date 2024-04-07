@@ -1,5 +1,23 @@
 import { HtmlNode, HtmlNodeModel, h } from "@logicflow/core"
 
+function changeTableColor1BeforeBackground(rgbColor) {
+  // 创建一个 <style> 元素
+  const style = document.createElement('style');
+  // 设置 <style> 元素的类型
+  style.type = 'text/css';
+  // 构造 CSS 规则
+  const cssRule = `.table-node.table-color::before { background: ${rgbColor}; }`;
+  // 将 CSS 规则添加到 <style> 元素中
+  if (style.styleSheet) {
+    // 适用于 IE
+    style.styleSheet.cssText = cssRule;
+  } else {
+    // 适用于 Chrome, Firefox 等
+    style.appendChild(document.createTextNode(cssRule));
+  }
+  // 将 <style> 元素添加到 <head> 中，以应用样式
+  document.head.appendChild(style);
+}
 
 class SubsystemNode extends HtmlNode {
   /**
@@ -20,13 +38,17 @@ class SubsystemNode extends HtmlNode {
   setHtml(rootEl) {
     rootEl.innerHTML = ""
     const {
-      properties: { fields, tableName }
+      properties: { fields, tableName, typeColor }
     } = this.props.model
     rootEl.setAttribute("class", "table-container")
     const container = document.createElement("div")
-    container.className = `table-node table-color-${Math.ceil(
-      Math.random() * 4
-    )}`
+    // 如果不存在typeColor则默认为紫色
+    if (typeColor) {
+      changeTableColor1BeforeBackground(typeColor)
+    } else {
+      changeTableColor1BeforeBackground("#9673a6")
+    }
+    container.className = `table-node table-color`
     const tableNameElement = document.createElement("div")
     tableNameElement.innerText = tableName
     tableNameElement.className = "table-name"
@@ -67,6 +89,7 @@ class SubsystemNodeModel extends HtmlNodeModel {
     // 记录数据时也将锚点id记录下来
     const data = super.getData()
     data.anchors = this.anchors
+    data.properties = this.properties
     return data;
   }
   getOutlineStyle() {
