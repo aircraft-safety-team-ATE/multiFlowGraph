@@ -1,28 +1,16 @@
 import BaseNode from './BaseNode.mjs'
 
 class OutputNodeView extends BaseNode.view {
-  getIcon () {
-    const {
-      width,
-      height,
-    } = this.props.model
-    return h('image', {
-      width: 30,
-      height: 30,
-      x: - width / 2,
-      y: - height / 2,
-      href: "https://cdn.jsdelivr.net/gh/Logic-Flow/logicflow-node-red-vue3@master/public/images/delay.svg"
-    })
-  }
+
 }
 
 
 class OutputNodeModel extends BaseNode.model {
-  initNodeData (data) {
+  initNodeData(data) {
     super.initNodeData(data)
     this.defaultFill = '#10aec2'
   }
-  setAttributes () {
+  setAttributes() {
     const circleOnlyAsTarget = {
       message: "只允许从右边的锚点连出",
       validate: (sourceNode, targetNode, sourceAnchor, targetAnchor) => {
@@ -37,7 +25,7 @@ class OutputNodeModel extends BaseNode.model {
       }
     })
   }
-  getConnectedSourceRules () {
+  getConnectedSourceRules() {
     const rules = super.getConnectedSourceRules()
     const notAsTarget = {
       message: '终止节点不能作为连线的起点',
@@ -46,7 +34,7 @@ class OutputNodeModel extends BaseNode.model {
     rules.push(notAsTarget)
     return rules
   }
-  getDefaultAnchor () {
+  getDefaultAnchor() {
     const { x, y, id, width, height } = this
     const anchors = [
       {

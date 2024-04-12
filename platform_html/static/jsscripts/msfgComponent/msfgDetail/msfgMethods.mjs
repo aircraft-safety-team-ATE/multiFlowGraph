@@ -51,7 +51,7 @@ import { menu } from './tools/menu.mjs'
 
 const msfgMethods = {
   // 初始化 LogicFlow
-  $_initLf () {
+  $_initLf() {
     // 画布配置
     const lf = new LogicFlow({
       container: this.$refs.container,
@@ -72,21 +72,21 @@ const msfgMethods = {
     })
     this.gData = {
       currentSystemId: 1,
-      SystemData:[
+      SystemData: [
         {
-          system_id:1,
-          name:"root",
-          parent_id:null,
-          data:{}
+          system_id: 1,
+          name: "root",
+          parent_id: null,
+          data: {}
         },
       ]
     },
-    this.lf = lf
+      this.lf = lf
     this.lf.extension.selectionSelect.setSelectionSense(extraConfig.SelectionSense.isWholeEdge, extraConfig.SelectionSense.isWholeNode)
     this.$_registerNode()
   },
   // 注册节点
-  $_registerNode () {
+  $_registerNode() {
     // node register
     registerNodeList.forEach((node) => {
       this.lf.register(node)//.default)
@@ -110,7 +110,7 @@ const msfgMethods = {
 
 const common = {
   showType: 'edit',
-  collision : false,
+  collision: false,
   detectable: true,
   fuzzible: false,
   fuzzy_state: 0,
@@ -118,82 +118,82 @@ const common = {
 }
 
 const nodePanelList = [{
-    type: 'test-node',
-    text: '测试',
-    properties: {
-      // common
-      ...common,
-      icon: "/static/images/test.png",
-      typeColor: '#eea2a4',
-      // special
-    }
-  },
-  {
-    type: 'fault-node',
-    text: '故障',
-    properties: {
-      // common
-      ...common,
-      icon: "/static/images/fault.png",
-      typeColor: '#edc3ae',
-      // special
-      flevel: 0, //故障等级
-    }
-  },
-  {
-    type: 'switch-node',
-    text: '开关',
-    properties: {
-      // common
-      ...common,
-      icon: "/static/images/switch.png",
-      typeColor: '#96c24e',
-      // special
-      normalState: true, // true | false 开关常态（常开|常闭）
-      control: null, // 控制节点
-    }
-  },
-  {
-    type:"subsystem-node",
-    text:"子系统",
-    properties: {
-      // common
-      ...common,
-      icon: "/static/images/fault.png",
-      typeColor: '#85C1E9',
-      
-        tableName: "子系统",
-        fields: {
-          input: 0,
-          output: 0
-        }
-      
-    }
-  },
-  {
-    type:"input-node",
-    text:"输入",
-    properties: {
-      // common
-      ...common,
-      icon: "/static/images/test.png",
-      typeColor: '#85C1E9',
-      // special
-      index: 1, // 输入序号
-
-    }
-  },{
-    type:"output-node",
-    text:"输出",
-    properties: {
-      // common
-      ...common,
-      icon: "/static/images/test.png",
-      typeColor: '#85C1E9',
-      // special
-      index:1,
-    }
+  type: 'test-node',
+  text: '测试',
+  properties: {
+    // common
+    ...common,
+    icon: "/static/images/test.png",
+    typeColor: '#eea2a4',
+    // special
   }
+},
+{
+  type: 'fault-node',
+  text: '故障',
+  properties: {
+    // common
+    ...common,
+    icon: "/static/images/fault.png",
+    typeColor: '#edc3ae',
+    // special
+    flevel: 0, //故障等级
+  }
+},
+{
+  type: 'switch-node',
+  text: '开关',
+  properties: {
+    // common
+    ...common,
+    icon: "/static/images/switch.png",
+    typeColor: '#96c24e',
+    // special
+    normalState: true, // true | false 开关常态（常开|常闭）
+    control: null, // 控制节点
+  }
+},
+{
+  type: "subsystem-node",
+  text: "子系统",
+  properties: {
+    // common
+    ...common,
+    icon: "/static/images/fault.png",
+    typeColor: '#85C1E9',
+
+    tableName: "子系统",
+    fields: {
+      input: 0,
+      output: 0
+    }
+
+  }
+},
+{
+  type: "input-node",
+  text: "输入",
+  properties: {
+    // common
+    ...common,
+    icon: "/static/images/input.png",
+    typeColor: '#85C1E9',
+    // special
+    index: 1, // 输入序号
+
+  }
+}, {
+  type: "output-node",
+  text: "输出",
+  properties: {
+    // common
+    ...common,
+    icon: "/static/images/output.png",
+    typeColor: '#85C1E9',
+    // special
+    index: 1,
+  }
+}
 ]
 
 /**
