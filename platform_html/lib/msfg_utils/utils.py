@@ -327,8 +327,8 @@ def reconstruct_graph(nodes, edges, system):
                                 "fuzzible": False,
                                 "fuzzy_state": 0,
                                 "state": 0,
-                                "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
-                                "typeColor": "#edc3ae",
+                                "icon": "/static/images/input.png",
+                                "typeColor": '#85C1E9',
                                 "flevel": 0,
                                 "width": 100,
                                 "ui": "node-red",
@@ -371,8 +371,9 @@ def reconstruct_graph(nodes, edges, system):
                                 "fuzzible": False,
                                 "fuzzy_state": 0,
                                 "state": 0,
-                                "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
-                                "typeColor": "#edc3ae",
+                                "icon": "/static/images/output.png",
+                                # "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                                "typeColor": '#85C1E9',
                                 "flevel": 0,
                                 "width": 100,
                                 "ui": "node-red",
@@ -495,7 +496,7 @@ def to_D_mat(nodes, edges, system, eps=1e-9, raise_collision=True):
         ConnInd, _, _ = zip(*[[nodeId, node["text"]["value"], (node["SubsystemId"], node["NodeId"])]
                             for nodeId, node in enumerate(nodes) if node["type"] in INPUT_NODE + OUTPUT_NODE])
     except:
-        ConnInd, ConnName, ConnLoc = [], [], []
+        ConnInd, _, _ = [], [], []
     ConnIds = [faultInd.index(ind) for ind in ConnInd]
     edges = [{srcId: 1, **edge}
              if srcId in swInd else edge for srcId, edge in enumerate(edges)]
@@ -593,7 +594,7 @@ def to_D_mat(nodes, edges, system, eps=1e-9, raise_collision=True):
 
 
 def _cal_failure(D_mat, p_test, eps=1e-20):
-    return np.exp(D_mat.dot(np.log(p_test + eps)[:, None]))
+    return np.exp(D_mat.dot(np.log(np.maximum(p_test, 0) + eps)[:, None]))
 
 
 def _divide_sparse_neg_log_1p(vector_, denom_mat, eps=1e-20):
@@ -604,7 +605,7 @@ def _cal_fuzzy(D_mat, p_fault, eps=1e-20):
     # ε-slack
     c_p_fault = 1 - p_fault + eps
     logc_p_fault = np.log(c_p_fault)
-    D_mat_bool = (D_mat > eps).astype("float32")
+    # D_mat_bool = (D_mat > eps).astype("float32")
     DmatT = D_mat.T.tocsr()
     itm = DmatT._with_data(logc_p_fault[DmatT.indices, 0]/DmatT.data).T.tocsr()
     log_p_eff_diff = D_mat.multiply(
@@ -637,7 +638,7 @@ def detect_by_D_mat(p_test, D_mat, sysmap={}, ConnIds=[], eps=1e-10, n_round=5):
         Dpure.eliminate_zeros()
         p_fuzzy = _cal_fuzzy(Dpure, p_fault, eps=eps**2)
     sysres = {sysk: _or_failure_fuzzy(
-        *zip(*[[p_fault[nId], p_fuzzy[nId]] for nId in sysv["nodesId"]])) for sysk, sysv in sysmap.items()}
+        *zip(*[[p_fault[nId], p_fuzzy[nId]] for nId in sysv["nodesId"] if nId not in ConnIds])) for sysk, sysv in sysmap.items()}
     return np.round(p_fault.flatten(), n_round), np.round(p_fuzzy.flatten(), n_round), sysres
 
 # D矩阵推理（含渲染）
@@ -663,10 +664,10 @@ def detect_with_render(p_test, D_mat, struct, testLoc, faultLoc, sysmap, ConnIds
                 p_failure_)
             struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_state"] = float(
                 p_fuzzy_)
-            f_ind += 1
         else:  # 补充不可测试测点的逻辑
             struct[act_id]["data"]["nodes"][node_id]["properties"]["state"] = 0
             struct[act_id]["data"]["nodes"][node_id]["properties"]["fuzzy_state"] = 1
+        f_ind += 1
     for key, sysr_ in sysres.items():
         parent_sys_id = sysmap[key]["ParentSubsystemId"]
         node_id = sysmap[key]["NodeId"]

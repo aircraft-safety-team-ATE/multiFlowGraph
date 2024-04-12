@@ -2,18 +2,12 @@
 
 class CustomEdgeModel extends LineEdgeModel {//PolylineEdgeModel {
   customTextPosition = true
-  getData() {
-    const data = super.getData();
-    data.sourceAnchorId = this.sourceAnchorId;
-    data.targetAnchorId = this.targetAnchorId;
-    return data;
-  }
-  getTextStyle() {
+  getTextStyle () {
     const style = super.getTextStyle()
     style.className = "custom-text"
     return style
   }
-  getTextPosition() {
+  getTextPosition () {
     const position = super.getTextPosition()
     const currentPositionList = this.points.split(" ")
     const pointsList = []
@@ -47,10 +41,10 @@ class CustomEdgeModel extends LineEdgeModel {//PolylineEdgeModel {
     }
     return position
   }
-  setAttributes() {
+  setAttributes () {
     this.isAnimation = true
   }
-  getEdgeAnimationStyle() {
+  getEdgeAnimationStyle () {
     const style = super.getEdgeAnimationStyle()
     style.strokeDasharray = "5 5"
     style.animationDuration = "100s"
@@ -59,7 +53,7 @@ class CustomEdgeModel extends LineEdgeModel {//PolylineEdgeModel {
 }
 
 
-class CustomEdge extends LineEdge { }//PolylineEdge {}
+class CustomEdge extends LineEdge {}//PolylineEdge {}
 
 export default {
   type: "custom-edge",

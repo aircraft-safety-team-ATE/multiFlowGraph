@@ -575,4 +575,4 @@ export default class LogicFlow {
      */
     getView: (type: string) => any;
 }
-export { };
+export {};

@@ -11,6 +11,15 @@ TYPE_COLORS = {
     "subsystem-node": "#85C1E9",
 }
 
+TYPE_IMAGE = {
+    "test-node": "/static/images/test.png",
+    "fault-node": "/static/images/fault.png",
+    "switch-node": "/static/images/switch.png",
+    "input-node": "/static/images/input.png",
+    "output-node": "/static/images/output.png",
+    "subsystem-node": "/static/images/fault.png",
+}
+
 
 def _get_tree(topId, edges, decouvertIds=set(), root=-1):
     if topId and any([eid not in decouvertIds for eid in topId]):
@@ -39,7 +48,7 @@ def _render_tree(tree, nodes, x=0, y=0, width=100, height=24, padding=10):
             "fuzzible": False,
             "fuzzy_state": 0,
             "state": 0,
-            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+            "icon": TYPE_IMAGE.get(nodes[tree["nid"]]["type"], "/static/images/fault.png"),
             "typeColor": TYPE_COLORS.get(nodes[tree["nid"]]["type"], "#85C1E9"),
             "flevel": 0,
             "width": 100,

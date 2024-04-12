@@ -221,4 +221,4 @@ export declare const defaults: {
     textEdit: boolean;
     disabledTools: any[];
 };
-export { };
+export {};

@@ -1,7 +1,7 @@
 import BaseNode from './BaseNode.mjs'
 
 class InputNodeView extends BaseNode.view {
-  getIcon() {
+  getIcon () {
     const {
       width,
       height,
@@ -17,11 +17,11 @@ class InputNodeView extends BaseNode.view {
 }
 
 class InputNodeModel extends BaseNode.model {
-  initNodeData(data) {
+  initNodeData (data) {
     super.initNodeData(data)
     this.defaultFill = '#96c24e'
   }
-  setAttributes() {
+  setAttributes () {
     const circleOnlyAsTarget = {
       message: "只允许从右边的锚点连出",
       validate: (sourceNode, targetNode, sourceAnchor, targetAnchor) => {
@@ -36,7 +36,7 @@ class InputNodeModel extends BaseNode.model {
       }
     })
   }
-  getConnectedTargetRules() {
+  getConnectedTargetRules () {
     const rules = super.getConnectedTargetRules()
     const notAsTarget = {
       message: '起始节点不能作为连线的终点',
@@ -45,7 +45,7 @@ class InputNodeModel extends BaseNode.model {
     rules.push(notAsTarget)
     return rules
   }
-  getDefaultAnchor() {
+  getDefaultAnchor () {
     const { x, y, id, width, height } = this
     const anchors = [
       {

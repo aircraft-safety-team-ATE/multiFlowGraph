@@ -1,5 +1,57 @@
 //import { HtmlNode, HtmlNodeModel, h } from "@logicflow/core"
 
+function toHexColor(color) {
+  // 标准化颜色字符串
+  color = color.trim().toLowerCase();
+
+  // 短格式十六进制颜色码转换为长格式
+  if (/^#[0-9a-f]{3}$/.test(color)) {
+    color = color.split('').map(function (hex) {
+      return hex === '#' ? hex : hex + hex;
+    }).join('');
+  }
+
+  // 长格式十六进制颜色码，直接返回
+  if (/^#[0-9a-f]{6}$/.test(color)) {
+    return color.toUpperCase();
+  }
+
+  // RGB(A) 格式
+  const rgbaMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[0-9.]+)?\)/);
+  if (rgbaMatch) {
+    const r = parseInt(rgbaMatch[1]);
+    const g = parseInt(rgbaMatch[2]);
+    const b = parseInt(rgbaMatch[3]);
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+  }
+
+  // 如果无法识别颜色格式，返回 null 或默认颜色
+  return null; // 或者可以选择返回一个默认的颜色值或错误信息
+}
+
+function changeTableColorBeforeBackground(rgbColor, container) {
+
+  // 创建一个 <style> 元素
+  const colorClass = rgbColor.replace('#', '');
+  const style = document.createElement('style');
+  // 设置 <style> 元素的类型
+  style.type = 'text/css';
+  // 构造 CSS 规则
+  const cssRule = `.table-node.table-color-${colorClass}::before { background: ${rgbColor}; }`;
+  console.log(cssRule)
+  // 将 CSS 规则添加到 <style> 元素中
+  if (style.styleSheet) {
+    // 适用于 IE
+    style.styleSheet.cssText = cssRule;
+  } else {
+    // 适用于 Chrome, Firefox 等
+    style.appendChild(document.createTextNode(cssRule));
+  }
+  // 将 <style> 元素添加到 <head> 中，以应用样式
+  container.appendChild(style);
+}
+
+
 class SubsystemNode extends HtmlNode {
   /**
    * 1.1.7版本后支持在view中重写锚点形状。
@@ -19,13 +71,22 @@ class SubsystemNode extends HtmlNode {
   setHtml(rootEl) {
     rootEl.innerHTML = ""
     const {
-      properties: { fields, tableName }
+      properties: { fields, tableName, typeColor }
     } = this.props.model
     rootEl.setAttribute("class", "table-container")
     const container = document.createElement("div")
-    container.className = `table-node table-color-${Math.ceil(
-      Math.random() * 4
-    )}`
+
+    let rgbColor = ''
+    // 如果不存在typeColor则默认为紫色
+    if (!toHexColor(typeColor)) {
+      rgbColor = toHexColor('#9673a6')
+    } else {
+      rgbColor = toHexColor(typeColor)
+    }
+    changeTableColorBeforeBackground(rgbColor, container)
+    container.className = `table-node table-color-${rgbColor.replace('#', '')}`
+
+
     const tableNameElement = document.createElement("div")
     tableNameElement.innerText = tableName
     tableNameElement.className = "table-name"

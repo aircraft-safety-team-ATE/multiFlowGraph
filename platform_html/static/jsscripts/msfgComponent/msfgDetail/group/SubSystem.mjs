@@ -4,7 +4,7 @@ import { getColorRGB_check_sub, getColorRGB_analyse_sub } from '../common/method
 
 
 class SelectGroupModel extends GroupNode.model {
-  initNodeData(data) {
+  initNodeData (data) {
     super.initNodeData(data)
     this.resizable = true
     this.foldable = true
@@ -23,7 +23,7 @@ class SelectGroupModel extends GroupNode.model {
       }, 200)
     }
   }
-  setAttributes() {
+  setAttributes () {
     this.text.x = this.x + 10
     if (this.isFolded) {
       this.text.y = this.y
@@ -31,11 +31,11 @@ class SelectGroupModel extends GroupNode.model {
       this.text.y = this.y - this.properties.nodeSize.height / 2 + 14
     }
   }
-  updateText(value) {
+  updateText (value) {
     const textValue = value.replace(/\n/gm, "")
     super.updateText(textValue.slice(0, 10))
   }
-  getNodeStyle() {
+  getNodeStyle () {
     const style = super.getNodeStyle()
     style.stroke = "#0998FF"
     style.strokeWidth = 1
@@ -49,7 +49,7 @@ class SelectGroupModel extends GroupNode.model {
     }
     return style
   }
-  getTextStyle() {
+  getTextStyle () {
     const style = super.getTextStyle()
     style.fontSize = 14
     style.color = "#3C96FE"
@@ -57,7 +57,7 @@ class SelectGroupModel extends GroupNode.model {
     style.lineHeight = 16
     return style
   }
-  foldGroup(isFolded) {
+  foldGroup (isFolded) {
     super.foldGroup(isFolded)
     if (isFolded) {
       this.text.x = this.x + 10
@@ -69,10 +69,10 @@ class SelectGroupModel extends GroupNode.model {
       this.text.y = this.y - this.height / 2 + 14
     }
   }
-  deleteGroup() {
+  deleteGroup () {
     this.graphModel.deleteNode(this.id)
   }
-  getData() {
+  getData () {
     const data = super.getData()
     if (this.isFolded) {
       data.x = data.x + this.unfoldedWidth / 2 - this.width / 2
@@ -91,7 +91,7 @@ class SelectGroupModel extends GroupNode.model {
 
 
 class SelectGroupView extends GroupNode.view {
-  getFoldIcon() {
+  getFoldIcon () {
     const { model, graphModel } = this.props
     const foldX = model.x - model.width / 2 + 5
     const foldY = model.y - model.height / 2 + 5
@@ -155,7 +155,7 @@ class SelectGroupView extends GroupNode.view {
     ])
   }
 
-  getDeleteIcon() {
+  getDeleteIcon () {
     const { model } = this.props
     return h("g", {}, [
       h("rect", {
@@ -198,7 +198,7 @@ class SelectGroupView extends GroupNode.view {
       )
     ])
   }
-  getResizeShape() {
+  getResizeShape () {
     return h("g", {}, [super.getResizeShape(), this.getDeleteIcon()])
   }
 }

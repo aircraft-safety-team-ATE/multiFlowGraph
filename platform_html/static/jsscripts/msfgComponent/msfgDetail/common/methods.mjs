@@ -336,15 +336,29 @@ function renderStructColor(struct, showType) {
     showType = 'check'
   }
   for (let system of struct) {
+    console.log("ate new struct", system)
     for (let node of system.data.nodes) {
-      //if (node.type === 'fault-node'||node.type === 'test-node') {
       node.properties.showType = showType;
-      if (showType === 'check') {
-        node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, 0, node.properties.typeColor)
-      } else if (showType === 'analyse') {
-        node.properties.typeColor = getColorRGB_analyse(node.properties.state, node.properties.fuzzy_state)
-      } else if (showType === 'optim') {
-        node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, node.properties.redundancy, node.properties.typeColor)
+      console.log(node)
+      if (showType == 'check') {
+        if (node.type == 'subsystem-node') {
+          node.properties.typeColor = getColorRGB_check_sub(node.properties.collision, node.properties.fuzzible, node.properties.detectable, 0, node.properties.typeColor)
+        } else {
+          node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, 0, node.properties.typeColor)
+        }
+      } else if (showType == 'analyse') {
+        if (node.type == 'subsystem-node') {
+          node.properties.typeColor = getColorRGB_analyse_sub(node.properties.state, node.properties.fuzzy_state)
+        } else {
+          //console.log(node.text.value, node.properties.state, node.properties.fuzzy_state)
+          node.properties.typeColor = getColorRGB_analyse(node.properties.state, node.properties.fuzzy_state)
+        }
+      } else if (showType == 'optim') {
+        if (node.type == 'subsystem-node') {
+          node.properties.typeColor = getColorRGB_check_sub(node.properties.collision, node.properties.fuzzible, node.properties.detectable, node.properties.redundancy, node.properties.typeColor)
+        } else {
+          node.properties.typeColor = getColorRGB_check(node.properties.collision, node.properties.fuzzible, node.properties.detectable, node.properties.redundancy, node.properties.typeColor)
+        }
       }
     }
   }

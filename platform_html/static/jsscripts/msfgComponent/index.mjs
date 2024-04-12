@@ -49,6 +49,7 @@ let nodePanel = Vue.component(
 					let properties = {
 						tableName: "",
 						SubsystemId: new_system.system_id,
+						typeColor: "#9673a6",
 						fields: {
 							input: 0,
 							output: 0
