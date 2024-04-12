@@ -1,7 +1,19 @@
 import BaseNode from './BaseNode.mjs'
 
 class InputNodeView extends BaseNode.view {
-
+  getIcon() {
+    const {
+      width,
+      height,
+    } = this.props.model
+    return h('image', {
+      width: 30,
+      height: 30,
+      x: - width / 2,
+      y: - height / 2,
+      href: "/static/images/input.png"
+    })
+  }
 }
 
 class InputNodeModel extends BaseNode.model {
