@@ -1,6 +1,9 @@
 //import { HtmlNode, HtmlNodeModel, h } from "@logicflow/core"
 
 function toHexColor(color) {
+  if (color === undefined) {
+    return null
+  }
   // 标准化颜色字符串
   color = color.trim().toLowerCase();
 
