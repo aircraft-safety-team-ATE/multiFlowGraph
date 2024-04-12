@@ -25,7 +25,21 @@ class FaultNodeModel extends BaseNode.model {
 }
 
 
-class FaultNodeView extends BaseNode.view { }
+class FaultNodeView extends BaseNode.view {
+  getIcon() {
+    const {
+      width,
+      height,
+    } = this.props.model
+    return h('image', {
+      width: 30,
+      height: 30,
+      x: - width / 2,
+      y: - height / 2,
+      href: require("@/assets/images/fault.png")
+    })
+  }
+}
 
 
 export default {

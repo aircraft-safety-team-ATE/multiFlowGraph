@@ -62,7 +62,21 @@ class SwitchNodeModel extends BaseNode.model {
 }
 
 
-class SwitchNodeView extends BaseNode.view { }
+class SwitchNodeView extends BaseNode.view {
+  getIcon() {
+    const {
+      width,
+      height,
+    } = this.props.model
+    return h('image', {
+      width: 30,
+      height: 30,
+      x: - width / 2,
+      y: - height / 2,
+      href: require("@/assets/images/switch.png")
+    })
+  }
+}
 
 
 export default {

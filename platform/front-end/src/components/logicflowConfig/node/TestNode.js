@@ -30,7 +30,21 @@ class TestNodeModel extends BaseNode.model {
 }
 
 
-class TestNodeView extends BaseNode.view { }
+class TestNodeView extends BaseNode.view {
+  getIcon() {
+    const {
+      width,
+      height,
+    } = this.props.model
+    return h('image', {
+      width: 30,
+      height: 30,
+      x: - width / 2,
+      y: - height / 2,
+      href: require("@/assets/images/test.png")
+    })
+  }
+}
 
 
 export default {

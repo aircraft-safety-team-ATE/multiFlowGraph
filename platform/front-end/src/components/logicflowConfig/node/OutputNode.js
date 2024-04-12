@@ -13,7 +13,7 @@ class OutputNodeView extends BaseNode.view {
       height: 30,
       x: - width / 2,
       y: - height / 2,
-      href: "https://cdn.jsdelivr.net/gh/Logic-Flow/logicflow-node-red-vue3@master/public/images/delay.svg"
+      href: require("@/assets/images/fault.png")
     })
   }
 }

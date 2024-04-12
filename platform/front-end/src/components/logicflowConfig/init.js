@@ -20,7 +20,7 @@ const nodeList = [
     properties: {
       // common
       ...common,
-      icon: require("@/assets/images/delay.svg"),
+      icon: require("@/assets/images/test.png"),
       typeColor: '#eea2a4',
       // special
     }
@@ -31,7 +31,7 @@ const nodeList = [
     properties: {
       // common
       ...common,
-      icon: require("@/assets/images/delay.svg"),
+      icon: require("@/assets/images/fault.png"),
       typeColor: '#edc3ae',
       // special
       flevel: 0, //故障等级
@@ -43,32 +43,32 @@ const nodeList = [
     properties: {
       // common
       ...common,
-      icon: require("@/assets/images/delay.svg"),
+      icon: require("@/assets/images/switch.png"),
       typeColor: '#96c24e',
       // special
       normalState: true, // true | false 开关常态（常开|常闭）
       control: null, // 控制节点
     }
   },
-  {
-    type: 'algorithm-node',
-    text: '算法',
-    properties: {
-      // common
-      ...common,
-      icon: require("@/assets/images/delay.svg"),
-      typeColor: '#85C1E9',
-      // special
-      algorithm: 0, // 算法
-    }
-  },
+  // {
+  //   type: 'algorithm-node',
+  //   text: '算法',
+  //   properties: {
+  //     // common
+  //     ...common,
+  //     icon: require("@/assets/images/delay.svg"),
+  //     typeColor: '#85C1E9',
+  //     // special
+  //     algorithm: 0, // 算法
+  //   }
+  // },
   {
     type: "subsystem-node",
     text: "子系统",
     properties: {
       // common
       ...common,
-      icon: require("@/assets/images/delay.svg"),
+      icon: require("@/assets/images/fault.png"),
       typeColor: '#85C1E9',
 
       tableName: "子系统",
@@ -85,7 +85,7 @@ const nodeList = [
     properties: {
       // common
       ...common,
-      icon: require("@/assets/images/delay.svg"),
+      icon: require("@/assets/images/input.png"),
       typeColor: '#85C1E9',
       // special
       index: 1, // 输入序号
@@ -97,7 +97,7 @@ const nodeList = [
     properties: {
       // common
       ...common,
-      icon: require("@/assets/images/delay.svg"),
+      icon: require("@/assets/images/output.png"),
       typeColor: '#85C1E9',
       // special
       index: 1,
