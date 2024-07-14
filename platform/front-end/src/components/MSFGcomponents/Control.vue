@@ -1,5 +1,12 @@
 <template>
   <div>
+
+    <pre class="mermaid">
+    graph TD
+    A[Client] --> B[Load Balancer]
+    B --> C[Server01]
+    B --> D[Server02]
+  </pre>
     <el-button-group>
       <!-- <el-button type="plain" size="small" @click="$_test">测试用</el-button> -->
       <el-button v-if="controlConfig.zoomIn" type="plain" size="small" @click="$_zoomIn">放大</el-button>
@@ -48,6 +55,7 @@
     </el-button-group>
 
     <el-dialog width="60%" :title="'信号流图模型评价'" :visible.sync="Visible" :modal="false">
+
       <el-descriptions title="性能指标" :column="3" border v-if="dialogType === 'check'">
         <el-descriptions-item label="检出率">
           <span>{{ result.detect_isolat_ratio[0] }}</span>
@@ -95,7 +103,15 @@
       <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
       <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
       <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
+      <button @click="renderMermaid">渲染Mermaid图表</button>
+      <div ref="mermaidContainer" class="mermaid">
+        {{ content_string }}
+      </div>
+
+
     </el-dialog>
+
+
 
   </div>
 </template>
@@ -117,6 +133,7 @@ export default {
   },
   data() {
     return {
+      content_string: '',
       controlConfig,
       undoDisable: true,
       redoDisable: true,
@@ -144,6 +161,22 @@ export default {
     })
   },
   methods: {
+    renderMermaid() {
+      this.content_string = `
+    graph TD
+    A[Client] --> B[Load Balancer]
+    B --> C[Server01]
+    B --> D[Server02]
+    `;
+      this.$nextTick(() => {
+
+        const mermaidContainer = this.$refs.mermaidContainer;
+        if (mermaidContainer) {
+          mermaid.init(undefined, mermaidContainer);
+        }
+
+      });
+    },
     $_zoomIn() {
       this.$props.lf.zoom(true)
     },
@@ -482,6 +515,8 @@ export default {
     },
     $_abstractGraphByText_block() {
       this.abstractGraphByText_Visible = true;
+
+
     },
     $_abstractGraphByImage_block() {
       this.abstractGraphByImage_Visible = true;
