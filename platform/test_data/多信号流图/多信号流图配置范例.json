@@ -1,0 +1,2079 @@
+{
+    "currentSystemId": 1,
+    "SystemData": [
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "node-1-244",
+                        "type": "test-node",
+                        "x": 600,
+                        "y": 700,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#eea2a4",
+                            "flevel": 0,
+                            "width": 180,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 610,
+                            "y": 700,
+                            "value": "左机轮刹车液压压力"
+                        },
+                        "anchors": [
+                            {
+                                "x": 510,
+                                "y": 700,
+                                "id": "node-1-244_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-245",
+                        "type": "test-node",
+                        "x": 810,
+                        "y": 840,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#eea2a4",
+                            "flevel": 0,
+                            "width": 160,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 820,
+                            "y": 840,
+                            "value": "左机轮刹车给定"
+                        },
+                        "anchors": [
+                            {
+                                "x": 730,
+                                "y": 840,
+                                "id": "node-1-245_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-250",
+                        "type": "test-node",
+                        "x": 790,
+                        "y": 790,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#eea2a4",
+                            "flevel": 0,
+                            "width": 120,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 800,
+                            "y": 790,
+                            "value": "左机轮速度"
+                        },
+                        "anchors": [
+                            {
+                                "x": 730,
+                                "y": 790,
+                                "id": "node-1-250_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-260",
+                        "type": "test-node",
+                        "x": 590,
+                        "y": 400,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#eea2a4",
+                            "flevel": 0,
+                            "width": 180,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 600,
+                            "y": 400,
+                            "value": "右机轮刹车液压压力"
+                        },
+                        "anchors": [
+                            {
+                                "x": 500,
+                                "y": 400,
+                                "id": "node-1-260_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-261",
+                        "type": "test-node",
+                        "x": 810,
+                        "y": 610,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#eea2a4",
+                            "flevel": 0,
+                            "width": 160,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 820,
+                            "y": 610,
+                            "value": "右机轮刹车给定"
+                        },
+                        "anchors": [
+                            {
+                                "x": 730,
+                                "y": 610,
+                                "id": "node-1-261_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-264",
+                        "type": "test-node",
+                        "x": 790,
+                        "y": 500,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#eea2a4",
+                            "flevel": 0,
+                            "width": 120,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 800,
+                            "y": 500,
+                            "value": "右机轮速度"
+                        },
+                        "anchors": [
+                            {
+                                "x": 730,
+                                "y": 500,
+                                "id": "node-1-264_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys",
+                        "type": "subsystem-node",
+                        "x": 50,
+                        "y": 660,
+                        "properties": {
+                            "tableName": "",
+                            "SubsystemId": 6,
+                            "fields": {
+                                "input": 0,
+                                "output": 1
+                            }
+                        },
+                        "text": {
+                            "x": 60,
+                            "y": 640.2777777777778,
+                            "value": "刹车液压控制单元"
+                        },
+                        "anchors": [
+                            {
+                                "x": 140,
+                                "y": 678,
+                                "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys_0_right",
+                                "type": "right"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys",
+                        "type": "subsystem-node",
+                        "x": 590,
+                        "y": 490,
+                        "properties": {
+                            "tableName": "",
+                            "SubsystemId": 5,
+                            "fields": {
+                                "input": 1,
+                                "output": 1
+                            }
+                        },
+                        "text": {
+                            "x": 600,
+                            "y": 481.3888888888889,
+                            "value": "右刹车机械装置"
+                        },
+                        "anchors": [
+                            {
+                                "x": 500,
+                                "y": 508,
+                                "id": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys_0_left",
+                                "edgeAddable": false,
+                                "type": "left"
+                            },
+                            {
+                                "x": 680,
+                                "y": 508,
+                                "id": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys_0_right",
+                                "type": "right"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys",
+                        "type": "subsystem-node",
+                        "x": 600,
+                        "y": 780,
+                        "properties": {
+                            "tableName": "",
+                            "SubsystemId": 4,
+                            "fields": {
+                                "input": 1,
+                                "output": 1
+                            }
+                        },
+                        "text": {
+                            "x": 610,
+                            "y": 771.3888888888889,
+                            "value": "左刹车机械装置"
+                        },
+                        "anchors": [
+                            {
+                                "x": 510,
+                                "y": 798,
+                                "id": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys_0_left",
+                                "edgeAddable": false,
+                                "type": "left"
+                            },
+                            {
+                                "x": 690,
+                                "y": 798,
+                                "id": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys_0_right",
+                                "type": "right"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys",
+                        "type": "subsystem-node",
+                        "x": 300,
+                        "y": 560,
+                        "properties": {
+                            "tableName": "",
+                            "SubsystemId": 3,
+                            "fields": {
+                                "input": 1,
+                                "output": 3
+                            }
+                        },
+                        "text": {
+                            "x": 310,
+                            "y": 529.1666666666666,
+                            "value": "右刹车电控装置"
+                        },
+                        "anchors": [
+                            {
+                                "x": 210,
+                                "y": 554,
+                                "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_0_left",
+                                "edgeAddable": false,
+                                "type": "left"
+                            },
+                            {
+                                "x": 390,
+                                "y": 554,
+                                "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_0_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 390,
+                                "y": 578,
+                                "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_1_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 390,
+                                "y": 602,
+                                "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_2_right",
+                                "type": "right"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys",
+                        "type": "subsystem-node",
+                        "x": 300,
+                        "y": 800,
+                        "properties": {
+                            "tableName": "",
+                            "SubsystemId": 2,
+                            "fields": {
+                                "input": 1,
+                                "output": 3
+                            }
+                        },
+                        "text": {
+                            "x": 310,
+                            "y": 769.1666666666666,
+                            "value": "左刹车电控装置"
+                        },
+                        "anchors": [
+                            {
+                                "x": 210,
+                                "y": 794,
+                                "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_0_left",
+                                "edgeAddable": false,
+                                "type": "left"
+                            },
+                            {
+                                "x": 390,
+                                "y": 794,
+                                "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_0_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 390,
+                                "y": 818,
+                                "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_1_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 390,
+                                "y": 842,
+                                "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_2_right",
+                                "type": "right"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-fcbb03ee-28c2-5697-acf3-63077f022f04-assys-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys",
+                        "targetNodeId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys",
+                        "startPoint": {
+                            "x": 140,
+                            "y": 665.2777777777778
+                        },
+                        "endPoint": {
+                            "x": 210,
+                            "y": 554.1666666666666
+                        },
+                        "properties": {
+                            "sourceAnchorId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys_0_right",
+                            "targetAnchorId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_0_left"
+                        }
+                    },
+                    {
+                        "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-72191dce-4df2-5ae1-a23f-76cbae373c31-assys-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys",
+                        "targetNodeId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys",
+                        "startPoint": {
+                            "x": 140,
+                            "y": 665.2777777777778
+                        },
+                        "endPoint": {
+                            "x": 210,
+                            "y": 794.1666666666666
+                        },
+                        "properties": {
+                            "sourceAnchorId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys_0_right",
+                            "targetAnchorId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_0_left"
+                        }
+                    },
+                    {
+                        "id": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-node-1-264-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys",
+                        "targetNodeId": "node-1-264",
+                        "startPoint": {
+                            "x": 680,
+                            "y": 506.3888888888889
+                        },
+                        "endPoint": {
+                            "x": 732,
+                            "y": 500
+                        },
+                        "properties": {
+                            "sourceAnchorId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys_0_right",
+                            "targetAnchorId": "node-1-264_left"
+                        }
+                    },
+                    {
+                        "id": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-node-1-250-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys",
+                        "targetNodeId": "node-1-250",
+                        "startPoint": {
+                            "x": 690,
+                            "y": 796.3888888888889
+                        },
+                        "endPoint": {
+                            "x": 732,
+                            "y": 790
+                        },
+                        "properties": {
+                            "sourceAnchorId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys_0_right",
+                            "targetAnchorId": "node-1-250_left"
+                        }
+                    },
+                    {
+                        "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys-node-1-260-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys",
+                        "targetNodeId": "node-1-260",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 554.1666666666666
+                        },
+                        "endPoint": {
+                            "x": 499.5999999999999,
+                            "y": 400.5
+                        },
+                        "properties": {
+                            "sourceAnchorId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_0_right",
+                            "targetAnchorId": "node-1-260_left"
+                        }
+                    },
+                    {
+                        "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys-26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys",
+                        "targetNodeId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 554.1666666666666
+                        },
+                        "endPoint": {
+                            "x": 500,
+                            "y": 506.3888888888889
+                        },
+                        "properties": {
+                            "sourceAnchorId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_0_right",
+                            "targetAnchorId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys_0_left"
+                        }
+                    },
+                    {
+                        "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys-26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys",
+                        "targetNodeId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 579.1666666666666
+                        },
+                        "endPoint": {
+                            "x": 500,
+                            "y": 506.3888888888889
+                        },
+                        "properties": {
+                            "sourceAnchorId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_1_right",
+                            "targetAnchorId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys_0_left"
+                        }
+                    },
+                    {
+                        "id": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys-node-1-261-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys",
+                        "targetNodeId": "node-1-261",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 604.1666666666666
+                        },
+                        "endPoint": {
+                            "x": 735.8,
+                            "y": 610
+                        },
+                        "properties": {
+                            "sourceAnchorId": "fcbb03ee-28c2-5697-acf3-63077f022f04-assys_2_right",
+                            "targetAnchorId": "node-1-261_left"
+                        }
+                    },
+                    {
+                        "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys-node-1-244-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys",
+                        "targetNodeId": "node-1-244",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 794.1666666666666
+                        },
+                        "endPoint": {
+                            "x": 509.5999999999999,
+                            "y": 700.5
+                        },
+                        "properties": {
+                            "sourceAnchorId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_0_right",
+                            "targetAnchorId": "node-1-244_left"
+                        }
+                    },
+                    {
+                        "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys-445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys",
+                        "targetNodeId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 794.1666666666666
+                        },
+                        "endPoint": {
+                            "x": 510,
+                            "y": 796.3888888888889
+                        },
+                        "properties": {
+                            "sourceAnchorId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_0_right",
+                            "targetAnchorId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys_0_left"
+                        }
+                    },
+                    {
+                        "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys-445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys",
+                        "targetNodeId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 819.1666666666667
+                        },
+                        "endPoint": {
+                            "x": 510,
+                            "y": 796.3888888888889
+                        },
+                        "properties": {
+                            "sourceAnchorId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_1_right",
+                            "targetAnchorId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys_0_left"
+                        }
+                    },
+                    {
+                        "id": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys-node-1-245-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys",
+                        "targetNodeId": "node-1-245",
+                        "startPoint": {
+                            "x": 390,
+                            "y": 844.1666666666667
+                        },
+                        "endPoint": {
+                            "x": 735.8,
+                            "y": 840
+                        },
+                        "properties": {
+                            "sourceAnchorId": "72191dce-4df2-5ae1-a23f-76cbae373c31-assys_2_right",
+                            "targetAnchorId": "node-1-245_left"
+                        }
+                    }
+                ]
+            },
+            "name": "液压冷气子系统",
+            "system_id": 1,
+            "parent_id": null
+        },
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "node-1-192",
+                        "type": "fault-node",
+                        "x": 590,
+                        "y": 40,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 180,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 600,
+                            "y": 40,
+                            "value": "左刹车单元压力异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 680,
+                                "y": 40,
+                                "id": "node-1-192_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 500,
+                                "y": 40,
+                                "id": "node-1-192_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-195",
+                        "type": "fault-node",
+                        "x": 310,
+                        "y": 110,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 180,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 320,
+                            "y": 110,
+                            "value": "左刹车液压电机异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 400,
+                                "y": 110,
+                                "id": "node-1-195_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 220,
+                                "y": 110,
+                                "id": "node-1-195_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-186",
+                        "type": "fault-node",
+                        "x": 320,
+                        "y": 40,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 160,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 330,
+                            "y": 40,
+                            "value": "左刹车电磁阀异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 400,
+                                "y": 40,
+                                "id": "node-1-186_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 240,
+                                "y": 40,
+                                "id": "node-1-186_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-188",
+                        "type": "fault-node",
+                        "x": 330,
+                        "y": 180,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 140,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 340,
+                            "y": 180,
+                            "value": "塑封油管漏油"
+                        },
+                        "anchors": [
+                            {
+                                "x": 400,
+                                "y": 180,
+                                "id": "node-1-188_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 260,
+                                "y": 180,
+                                "id": "node-1-188_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-244-asoutput1",
+                        "type": "output-node",
+                        "x": 820,
+                        "y": 40,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 830,
+                            "y": 40,
+                            "value": "输出1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 770,
+                                "y": 40,
+                                "id": "node-1-244-asoutput1_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-asoutput2",
+                        "type": "output-node",
+                        "x": 820,
+                        "y": 110,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 2
+                        },
+                        "text": {
+                            "x": 830,
+                            "y": 110,
+                            "value": "输出2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 770,
+                                "y": 110,
+                                "id": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-asoutput2_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-245-asoutput3",
+                        "type": "output-node",
+                        "x": 820,
+                        "y": 180,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 3
+                        },
+                        "text": {
+                            "x": 830,
+                            "y": 180,
+                            "value": "输出3"
+                        },
+                        "anchors": [
+                            {
+                                "x": 770,
+                                "y": 180,
+                                "id": "node-1-245-asoutput3_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1",
+                        "type": "input-node",
+                        "x": 60,
+                        "y": 40,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 70,
+                            "y": 40,
+                            "value": "输入1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 110,
+                                "y": 40,
+                                "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1_right",
+                                "type": "right"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "node-1-192-node-1-244-asoutput1-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-192",
+                        "targetNodeId": "node-1-244-asoutput1",
+                        "startPoint": {
+                            "x": 640,
+                            "y": 40
+                        },
+                        "endPoint": {
+                            "x": 770,
+                            "y": 40
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-192_right",
+                            "targetAnchorId": "node-1-244-asoutput1_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-192-445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-asoutput2-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-192",
+                        "targetNodeId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-asoutput2",
+                        "startPoint": {
+                            "x": 640,
+                            "y": 40
+                        },
+                        "endPoint": {
+                            "x": 770,
+                            "y": 110
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-192_right",
+                            "targetAnchorId": "445c59a7-8bd2-5e90-889b-c386f0c582d5-assys-asoutput2_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-195-node-1-192-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-195",
+                        "targetNodeId": "node-1-192",
+                        "startPoint": {
+                            "x": 360,
+                            "y": 110
+                        },
+                        "endPoint": {
+                            "x": 540,
+                            "y": 40
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-195_right",
+                            "targetAnchorId": "node-1-192_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-186-node-1-192-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-186",
+                        "targetNodeId": "node-1-192",
+                        "startPoint": {
+                            "x": 370,
+                            "y": 40
+                        },
+                        "endPoint": {
+                            "x": 540,
+                            "y": 40
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-186_right",
+                            "targetAnchorId": "node-1-192_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-186-node-1-245-asoutput3-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-186",
+                        "targetNodeId": "node-1-245-asoutput3",
+                        "startPoint": {
+                            "x": 370,
+                            "y": 40
+                        },
+                        "endPoint": {
+                            "x": 770,
+                            "y": 180
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-186_right",
+                            "targetAnchorId": "node-1-245-asoutput3_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-188-node-1-192-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-188",
+                        "targetNodeId": "node-1-192",
+                        "startPoint": {
+                            "x": 380,
+                            "y": 180
+                        },
+                        "endPoint": {
+                            "x": 540,
+                            "y": 40
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-188_right",
+                            "targetAnchorId": "node-1-192_left"
+                        }
+                    },
+                    {
+                        "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1-node-1-186-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1",
+                        "targetNodeId": "node-1-186",
+                        "startPoint": {
+                            "x": 110,
+                            "y": 40
+                        },
+                        "endPoint": {
+                            "x": 270,
+                            "y": 40
+                        },
+                        "properties": {
+                            "sourceAnchorId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1_right",
+                            "targetAnchorId": "node-1-186_left"
+                        }
+                    }
+                ]
+            },
+            "name": "左刹车电控装置",
+            "system_id": 2,
+            "parent_id": 1
+        },
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "node-1-207",
+                        "type": "fault-node",
+                        "x": 630,
+                        "y": 10,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 180,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 640,
+                            "y": 10,
+                            "value": "右刹车单元压力异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 720,
+                                "y": 10,
+                                "id": "node-1-207_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 540,
+                                "y": 10,
+                                "id": "node-1-207_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-210",
+                        "type": "fault-node",
+                        "x": 330,
+                        "y": 80,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 180,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 340,
+                            "y": 80,
+                            "value": "左刹车液压电机异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 420,
+                                "y": 80,
+                                "id": "node-1-210_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 240,
+                                "y": 80,
+                                "id": "node-1-210_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-201",
+                        "type": "fault-node",
+                        "x": 350,
+                        "y": 10,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 160,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 360,
+                            "y": 10,
+                            "value": "右刹车电磁阀异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 430,
+                                "y": 10,
+                                "id": "node-1-201_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 270,
+                                "y": 10,
+                                "id": "node-1-201_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-203",
+                        "type": "fault-node",
+                        "x": 350,
+                        "y": 150,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 140,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 360,
+                            "y": 150,
+                            "value": "塑封油管漏油"
+                        },
+                        "anchors": [
+                            {
+                                "x": 420,
+                                "y": 150,
+                                "id": "node-1-203_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 280,
+                                "y": 150,
+                                "id": "node-1-203_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-260-asoutput1",
+                        "type": "output-node",
+                        "x": 900,
+                        "y": 10,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 910,
+                            "y": 10,
+                            "value": "输出1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 850,
+                                "y": 10,
+                                "id": "node-1-260-asoutput1_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-asoutput2",
+                        "type": "output-node",
+                        "x": 900,
+                        "y": 80,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 2
+                        },
+                        "text": {
+                            "x": 910,
+                            "y": 80,
+                            "value": "输出2"
+                        },
+                        "anchors": [
+                            {
+                                "x": 850,
+                                "y": 80,
+                                "id": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-asoutput2_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-261-asoutput3",
+                        "type": "output-node",
+                        "x": 900,
+                        "y": 160,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 3
+                        },
+                        "text": {
+                            "x": 910,
+                            "y": 160,
+                            "value": "输出3"
+                        },
+                        "anchors": [
+                            {
+                                "x": 850,
+                                "y": 160,
+                                "id": "node-1-261-asoutput3_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1",
+                        "type": "input-node",
+                        "x": 50,
+                        "y": 10,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 60,
+                            "y": 10,
+                            "value": "输入1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 100,
+                                "y": 10,
+                                "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1_right",
+                                "type": "right"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "node-1-207-node-1-260-asoutput1-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-207",
+                        "targetNodeId": "node-1-260-asoutput1",
+                        "startPoint": {
+                            "x": 680,
+                            "y": 10
+                        },
+                        "endPoint": {
+                            "x": 850,
+                            "y": 10
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-207_right",
+                            "targetAnchorId": "node-1-260-asoutput1_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-207-26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-asoutput2-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-207",
+                        "targetNodeId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-asoutput2",
+                        "startPoint": {
+                            "x": 680,
+                            "y": 10
+                        },
+                        "endPoint": {
+                            "x": 850,
+                            "y": 80
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-207_right",
+                            "targetAnchorId": "26ba8c3d-8fb8-562e-9129-2970c8664df2-assys-asoutput2_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-210-node-1-207-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-210",
+                        "targetNodeId": "node-1-207",
+                        "startPoint": {
+                            "x": 380,
+                            "y": 80
+                        },
+                        "endPoint": {
+                            "x": 580,
+                            "y": 10
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-210_right",
+                            "targetAnchorId": "node-1-207_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-201-node-1-207-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-201",
+                        "targetNodeId": "node-1-207",
+                        "startPoint": {
+                            "x": 400,
+                            "y": 10
+                        },
+                        "endPoint": {
+                            "x": 580,
+                            "y": 10
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-201_right",
+                            "targetAnchorId": "node-1-207_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-201-node-1-261-asoutput3-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-201",
+                        "targetNodeId": "node-1-261-asoutput3",
+                        "startPoint": {
+                            "x": 400,
+                            "y": 10
+                        },
+                        "endPoint": {
+                            "x": 850,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-201_right",
+                            "targetAnchorId": "node-1-261-asoutput3_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-203-node-1-207-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-203",
+                        "targetNodeId": "node-1-207",
+                        "startPoint": {
+                            "x": 400,
+                            "y": 150
+                        },
+                        "endPoint": {
+                            "x": 580,
+                            "y": 10
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-203_right",
+                            "targetAnchorId": "node-1-207_left"
+                        }
+                    },
+                    {
+                        "id": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1-node-1-201-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1",
+                        "targetNodeId": "node-1-201",
+                        "startPoint": {
+                            "x": 100,
+                            "y": 10
+                        },
+                        "endPoint": {
+                            "x": 300,
+                            "y": 10
+                        },
+                        "properties": {
+                            "sourceAnchorId": "011074d3-f669-5f92-be6b-3e90365bbb3a-assys-asinput1_right",
+                            "targetAnchorId": "node-1-201_left"
+                        }
+                    }
+                ]
+            },
+            "name": "右刹车电控装置",
+            "system_id": 3,
+            "parent_id": 1
+        },
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "node-1-172",
+                        "type": "fault-node",
+                        "x": 600,
+                        "y": 160,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 180,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 610,
+                            "y": 160,
+                            "value": "左刹车压力液压异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 690,
+                                "y": 160,
+                                "id": "node-1-172_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 510,
+                                "y": 160,
+                                "id": "node-1-172_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-4",
+                        "type": "fault-node",
+                        "x": 300,
+                        "y": 0,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 120,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 310,
+                            "y": 0,
+                            "value": "刹车壳形变"
+                        },
+                        "anchors": [
+                            {
+                                "x": 360,
+                                "y": 0,
+                                "id": "node-1-4_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 240,
+                                "y": 0,
+                                "id": "node-1-4_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-2",
+                        "type": "fault-node",
+                        "x": 300,
+                        "y": 80,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 120,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 310,
+                            "y": 80,
+                            "value": "密封圈异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 360,
+                                "y": 80,
+                                "id": "node-1-2_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 240,
+                                "y": 80,
+                                "id": "node-1-2_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-250-asoutput1",
+                        "type": "output-node",
+                        "x": 890,
+                        "y": 160,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 900,
+                            "y": 160,
+                            "value": "输出1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 840,
+                                "y": 160,
+                                "id": "node-1-250-asoutput1_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-192-asinput1",
+                        "type": "input-node",
+                        "x": 120,
+                        "y": 160,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 130,
+                            "y": 160,
+                            "value": "输入1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 170,
+                                "y": 160,
+                                "id": "node-1-192-asinput1_right",
+                                "type": "right"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "node-1-172-node-1-250-asoutput1-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-172",
+                        "targetNodeId": "node-1-250-asoutput1",
+                        "startPoint": {
+                            "x": 650,
+                            "y": 160
+                        },
+                        "endPoint": {
+                            "x": 840,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-172_right",
+                            "targetAnchorId": "node-1-250-asoutput1_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-4-node-1-172-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-4",
+                        "targetNodeId": "node-1-172",
+                        "startPoint": {
+                            "x": 350,
+                            "y": 0
+                        },
+                        "endPoint": {
+                            "x": 550,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-4_right",
+                            "targetAnchorId": "node-1-172_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-2-node-1-172-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-2",
+                        "targetNodeId": "node-1-172",
+                        "startPoint": {
+                            "x": 350,
+                            "y": 80
+                        },
+                        "endPoint": {
+                            "x": 550,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-2_right",
+                            "targetAnchorId": "node-1-172_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-192-asinput1-node-1-172-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-192-asinput1",
+                        "targetNodeId": "node-1-172",
+                        "startPoint": {
+                            "x": 170,
+                            "y": 160
+                        },
+                        "endPoint": {
+                            "x": 550,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-192-asinput1_right",
+                            "targetAnchorId": "node-1-172_left"
+                        }
+                    }
+                ]
+            },
+            "name": "左刹车机械装置",
+            "system_id": 4,
+            "parent_id": 1
+        },
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "node-1-182",
+                        "type": "fault-node",
+                        "x": 600,
+                        "y": 160,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 160,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 610,
+                            "y": 160,
+                            "value": "右轮刹车压力异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 680,
+                                "y": 160,
+                                "id": "node-1-182_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 520,
+                                "y": 160,
+                                "id": "node-1-182_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-178",
+                        "type": "fault-node",
+                        "x": 300,
+                        "y": 0,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 120,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 310,
+                            "y": 0,
+                            "value": "刹车壳形变"
+                        },
+                        "anchors": [
+                            {
+                                "x": 360,
+                                "y": 0,
+                                "id": "node-1-178_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 240,
+                                "y": 0,
+                                "id": "node-1-178_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-176",
+                        "type": "fault-node",
+                        "x": 300,
+                        "y": 80,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 120,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 310,
+                            "y": 80,
+                            "value": "密封圈异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 360,
+                                "y": 80,
+                                "id": "node-1-176_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": 240,
+                                "y": 80,
+                                "id": "node-1-176_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-264-asoutput1",
+                        "type": "output-node",
+                        "x": 830,
+                        "y": 160,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 840,
+                            "y": 160,
+                            "value": "输出1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 780,
+                                "y": 160,
+                                "id": "node-1-264-asoutput1_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-207-asinput1",
+                        "type": "input-node",
+                        "x": 210,
+                        "y": 150,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 220,
+                            "y": 150,
+                            "value": "输入1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 260,
+                                "y": 150,
+                                "id": "node-1-207-asinput1_right",
+                                "type": "right"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "node-1-182-node-1-264-asoutput1-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-182",
+                        "targetNodeId": "node-1-264-asoutput1",
+                        "startPoint": {
+                            "x": 650,
+                            "y": 160
+                        },
+                        "endPoint": {
+                            "x": 780,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-182_right",
+                            "targetAnchorId": "node-1-264-asoutput1_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-178-node-1-182-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-178",
+                        "targetNodeId": "node-1-182",
+                        "startPoint": {
+                            "x": 350,
+                            "y": 0
+                        },
+                        "endPoint": {
+                            "x": 550,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-178_right",
+                            "targetAnchorId": "node-1-182_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-176-node-1-182-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-176",
+                        "targetNodeId": "node-1-182",
+                        "startPoint": {
+                            "x": 350,
+                            "y": 80
+                        },
+                        "endPoint": {
+                            "x": 550,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-176_right",
+                            "targetAnchorId": "node-1-182_left"
+                        }
+                    },
+                    {
+                        "id": "node-1-207-asinput1-node-1-182-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-207-asinput1",
+                        "targetNodeId": "node-1-182",
+                        "startPoint": {
+                            "x": 260,
+                            "y": 150
+                        },
+                        "endPoint": {
+                            "x": 550,
+                            "y": 160
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-207-asinput1_right",
+                            "targetAnchorId": "node-1-182_left"
+                        }
+                    }
+                ]
+            },
+            "name": "右刹车机械装置",
+            "system_id": 5,
+            "parent_id": 1
+        },
+        {
+            "data": {
+                "nodes": [
+                    {
+                        "id": "node-1-268",
+                        "type": "fault-node",
+                        "x": 0,
+                        "y": 0,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 200,
+                            "ui": "node-red"
+                        },
+                        "text": {
+                            "x": 10,
+                            "y": 0,
+                            "value": "刹车液压控制单元异常"
+                        },
+                        "anchors": [
+                            {
+                                "x": 100,
+                                "y": 0,
+                                "id": "node-1-268_right",
+                                "type": "right"
+                            },
+                            {
+                                "x": -100,
+                                "y": 0,
+                                "id": "node-1-268_left",
+                                "type": "left"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "node-1-201-asoutput1",
+                        "type": "output-node",
+                        "x": 300,
+                        "y": 0,
+                        "properties": {
+                            "showType": "edit",
+                            "collision": false,
+                            "detectable": true,
+                            "fuzzible": false,
+                            "fuzzy_state": 0,
+                            "state": 0,
+                            "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAsIDAsIDQwLCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBjb2xvcj0iIzAwMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0MCAtOTg3LjM2KSI+PHBhdGggZD0iTTU2NS40MyAxMDAxLjljNi41NjIgMi4wODkgMTEuMzE2IDguMjMzIDExLjMxNiAxNS40ODggMCA4Ljk3NS03LjI3NSAxNi4yNS0xNi4yNSAxNi4yNXMtMTYuMjUtNy4yNzUtMTYuMjUtMTYuMjVjMC0yLjgwMi43MS01LjQzOCAxLjk1OC03Ljc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHlsZT0iaXNvbGF0aW9uOmF1dG87bWl4LWJsZW5kLW1vZGU6bm9ybWFsIi8+PGNpcmNsZSBjeD0iNTYwIiBjeT0iMTAwMS40IiByPSIxLjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjMiIHN0eWxlPSJpc29sYXRpb246YXV0bzttaXgtYmxlbmQtbW9kZTpub3JtYWwiLz48cGF0aCBkPSJNNTYwIDEwMTQuNGMtMS4yMDYgMC0xMS0xMC45OTktMTIuMzU0LTkuOTc1UzU1NyAxMDE2LjE0OCA1NTcgMTAxNy40czEuMzYgMyAzIDMgMy0xLjM2MSAzLTMtMS43OTQtMy0zLTN6IiBmaWxsPSIjZmZmIi8+PC9nPjwvc3ZnPg0K",
+                            "typeColor": "#edc3ae",
+                            "flevel": 0,
+                            "width": 100,
+                            "ui": "node-red",
+                            "index": 1
+                        },
+                        "text": {
+                            "x": 300,
+                            "y": 0,
+                            "value": "输出1"
+                        },
+                        "anchors": [
+                            {
+                                "x": 250,
+                                "y": 0,
+                                "id": "node-1-201-asoutput1_left",
+                                "type": "left"
+                            }
+                        ]
+                    }
+                ],
+                "edges": [
+                    {
+                        "id": "node-1-268-node-1-201-asoutput1-aslink",
+                        "type": "custom-edge",
+                        "sourceNodeId": "node-1-268",
+                        "targetNodeId": "node-1-201-asoutput1",
+                        "startPoint": {
+                            "x": 50,
+                            "y": 0
+                        },
+                        "endPoint": {
+                            "x": 250,
+                            "y": 0
+                        },
+                        "properties": {
+                            "sourceAnchorId": "node-1-268_right",
+                            "targetAnchorId": "node-1-201-asoutput1_left"
+                        }
+                    }
+                ]
+            },
+            "name": "刹车液压控制单元",
+            "system_id": 6,
+            "parent_id": 1
+        }
+    ]
+}

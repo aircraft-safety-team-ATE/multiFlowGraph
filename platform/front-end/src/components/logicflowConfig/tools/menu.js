@@ -319,7 +319,10 @@ const controlConfig = {
   optimizeCkpt: true,
 
   // 故障分析 ※需要与后台交互
-  analyse: true  // option value: true | false
+  analyse: true,  // option value: true | false
+
+  // GPT分析功能
+  GPTanalyse: true
 
 
 }

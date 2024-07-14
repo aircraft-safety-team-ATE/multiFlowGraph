@@ -40,6 +40,7 @@
       <el-button v-if="controlConfig.check" type="plain" size="small" @click="$_check">流图评价</el-button>
       <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt">测点优化</el-button>
       <el-button v-if="controlConfig.analyse" type="plain" size="small" @click="$_analyse">故障分析</el-button>
+      <el-button v-if="controlConfig.GPTanalyse" type="plain" size="small" @click="$_GPTanalyse_block">GPT分析</el-button>
     </el-button-group>
 
     <el-dialog width="60%" :title="'信号流图模型评价'" :visible.sync="Visible" :modal="false">
@@ -63,6 +64,19 @@
         </el-table-column>
       </el-table>
     </el-dialog>
+
+
+
+
+    <el-dialog width="60%" :title="'GPT分析'" :visible.sync="GPTanalyse_Visible" :modal="false">
+      <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
+      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
+      <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
+      <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
+      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
+
+
+    </el-dialog>
   </div>
 </template>
 
@@ -70,6 +84,9 @@
 import { importStruct, exportStruct } from '../logicflowConfig/common/methods'
 import { controlConfig } from '../logicflowConfig/tools/menu'
 import { renderStructColor } from '../logicflowConfig/common/methods'
+// import OpenAI from 'openai'
+// 如何导入 OpenAI
+
 
 export default {
   name: 'Control',
@@ -83,6 +100,10 @@ export default {
       undoDisable: true,
       redoDisable: true,
       Visible: false,
+      GPTanalyse_Visible: false,
+      GPTanalyse_content: '',
+      GPTanalyse_result: '',
+
       dialogType: 'check',
       result: {
         detect_isolat_ratio: [1, 1, 1, 1],
@@ -433,11 +454,26 @@ export default {
       input.click();
     },
 
-    $_test() {
-
+    $_GPTanalyse_block() {
+      this.GPTanalyse_Visible = true;
     },
+    $_GPTanalyse() {
+      const fd = new FormData()
+      fd.append("content", this.GPTanalyse_content)
+      fd.append("struct", JSON.stringify(this.$props.lf.getGraphData()))
+      this.$axios({
+        url: 'multi-info-GPT/analyse-data/',
+        method: 'post',
+        data: fd
+      }).then((res) => {
+        this.GPTanalyse_result = res.result
+
+      })
+
+    }
   }
 }
 </script>
+
 
 <style scoped></style>

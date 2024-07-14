@@ -8,6 +8,7 @@ from .utils import convert_fmeca, flatten_graph, reconstruct_graph, to_D_mat, \
     detect_with_render, to_json, from_json, check_graph, \
     optimize_struct
 from .simulinkReader import simulink_reader
+from .msfg_gpt import analyse_multiinfo
 EPS = 1e-9
 DEFAULT_P = 0.2
 
@@ -110,6 +111,15 @@ def result_analyse_main():
     }).replace("NaN", "null")
 
 
+def GPT_analyse():
+    content = request.form.get("content")
+    struct = json.loads(request.form.get("struct"))
+
+    content = analyse_multiinfo(content)
+
+    return json.dumps({"result": content})
+
+
 def msfg_route_app(app):
     app.route("/multi-info-edit/upload-fmeca/", methods=['POST'])(upload_fmeca)
     app.route("/multi-info-edit/upload-simulink/",
@@ -122,3 +132,5 @@ def msfg_route_app(app):
               methods=['POST'])(service_to_D_mat)
     app.route("/multi-info-analyse/analyse-data/",
               methods=['POST'])(result_analyse_main)
+    app.route("/multi-info-GPT/analyse-data/",
+              methods=['POST'])(GPT_analyse)

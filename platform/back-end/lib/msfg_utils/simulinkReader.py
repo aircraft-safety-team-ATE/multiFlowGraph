@@ -12,6 +12,8 @@ WIDTH_RATE = 3
 HEIGHT_RATE = 3
 
 
+# 撰写一个斐波那契函数
+
 def _get_system(
     xml: ET.Element
 ) -> Dict:
@@ -389,7 +391,7 @@ def simulink_reader(
 
 
 if __name__ == "__main__":
-    with open(os.path.join(DIR_PATH, SIMULINK_FILE), 'r', encoding='utf-8') as f:
+    with open(r"D:\Document\Study\PGY-2_project\1.Ground-based-inference-and-intelligent-maintenance-support-subsystems\SourceCode\multiFlowGraph\platform\test_data\simulink文件\simple1.mdl", 'r', encoding='utf-8') as f:
         content = f.readlines()
 
     G_data = simulink_reader(content)
