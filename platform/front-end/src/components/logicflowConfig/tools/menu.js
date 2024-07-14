@@ -322,7 +322,13 @@ const controlConfig = {
   analyse: true,  // option value: true | false
 
   // GPT分析功能
-  GPTanalyse: true
+  GPTanalyse: true,
+
+  // GPT文本构图能力
+  abstractGraphByText: true,
+
+  // 图像构图能力
+  abstractGraphByImage: true,
 
 
 }

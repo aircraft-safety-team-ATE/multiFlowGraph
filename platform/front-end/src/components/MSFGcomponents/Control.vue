@@ -41,6 +41,10 @@
       <el-button v-if="controlConfig.optimizeCkpt" type="plain" size="small" @click="$_optimizeCkpt">测点优化</el-button>
       <el-button v-if="controlConfig.analyse" type="plain" size="small" @click="$_analyse">故障分析</el-button>
       <el-button v-if="controlConfig.GPTanalyse" type="plain" size="small" @click="$_GPTanalyse_block">GPT分析</el-button>
+      <el-button v-if="controlConfig.abstractGraphByText" type="plain" size="small"
+        @click="$_abstractGraphByText_block">文本构建</el-button>
+      <el-button v-if="controlConfig.abstractGraphByImage" type="plain" size="small"
+        @click="$_abstractGraphByImage_block">图构建</el-button>
     </el-button-group>
 
     <el-dialog width="60%" :title="'信号流图模型评价'" :visible.sync="Visible" :modal="false">
@@ -68,15 +72,31 @@
 
 
 
+    <el-dialog width="60%" :title="'GPT分析'" :visible.sync="abstractGraphByText_Visible" :modal="false">
+      <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
+      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
+      <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
+      <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
+      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
+    </el-dialog>
+
+
+    <el-dialog width="60%" :title="'GPT分析'" :visible.sync="abstractGraphByImage_Visible" :modal="false">
+      <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
+      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
+      <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
+      <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
+      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
+    </el-dialog>
+
     <el-dialog width="60%" :title="'GPT分析'" :visible.sync="GPTanalyse_Visible" :modal="false">
       <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
       <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
       <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
       <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
       <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
-
-
     </el-dialog>
+
   </div>
 </template>
 
@@ -84,6 +104,7 @@
 import { importStruct, exportStruct } from '../logicflowConfig/common/methods'
 import { controlConfig } from '../logicflowConfig/tools/menu'
 import { renderStructColor } from '../logicflowConfig/common/methods'
+// import Mermaid from 'mermaid'
 // import OpenAI from 'openai'
 // 如何导入 OpenAI
 
@@ -101,6 +122,8 @@ export default {
       redoDisable: true,
       Visible: false,
       GPTanalyse_Visible: false,
+      abstractGraphByText_Visible: false,
+      abstractGraphByImage_Visible: false,
       GPTanalyse_content: '',
       GPTanalyse_result: '',
 
@@ -457,6 +480,13 @@ export default {
     $_GPTanalyse_block() {
       this.GPTanalyse_Visible = true;
     },
+    $_abstractGraphByText_block() {
+      this.abstractGraphByText_Visible = true;
+    },
+    $_abstractGraphByImage_block() {
+      this.abstractGraphByImage_Visible = true;
+    },
+
     $_GPTanalyse() {
       const fd = new FormData()
       fd.append("content", this.GPTanalyse_content)
