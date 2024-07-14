@@ -134,15 +134,15 @@ def abstract_multiinfo_bytext(content):
              
         {
   "nodes": [
-    {"id": "2", "l": "First Order Hold"},
-    {"id": "3", "l": "First Order Hold1"},
-    {"id": "4", "l": "First Order Hold2"},
-    {"id": "5", "l": "Subsystem"}
+    {"id": "A", "l": "First Order Hold"},
+    {"id": "B", "l": "First Order Hold1"},
+    {"id": "C", "l": "First Order Hold2"},
+    {"id": "D", "l": "Subsystem"}
   ],
   "edges": [
-    {"s": "2", "t": "5", "l": "0_5#in:1"},
-    {"s": "5", "t": "3", "l": "1_3#in:1"},
-    {"s": "5", "t": "4", "l": "2_4#in:1"}
+    {"s": "A", "t": "C", "l": "0_5#in:1"},
+    {"s": "B", "t": "D", "l": "1_3#in:1"},
+    {"s": "D", "t": "B", "l": "2_4#in:1"}
   ]
 }            
              """},
