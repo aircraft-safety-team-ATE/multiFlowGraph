@@ -111,6 +111,51 @@ def abstract_multiinfo(content):
 #     print(completion.choices[0].message.content)
 #     return str(completion.choices[0].message.content)
 
+def abstract_multiinfo_bytext(content):
+    '''
+    利用GPT-4o模型进行文本的多信号流图生成
+    content: str 对于GPT 提问的内容
+    '''
+
+    struct = '''graph TD
+        A[左翼] -->|连接| B[机身]
+        C[右翼] -->|连接| B[机身]
+        B -->|连接| D[空速管]
+        E[机舱] -->|连接| F[温度计]'''
+
+    completion = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": """
+             你是一个故障诊断领域的大师，尤其擅长构建多信号流图，多信号流图通过构建系统的信号联系关系，帮助分析系统的故障传播路径。
+             接下来你需要从文本中构建多信号流图，请用以下json格式描述多信号流图,将每个符号的代号简化为最简单的ABCD等序号,不要附带多余信息,回答格式如下
+             不要有'''json ''' 也不要前后的文字表示 只有json格式字符串
+
+             
+        {
+  "nodes": [
+    {"id": "2", "l": "First Order Hold"},
+    {"id": "3", "l": "First Order Hold1"},
+    {"id": "4", "l": "First Order Hold2"},
+    {"id": "5", "l": "Subsystem"}
+  ],
+  "edges": [
+    {"s": "2", "t": "5", "l": "0_5#in:1"},
+    {"s": "5", "t": "3", "l": "1_3#in:1"},
+    {"s": "5", "t": "4", "l": "2_4#in:1"}
+  ]
+}            
+             """},
+            {"role": "user", "content": "以下是你需要进行分析的内容:"+content}
+        ]
+        # n=1,
+        # response_format="json"
+
+    )
+
+    print(completion.choices[0].message.content)
+    return str(completion.choices[0].message.content)
+
 
 def abstract_multinfo_byimage(base64_image):
     '''
@@ -188,5 +233,12 @@ if __name__ == "__main__":
             base64_image = base64.b64encode(f.read()).decode()
         abstract_multinfo_byimage(base64_image)
 
+    def test4_abstract_multinfo_bytext():
+        content = "甚高频通信收发机型号是VHF-4000，由RC提供。VHF-4000是多信道的收发机，能够提供118.00MHz到136.975MHz频率范围内的DSB（双边带）AM（调幅）音频通信，并能提供25KHz和8.33KHz的频道间隔选择。"
+        ans = abstract_multiinfo_bytext(content)
+        print(json.loads(ans))
+        print(ans)
+
+    test4_abstract_multinfo_bytext()
     # test2_analyse_multiinfo()
-    test3_abstract_multinfo_byimage()
+    # test3_abstract_multinfo_byimage()

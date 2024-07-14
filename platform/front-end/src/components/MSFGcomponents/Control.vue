@@ -78,29 +78,19 @@
     </el-dialog>
 
 
-
-
-    <el-dialog width="60%" :title="'GPT分析'" :visible.sync="abstractGraphByText_Visible" :modal="false">
-      <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
-      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
-      <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
-      <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
-      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
-    </el-dialog>
-
-
-    <el-dialog width="60%" :title="'GPT分析'" :visible.sync="abstractGraphByImage_Visible" :modal="false">
-      <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
-      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
-      <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
-      <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
-      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
-    </el-dialog>
-
     <el-dialog width="60%" :title="'GPT分析'" :visible.sync="GPTanalyse_Visible" :modal="false">
       <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
       <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
       <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
+      <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
+      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
+    </el-dialog>
+
+
+    <el-dialog width="60%" :title="'由文字构建多信号流图'" :visible.sync="abstractGraphByText_Visible" :modal="false">
+      <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
+      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
+      <el-button @click="$_GPTanalyse_abstractGraphByText" type="primary">构建</el-button>
       <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
       <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
       <button @click="renderMermaid">渲染Mermaid图表</button>
@@ -108,8 +98,17 @@
         {{ content_string }}
       </div>
 
-
     </el-dialog>
+
+
+    <el-dialog width="60%" :title="'由框图构建多信号流图'" :visible.sync="abstractGraphByImage_Visible" :modal="false">
+      <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
+      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
+      <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
+      <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
+      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
+    </el-dialog>
+
 
 
 
@@ -141,7 +140,7 @@ export default {
       GPTanalyse_Visible: false,
       abstractGraphByText_Visible: false,
       abstractGraphByImage_Visible: false,
-      GPTanalyse_content: '',
+      GPTanalyse_content: '甚高频通信收发机型号是VHF-4000，由RC提供。VHF-4000是多信道的收发机，能够提供118.00MHz到136.975MHz频率范围内的DSB（双边带）AM（调幅）音频通信，并能提供25KHz和8.33KHz的频道间隔选择。',
       GPTanalyse_result: '',
 
       dialogType: 'check',
@@ -161,13 +160,24 @@ export default {
     })
   },
   methods: {
+    preprocessJSONString_step1(jsonString) {
+      // 使用正则表达式去除换行符和多余的空格
+      return jsonString.replace(/\n\s*/g, '\\n');;
+    },
+    preprocessJSONString_step2(jsonString) {
+      // 使用正则表达式去除换行符和多余的空格
+      return jsonObject.result.replace(/\\n/g, '\n    ');
+    },
     renderMermaid() {
-      this.content_string = `
-    graph TD
-    A[Client] --> B[Load Balancer]
-    B --> C[Server01]
-    B --> D[Server02]
-    `;
+
+      console.log(this.GPTanalyse_result)
+      let content_json = JSON.parse(this.GPTanalyse_result)
+      let nodes = content_json.nodes.map(node => `${node.id}["${node.l}"]`).join('\n');
+      let edges = content_json.edges.map(edge => `${edge.s} -->|${edge.l}| ${edge.t}`).join('\n');
+      this.content_string = `graph TD\n${nodes}\n${edges}`;
+      // this.GPTanalyse_result = this.preprocessJSONString_step1(this.GPTanalyse_result)
+      // this.content_string = this.preprocessJSONString_step2(JSON.parse(this.GPTanalyse_result)["result"])
+      console.log(this.content_string)
       this.$nextTick(() => {
 
         const mermaidContainer = this.$refs.mermaidContainer;
@@ -535,7 +545,22 @@ export default {
 
       })
 
+    },
+    $_GPTanalyse_abstractGraphByText() {
+      const fd = new FormData()
+      fd.append("content", this.GPTanalyse_content)
+      fd.append("struct", JSON.stringify(this.$props.lf.getGraphData()))
+      this.$axios({
+        url: 'multi-info-GPT/abstract-graph-by-text/',
+        method: 'post',
+        data: fd
+      }).then((res) => {
+        this.GPTanalyse_result = res.result
+
+      })
+
     }
+
   }
 }
 </script>
