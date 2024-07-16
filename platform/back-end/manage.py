@@ -11,8 +11,13 @@ app.jinja_env.auto_reload = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.jinja_env.variable_start_string = '||<-EL PSY CONGROO->||'
 app.jinja_env.variable_end_string = '||<-EL PSY CONGROO->||'
+# 配置上传文件夹和允许的文件类型
+UPLOAD_FOLDER = './uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
+absolute_upload_folder = os.path.abspath(app.config['UPLOAD_FOLDER'])
+print("Absolute path for UPLOAD_FOLDER:", absolute_upload_folder)
 msfg_route_app(app)
 
 if __name__ == "__main__":

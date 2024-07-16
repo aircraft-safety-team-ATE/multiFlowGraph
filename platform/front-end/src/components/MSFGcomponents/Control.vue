@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <div id="graphDiv"></div>
     <pre class="mermaid">
     graph TD
     A[Client] --> B[Load Balancer]
@@ -94,8 +94,8 @@
       <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
       <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
       <button @click="renderMermaid">渲染Mermaid图表</button>
-      <div ref="mermaidContainer" class="mermaid">
-        {{ content_string }}
+      <div id="mermaidContainer">
+
       </div>
 
     </el-dialog>
@@ -103,7 +103,10 @@
 
     <el-dialog width="60%" :title="'由框图构建多信号流图'" :visible.sync="abstractGraphByImage_Visible" :modal="false">
       <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
-      <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
+      <!-- 上传图片 -->
+      <ele-upload-image drag :responseFn="handleResponse" action="http://localhost:8000/upload/"
+        v-model="image"></ele-upload-image>
+
       <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
       <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
       <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
@@ -119,12 +122,18 @@
 import { importStruct, exportStruct } from '../logicflowConfig/common/methods'
 import { controlConfig } from '../logicflowConfig/tools/menu'
 import { renderStructColor } from '../logicflowConfig/common/methods'
+
+import EleUploadImage from 'vue-ele-upload-image'
+
 // import Mermaid from 'mermaid'
 // import OpenAI from 'openai'
 // 如何导入 OpenAI
 
 
 export default {
+  components: {
+    EleUploadImage
+  },
   name: 'Control',
   props: {
     lf: Object || String,
@@ -132,7 +141,15 @@ export default {
   },
   data() {
     return {
-      content_string: '',
+      image: null,
+      imageUrl: '',
+      content_string: `
+                graph TD;
+                A-->B;
+                A-->C;
+                B-->D;
+                C-->D;
+            `,
       controlConfig,
       undoDisable: true,
       redoDisable: true,
@@ -154,12 +171,25 @@ export default {
 
   },
   mounted() {
+
     this.$props.lf.on('history:change', ({ data: { undoAble, redoAble } }) => {
       this.$data.undoDisable = !undoAble
       this.$data.redoDisable = !redoAble
     })
   },
   methods: {
+    handleResponse(response, file, fileList) {
+      // 根据响应结果, 设置 URL
+      this.imageUrl = 'http://localhost:8000/uploads/' + response.filename;
+      return this.imageUrl;
+    },
+    drawDiagram() {
+      const graphDefinition = 'graph TB\na-->b'
+      const element = this.$refs.graphDiv;
+      mermaid.render('graphDiv', graphDefinition, (svgCode) => {
+        element.innerHTML = svgCode;
+      });
+    },
     preprocessJSONString_step1(jsonString) {
       // 使用正则表达式去除换行符和多余的空格
       return jsonString.replace(/\n\s*/g, '\\n');;
@@ -168,24 +198,99 @@ export default {
       // 使用正则表达式去除换行符和多余的空格
       return jsonObject.result.replace(/\\n/g, '\n    ');
     },
+    generateMermaidContent(content) {
+      return `
+
+${content}
+
+            `;
+    },
     renderMermaid() {
 
       console.log(this.GPTanalyse_result)
       let content_json = JSON.parse(this.GPTanalyse_result)
-      let nodes = content_json.nodes.map(node => `${node.id}["${node.l}"]`).join('\n');
-      let edges = content_json.edges.map(edge => `${edge.s} -->|${edge.l}| ${edge.t}`).join('\n');
-      this.content_string = `graph TD\n${nodes}\n${edges}`;
-      // this.GPTanalyse_result = this.preprocessJSONString_step1(this.GPTanalyse_result)
-      // this.content_string = this.preprocessJSONString_step2(JSON.parse(this.GPTanalyse_result)["result"])
-      console.log(this.content_string)
-      this.$nextTick(() => {
+      // let content_json1 = {
+      //   'nodes': [ 
+      //     { 'id': 'A', 'l': 'First Order Hold' },
+      //     { 'id': 'B', 'l': 'First Order Hold1' },
+      //     { 'id': 'C', 'l': 'First Order Hold2' },
+      //     { 'id': 'D', 'l': 'Subsystem' }
+      //   ],
+      //   'edges': [
+      //     { 's': 'A', 't': 'C', 'l': 'asdfa' },
+      //     { 's': 'B', 't': 'D', 'l': 'asdf' },
+      //     { 's': 'D', 't': 'B', 'l': 'sdf' }
+      //   ]
+      // };
+      // let content_json2 = {
+      //   'nodes': [
+      //     { 'id': 'A', 'l': 'First Order Hold' },
+      //     { 'id': 'B', 'l': 'First Order Hold1' },
 
-        const mermaidContainer = this.$refs.mermaidContainer;
-        if (mermaidContainer) {
-          mermaid.init(undefined, mermaidContainer);
+      //   ],
+      //   'edges': [
+      //     { 's': 'A', 't': 'B', 'l': 'asdfa' },
+      //     { 's': 'B', 't': 'A', 'l': 'asdf' },
+
+      //   ]
+      // };
+      // 随机数
+      // let content_json = Math.random() > 0.5 ? content_json1 : content_json2;
+
+      let nodes = content_json.nodes.map(node => `${node.id}["${node.l}"]`).join('\n');
+
+
+      let edges = content_json.edges.map(edge => `${edge.s} --> ${edge.t}`).join('\n');
+      this.content_string = `graph TD\n${nodes}\n${edges}`;
+      var container = document.getElementById('mermaidContainer');
+
+      if (container) {
+        // 查找并删除已有的Mermaid元素
+        var existingMermaidDiv = container.querySelector('div.mermaid');
+        if (existingMermaidDiv) {
+          container.removeChild(existingMermaidDiv);
         }
 
-      });
+        // 创建新的Mermaid元素
+        var newMermaidDiv = document.createElement('div');
+        newMermaidDiv.className = 'mermaid';
+        container.appendChild(newMermaidDiv);
+
+        // 生成新的Mermaid内容
+        var mermaidContent = this.generateMermaidContent(this.content_string);
+
+        // 设置新元素的内容
+        newMermaidDiv.innerHTML = mermaidContent;
+        console.log(mermaidContent);
+
+        // 重新渲染Mermaid
+        mermaid.init(undefined, newMermaidDiv);
+      } else {
+        console.error('Element with id "mermaidContainer" not found');
+      }
+
+      // // 清空容器内容
+      // container.innerHTML = '';
+
+      // // 生成新的Mermaid内容
+      // var mermaidContent = this.generateMermaidContent(this.content_string);
+      // container.innerHTML = mermaidContent;
+      // console.log(mermaidContent)
+      // // 重新渲染Mermaid
+      // mermaid.init(undefined, container);
+
+
+      // this.GPTanalyse_result = this.preprocessJSONString_step1(this.GPTanalyse_result)
+      // this.content_string = this.preprocessJSONString_step2(JSON.parse(this.GPTanalyse_result)["result"])
+      // console.log(this.content_string)
+      // this.$nextTick(() => {
+
+      //   const mermaidContainer = this.$refs.mermaidContainer;
+      //   if (mermaidContainer) {
+      //     mermaid.init(undefined, mermaidContainer);
+      //   }
+
+      // });
     },
     $_zoomIn() {
       this.$props.lf.zoom(true)
@@ -524,6 +629,7 @@ export default {
       this.GPTanalyse_Visible = true;
     },
     $_abstractGraphByText_block() {
+      // this.drawDiagram()
       this.abstractGraphByText_Visible = true;
 
 

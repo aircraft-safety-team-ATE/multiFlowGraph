@@ -2,6 +2,8 @@
 bin-debug/
 bin-release/
 platform/back-end/lib/__pycache__/
+node_modules/
+platform/back-end/uploads
 [Oo]bj/
 [Bb]in/
 

@@ -3,12 +3,14 @@ import pandas as pd
 import numpy as np
 from io import BytesIO
 from typing import Dict
-from flask import request, jsonify, send_file
+from flask import request, jsonify, send_file, Flask, make_response, send_from_directory
 from .utils import convert_fmeca, flatten_graph, reconstruct_graph, to_D_mat, \
     detect_with_render, to_json, from_json, check_graph, \
     optimize_struct
 from .simulinkReader import simulink_reader
 from .msfg_gpt import analyse_multiinfo, abstract_multiinfo_bytext
+from werkzeug.utils import secure_filename
+import os
 EPS = 1e-9
 DEFAULT_P = 0.2
 
@@ -129,6 +131,41 @@ def abstractGraphByText():
     return json.dumps({"result": content})
 
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def upload_file():
+    if request.method == 'OPTIONS':
+        response = make_response('')
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add(
+            'Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        response.headers.add('Access-Control-Allow-Headers',
+                             'Content-Type, Authorization')
+        return response, 200
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        # 打印此刻程序运行
+        print(os.getcwd())
+        file.save(os.getcwd() + '/uploads/' + filename)
+        return jsonify({'filename': filename}), 200
+    else:
+        return jsonify({'error': 'File type not allowed'}), 400
+
+
+def uploaded_file(filename):
+    return send_from_directory(os.getcwd() + '/uploads/', filename)
+
+
 def msfg_route_app(app):
     app.route("/multi-info-edit/upload-fmeca/", methods=['POST'])(upload_fmeca)
     app.route("/multi-info-edit/upload-simulink/",
@@ -145,3 +182,7 @@ def msfg_route_app(app):
               methods=['POST'])(GPT_analyse)
     app.route("/multi-info-GPT/abstract-graph-by-text/",
               methods=['POST'])(abstractGraphByText)
+    app.route("/upload/",
+              methods=['POST', 'OPTIONS'])(upload_file)
+    app.route("/uploads/<filename>",
+              methods=['GET'])(uploaded_file)
