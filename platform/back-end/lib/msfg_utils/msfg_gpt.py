@@ -170,35 +170,24 @@ def abstract_multinfo_byimage(base64_image):
                 "role": "user",
                 "content": [
                     {"type": "text", "text": """
-                     请用json语言描述以下多信号流图，不要附带多余信息
-                     如例子 
-                     {
-    "nodes": [
-        {"id": "A", "label": "故障"},
-        {"id": "B", "label": "RTU1"},
-        {"id": "C", "label": "RTU2"},
-        {"id": "D", "label": "测试"},
-        {"id": "E", "label": "RTU供电线路"}
-    ],
-    "edges": [
-        {"from": "A", "to": "B", "label": "IN 1"},
-        {"from": "A", "to": "B", "label": "IN 2"},
-        {"from": "A", "to": "B", "label": "IN 3"},
-        {"from": "A", "to": "C", "label": "IN 1"},
-        {"from": "A", "to": "C", "label": "IN 2"},
-        {"from": "A", "to": "C", "label": "IN 3"},
-        {"from": "B", "to": "D", "label": "OUT 1"},
-        {"from": "B", "to": "D", "label": "OUT 2"},
-        {"from": "B", "to": "D", "label": "OUT 3"},
-        {"from": "B", "to": "D", "label": "OUT 4"},
-        {"from": "C", "to": "D", "label": "OUT 1"},
-        {"from": "C", "to": "D", "label": "OUT 2"},
-        {"from": "C", "to": "D", "label": "OUT 3"},
-        {"from": "C", "to": "D", "label": "OUT 4"},
-        {"from": "E", "to": "B", "label": "IN 1"},
-        {"from": "E", "to": "C", "label": "IN 2"}
-    ]
-}
+              你是一个故障诊断领域的大师，尤其擅长构建多信号流图，多信号流图通过构建系统的信号联系关系，帮助分析系统的故障传播路径。
+             接下来你需要从图像中构建多信号流图，请用以下json格式描述多信号流图,将每个符号的代号简化为最简单的ABCD等序号,不要附带多余信息,回答格式如下
+             不要有'''json ''' 不要有'''json ''' 不要有'''json ''' 也不要前后的文字表示 只有json格式字符串
+
+             
+        {
+  "nodes": [
+    {"id": "A", "l": "First Order Hold"},
+    {"id": "B", "l": "First Order Hold1"},
+    {"id": "C", "l": "First Order Hold2"},
+    {"id": "D", "l": "Subsystem"}
+  ],
+  "edges": [
+    {"s": "A", "t": "C", "l": "0_5#in:1"},
+    {"s": "B", "t": "D", "l": "1_3#in:1"},
+    {"s": "D", "t": "B", "l": "2_4#in:1"}
+  ]
+}            
 
                      """},
                     {
@@ -229,6 +218,7 @@ if __name__ == "__main__":
 
     def test3_abstract_multinfo_byimage():
         image_file = r"D:\Document\Study\PGY-2_project\1.Ground-based-inference-and-intelligent-maintenance-support-subsystems\SourceCode\multiFlowGraph\platform\test_data\image\1.jpg"
+
         with open(image_file, "rb") as f:
             base64_image = base64.b64encode(f.read()).decode()
         abstract_multinfo_byimage(base64_image)

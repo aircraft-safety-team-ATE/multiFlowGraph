@@ -91,9 +91,9 @@
       <!-- 一个长文本框和一个按钮，按下按钮将对于文本框内的内容进行处理 -->
       <el-input type="textarea" :rows="10" placeholder="请输入GPT分析的内容" v-model="GPTanalyse_content"></el-input>
       <el-button @click="$_GPTanalyse_abstractGraphByText" type="primary">构建</el-button>
+      <el-button type="primary">采用多信号流图</el-button>
       <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
-      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
-      <button @click="renderMermaid">渲染Mermaid图表</button>
+      <!-- <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input> -->
       <div id="mermaidContainer">
 
       </div>
@@ -106,10 +106,13 @@
       <!-- 上传图片 -->
       <ele-upload-image drag :responseFn="handleResponse" action="http://localhost:8000/upload/"
         v-model="image"></ele-upload-image>
-
-      <el-button @click="$_GPTanalyse" type="primary">分析</el-button>
+      <el-button type="primary">采用多信号流图</el-button>
       <!--一个文本栏不需要支持输入 可以显示上述分析结果 -->
-      <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input>
+      <!-- <el-input type="textarea" :rows="10" placeholder="GPT分析结果" v-model="GPTanalyse_result" readonly></el-input> -->
+      <!-- <button @click="renderMermaid">渲染Mermaid图表</button> -->
+      <div id="mermaidContainer">
+
+      </div>
     </el-dialog>
 
 
@@ -180,7 +183,12 @@ export default {
   methods: {
     handleResponse(response, file, fileList) {
       // 根据响应结果, 设置 URL
+
+      this.GPTanalyse_result = response.result
+
+
       this.imageUrl = 'http://localhost:8000/uploads/' + response.filename;
+      this.renderMermaid()
       return this.imageUrl;
     },
     drawDiagram() {
@@ -662,7 +670,7 @@ ${content}
         data: fd
       }).then((res) => {
         this.GPTanalyse_result = res.result
-
+        this.renderMermaid()
       })
 
     }

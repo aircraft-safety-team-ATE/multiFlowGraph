@@ -15,6 +15,7 @@ app.jinja_env.variable_end_string = '||<-EL PSY CONGROO->||'
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['SERVER_TIMEOUT'] = 600
 
 absolute_upload_folder = os.path.abspath(app.config['UPLOAD_FOLDER'])
 print("Absolute path for UPLOAD_FOLDER:", absolute_upload_folder)

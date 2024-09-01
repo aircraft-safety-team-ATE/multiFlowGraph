@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import numpy as np
+import base64
 from io import BytesIO
 from typing import Dict
 from flask import request, jsonify, send_file, Flask, make_response, send_from_directory
@@ -8,7 +9,7 @@ from .utils import convert_fmeca, flatten_graph, reconstruct_graph, to_D_mat, \
     detect_with_render, to_json, from_json, check_graph, \
     optimize_struct
 from .simulinkReader import simulink_reader
-from .msfg_gpt import analyse_multiinfo, abstract_multiinfo_bytext
+from .msfg_gpt import analyse_multiinfo, abstract_multiinfo_bytext, abstract_multinfo_byimage
 from werkzeug.utils import secure_filename
 import os
 EPS = 1e-9
@@ -155,9 +156,15 @@ def upload_file():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         # 打印此刻程序运行
-        print(os.getcwd())
-        file.save(os.getcwd() + '/uploads/' + filename)
-        return jsonify({'filename': filename}), 200
+
+        file_path = os.getcwd() + '/uploads/' + filename
+        file.save(file_path)
+
+        # 读取文件并转换为Base64
+        with open(file_path, "rb") as image_file:
+            base64_image = base64.b64encode(image_file.read()).decode()
+        result = abstract_multinfo_byimage(base64_image)
+        return jsonify({'filename': filename, 'result': result}), 200
     else:
         return jsonify({'error': 'File type not allowed'}), 400
 
